@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Termo de Solicitação</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+    h1 {font-size: 24px; margin:5% 0 5% 0;}
+    h2 {font-size: 16px;}
+    .text-center {text-align: center;}
+    #imgHeader {display: inline-block; width: 100%;}
+    .float-left {float: left;}
+    .float-right {float: right;}
+    .row {width: 100%; display: inline-block;}
+    .linha {border-bottom: 1px solid black;}
+    .block-left {width: 25%; padding-left: 15px;}
+    .block-right {width: 70%;}
+    .sublinhado {text-decoration: underline;}
+    .assinatura {width: 50%;}
+    .italic {font-style: italic;}
+    </style>
+</head>
+<body>
+
+    <div id='imgHeader'>
+        <img class="float-left" src="SOTER.JPG" onload="window.print();window.close();">
+        <img class="float-right" src="SOTER.JPG">
+    </div>
+	
+	<h1 class="text-center">Termo de solicitação de adiantamento da 1&ordf; parcela do 13&ordm; salário por ocasião de férias</h1>
+
+    <h2>Dados do Empregador</h2>
+
+    <div class="row">
+        <div class="float-left block-left">Empresa</div>
+        <div class="float-right linha block-right">{{empresa}}</div>
+    </div>
+
+    <div class="row">
+        <div class="float-left block-left">Obra/Departameto</div>
+        <div class="float-right linha block-right">{{centroCusto}}</div>
+    </div>
+
+    <h2>Dados do Empregado</h2>
+
+    <div class="row">
+        <div class="float-left block-left">Nome do colaborador</div>
+        <div class="float-right linha block-right">{{colaborador}}</div>
+    </div>
+
+    <div class="row">
+        <div class="float-left block-left">Matricula</div>
+        <div class="float-right linha block-right">{{matricula}}</div>
+    </div>
+
+    <div class="row">
+        <div class="float-left block-left">Função/Cargo</div>
+        <div class="float-right linha block-right">{{funcao}}</div>
+    </div>
+
+    <br><br>
+
+    <div class="row">
+        <div class="float-left block-left">Período Aquisitivo</div>
+        <div class="float-right block-right"><span class="sublinhado">{{inicioPeriodo}}</span> a <span class="sublinhado">{{fimPeriodo}}</span></div>
+    </div>
+
+    <div class="row">
+        <div class="float-left block-left">Período de Férias</div>
+        <div class="float-right block-right"><span class="sublinhado">{{inicoFerias}}</span> a <span class="sublinhado">{{fimFerias}}</span></div>
+    </div>
+
+    <br><br>
+
+    <p>Solicito o adiantamento da 1&ordf; parcela do 13&ordm; salário por ocasião das minhas férias, nos termos estabelecidos pelo artigo 2&ordm;, &sect; 2&ordm; da lei n&ordm;4.749/65</p>
+
+    <br><br>
+
+    <p class="text-center"><span class="sublinhado">{{dia}}</span> de <span class="sublinhado">{{mes}}</span> de <span class="sublinhado">{{ano}}</span></p>
+
+    <br><br><br>
+
+    <div class="assinatura linha"></div>
+    <p class="italic">{{cpColaborador}}</p>
+
+    <br><br><br>
+
+    <div class="assinatura linha"></div>
+    <p class="italic">{{cpGestorImediato}}</p>
+
+    <br><br>
+
+    <p>Recebido em: <span class="sublinhado">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</body>
+</html>
+

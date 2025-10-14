@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Aviso de Férias</title>
+
+
+ <style type="text/css">
+    h1 {font-size: 24px; margin:5% 0 5% 0;}
+    h2 {font-size: 16px;}
+    .text-center {text-align: center;}
+    #imgHeader {display: inline-block; width: 100%;}
+    .float-left {float: left;}
+    .float-right {float: right;}
+    .row {width: 100%; display: inline-block;}
+    .linha {border-bottom: 1px solid black;}
+    .block-left {width: 25%; padding-left: 15px;}
+    .block-right {width: 70%;}
+    .sublinhado {text-decoration: underline;}
+    .assinatura {width: 50%;}
+    .italic {font-style: italic;}
+    h3{display: block;font-size: 16px;font-weight:normal;text-align: justify;}
+    .bold{font-weight:bold;}
+    .center{text-align: center;}
+</style>
+</head>
+<body>
+	 <div id='imgHeader'>
+        <img class="float-left" src="SOTER.JPG" onload="window.print();window.close();">
+        <img class="float-right" src="SOTER.JPG">
+    </div>
+	
+	<h1 class="text-center">Aviso de Férias</h1>
+
+				<div>
+				<h2>Dados do Colaborador</h2>
+				{{#Colaborador}}
+				<div class="row">
+					<div class="float-left block-left"><span class="bold">Nome Completo</span></div>
+					<div class="float-right linha block-right">{{cpColaborador}}</div>
+				</div>
+
+				<div class="row">
+					<div class="float-left block-left">Chapa</div>
+					<div class="float-right linha block-right">{{cpMatricula}}</div>
+				</div>
+
+				<div class="row">
+					<div class="float-left block-left"><span class="bold">Função</span></div>
+					<div class="float-right linha block-right">{{cpFuncao}}</div>
+				</div>
+
+				<div class="row">
+					<div class="float-left block-left">Departamento</div>
+					<div class="float-right linha block-right">{{cpCentroCusto}}</div>
+				</div>
+				<div class="row">
+					<div class="float-left block-left">Carteira de Trabalho</div>
+					<div class="float-right linha block-right">{{cpCartTrab}}</div>
+				</div>
+				<div class="row">
+					<div class="float-left block-left">Série</div>
+					<div class="float-right linha block-right">{{cpSerie}}</div>
+				</div>
+				<br><br>
+				</div>
+			<div>
+				<h3>COMUNICAMOS-LHE NA FORMA DO ARTIGO 139/CLT, QUE SUAS FÉRIAS
+				REFERENTES AO PERÍODO VENCIDO EM
+				<span class="bold">{{cpFimPeriodoAquisitivo}}</span>, DEVERÃO SER GOZADAS DE
+				<span class="bold">{{cpDataInicioFerias}}</span> A
+				<span class="bold">{{cpDataFimFerias}}</span>, VOLTANDO A TRABALHAR NO DIA <span class="bold">{{cpDataRetorno}}</span>, EM
+				VIRTUDE DESTE FATO, DEVE SE A V.Sª COMPARECER AO DPTO.PESSOAL DOIS
+				DIAS ÚTEIS ANTES DO INÍCIO DAS FÉRIAS, MUNIDO DE SUA <span class="bold">CARTEIRA DE
+				TRABALHO, AVISO E RECIBO DE FÉRIAS ASSINADOS,</span> AFIM DE RECEBER O ADIANTAMENTO DAS MESMAS.
+				{{/Colaborador}}</h3>
+			</div>
+
+
+			<br>
+			<br>
+			<div>
+				<h2>Resumo</h2>
+				{{#DadosFerias}}
+				<div class="row">
+					<div class="col-md-12">Relativas ao período
+						aquisitivo de:
+						<span class="bold">{{cpInicioPeriodoAquisitivo}}</span> a <span
+							class="bold">{{cpFimPeriodoAquisitivo}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">As férias serão gozadas de:
+						<span class="bold">{{cpDataInicioFerias}}</span> a <span
+							class="bold">{{cpDataFimFerias}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">Número de faltas não
+						justificadas no período aquisitivo: 
+						<span class="bold">{{cpNumeroFaltas}}</span>
+					</div>
+				</div>
+			</div>
+			{{/DadosFerias}} <br>
+			<br>
+			<div>
+				<h2>Assinaturas</h2>
+				<br><br>
+				{{#Assinatura}}
+				<div class="assinatura linha"></div>
+				<p><span class="bold">{{cpColaborador}}</span></p>
+				 <br>
+				<br>
+
+				<div class="assinatura linha"></div>
+				<p><span class="bold">{{cpGestorImediato}}</span></p>
+			</div>
+			
+
+
+			<div>
+				<table class="table table-bordered center">
+					<thead>
+						<tr>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="center">
+							<td>{{cpCidadeColigada}}</td>
+								<td>,</td>
+							<td>{{cpCalcDataProcessamento}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			{{/Assinatura}}
+</body>
+</html>

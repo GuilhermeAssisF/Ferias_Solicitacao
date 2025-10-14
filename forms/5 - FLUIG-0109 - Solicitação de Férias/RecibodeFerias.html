@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+ <title>Recibo de Férias</title> 
+<link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+ <style type="text/css">
+    h1 {font-size: 24px; margin:5% 0 5% 0;}
+    h2 {font-size: 20px;}
+    h3 {font-size: 20px;}
+    tr {font-size: 20px;}
+    .text-center {text-align: center;}
+    #imgHeader {display: inline-block; width: 100%;}
+    .float-left {float: left;}
+    .float-right {float: right;}
+    .row {width: 100%; display: inline-block;}
+    .linha {border-bottom: 1px solid black;}
+    .block-left {width: 25%; padding-left: 15px;}
+    .block-right {width: 70%;}
+    .sublinhado {text-decoration: underline;}
+    .assinatura {width: 50%;}
+    .tabelaEventos {width: 100%;}
+    .italic {font-style: italic;}
+    h3{display: block;font-size: 18px;font-weight:normal;text-align: justify;}
+    .bold{font-weight:bold;}
+    .bold2{font-weight:bold;font-size: 18px}
+    .center{text-align: center;}
+    .FONT{font-size: 20px}
+    th, td, .suplemento {
+        font-size: 16px !important;
+        padding-bottom: 4px !important;
+        padding-top: 4px !important;
+    }
+    .col-md-12 {
+    width: 100%;
+    font-size: 18px;
+	}
+</style>
+</head>
+<body>
+<div class="fluig-style-guide">
+    <div class="container">
+	 <div id='imgHeader'>
+        <img class="float-left" src="SOTER.JPG" onload="window.print();window.close();">
+        <img class="float-right" src="SOTER.JPG">
+    </div>
+    
+<!--       -->
+	
+	<h1 class="text-center">Recibo de Férias</h1>
+	
+	<div>
+				<h3>DECRETO - LEI N° DE 1943 COM AS ALTERAÇÕES DO DECRETO LEI 1535 DE 13.04.1977 DE ACORDO 
+				COM O ARTIGO 135 DA CLT. PARTICIPANDO NO MÍNIMO COM 30 DIAS DE ANTECEDÊNCIA.
+				</h3>
+	</div>
+				<div>
+				<h2>Dados do Colaborador</h2>
+				{{#Colaborador}}
+			
+       		 <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="bold" >Nome Completo</th>
+                    <th class="bold">Chapa</th>
+                    <th class="bold">Função</th>
+                    <th class="bold">Departamento</th>
+                    <th class="bold">Carteira de Trabalho</th>
+                    <th class="bold">Série</th>
+                    <th class="bold">Salário Base</th>
+                    <th class="bold">CPF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                   <td class="bold">{{cpColaborador}}</td>
+                    <td class="bold">{{cpMatricula}}</td>
+                    <td class="bold">{{cpFuncao}}</td>
+                    <td class="bold">{{cpCentroCusto}}</td>
+                    <td class="bold">{{cpCartTrab}}</td>
+                    <td class="bold">{{cpSerie}}</td>
+                    <td class="bold">{{cpCPF}}</td>
+                </tr>
+            </tbody>
+        </table>
+			{{/Colaborador}}
+			
+			<br>
+				{{#DadosFerias}}
+				<div class="row">
+					<div class="col-md-12 bold2">As férias serão gozadas de:
+						<span class="bold2">{{cpDataInicioFerias}}</span> a <span
+							class="bold2">{{cpDataFimFerias}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 bold2">Relativas ao período aquisitivo de:
+						<span class="bold2">{{cpInicioPeriodoAquisitivo}}</span> a <span
+							class="bold2">{{cpFimPeriodoAquisitivo}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 bold2">Número de dias de abono pecuniário:
+						<span class="bold2">{{cpNumeroAbono}}</span>
+					</div>
+				</div>
+					<div class="row">
+					<div class="col-md-12 bold2">Número de faltas não justificadas no período aquisitivo:
+						<span class="bold2">{{cpNumeroFaltas}}</span>
+					</div>
+				</div>
+			</div>
+			
+			<h3><span class="bold">Base de Cálculo da Remuneração das Férias</span></h3>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Evento</th>
+						<th>Quantidade</th>
+						<th>Provento</th>
+						<th>Desconto</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Quando estiver com tralha quer dizer que o campo ira recber um array, se nao tiver uma tralha nao recebe um array -->
+					{{#novos}}
+					<tr>
+						<td>{{evento}}</td>
+						<td>{{quantidade}}</td>
+						<td>{{Provento}}</td>
+						<td>{{Desconto}}</td>
+					
+					</tr>
+					{{/novos}}
+				</tbody>
+			</table>
+			
+			<h3><span class="bold">Totais</span></h3>
+			<table class="table table-bordered tabelaEventos">
+				<thead>
+				</thead>
+				<tbody>
+					<!-- Quando estiver com tralha quer dizer que o campo ira recber um array, se nao tiver uma tralha nao recebe um array -->
+					{{#Liquido}} 
+					<tr>
+						<td><span class="bold">Provento: R$ {{VlrPROVENTO}}</span></td>
+						<td><span class="bold">Desconto: R$ {{VlrDESCONTO}}</span></td>
+						<td><span class="bold">Líquido: R$ {{liquidoferias}}</span></td>
+					
+					</tr>
+				{{/Liquido}}
+				</tbody>
+			</table>
+			<br>
+			<div>
+			<h3>
+			De acordo com o parágrafo início do artigo 145 da CLT, recebi da empresa {{cpEmpresa}} , a importãncia líquida de <span class="bold">R$ {{cpLiquido}} ({{cpVlrExtenso}})</span>
+			que me paga adiantamento por motivo das minhas férias regulamentares, ora concedidas e que vou gozar de acordo com a descriçao acima, tudo conforme
+			o aviso que recebi em tempo. Declaro que recebi o presente recibo, dando a empresa plena e geral quitação.
+			</h3>
+			</div>
+			{{/DadosFerias}}
+			
+			<div>
+				<h2>Assinaturas</h2>
+				<br>
+				<br>
+				{{#Assinatura}}
+				<div class="assinatura linha"></div>
+				<p><span class="bold">{{cpColaborador}}</span></p>
+				<br>
+				<br>
+				<div class="assinatura linha"></div>
+				<p><span class="bold">{{cpGestorImediato}}</span></p>
+			</div>
+			<div>
+			<br>
+				<table>
+					<thead>
+						<tr>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="center">
+							<td>{{cpCidadeColigada}}</td>
+								<td>,</td>
+							<td>{{cpCalcDataProcessamento}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<div>
+			<p><span class="bold">{{CARTAOUNIK}}</span></p>
+			</div>
+			{{/Assinatura}}
+			</div></div>
+</body>
+</html>
