@@ -157,7 +157,7 @@ function validateForm(form) {
 			validaVazio('cpDataAdmissao', 'Data de admissão não informada');
 			validaVazio('cpDtPagto', 'Data de Pagamento não informada');
 
-			// ############### INÍCIO DO BLOCO DE CÓDIGO ADICIONADO ###############
+			// ############### INÍCIO DO BLOCO DE CÓDIGO ATUALIZADO ###############
 			if (form.getValue('cpDataInicioFerias') != '' && form.getValue('cpDtPagto') != '') {
 				try {
 					// Função auxiliar para converter dd/MM/yyyy para Date
@@ -180,13 +180,12 @@ function validateForm(form) {
 					// Define as horas, minutos, segundos e milissegundos para 0 para comparar apenas as datas
 					dataPagamento.setHours(0, 0, 0, 0);
 					dataLimitePagamento.setHours(0, 0, 0, 0);
-					dataInicioFerias.setHours(0, 0, 0, 0);
 
-
-					// Valida se a data de pagamento é *anterior* à data limite (mais de 2 dias antes)
-					// ou se a data de pagamento é *posterior* à data de início das férias
-					if (dataPagamento < dataLimitePagamento || dataPagamento > dataInicioFerias) {
-						Errors.push('A data de pagamento deve ocorrer no máximo 2 dias antes do início das férias e não pode ser posterior à data de início.');
+					// Valida se a data de pagamento NÃO é ANTERIOR à data limite de 2 dias antes.
+					// Conforme o exemplo: se inicia dia 24, não pode pagar dia 22 ou 23. Deve ser 21 ou antes.
+					// Isso significa que a data de pagamento não pode ser maior ou igual à data limite.
+					if (dataPagamento >= dataLimitePagamento) {
+						Errors.push('Conforme a norma da CLT, o pagamento deve ser efetuado com mais de 2 dias de antecedência do início das férias.');
 					}
 
 				} catch (e) {
@@ -194,7 +193,7 @@ function validateForm(form) {
 					Errors.push("Erro ao processar as datas. Verifique os formatos (dd/MM/yyyy).");
 				}
 			}
-			// ############### FIM DO BLOCO DE CÓDIGO ADICIONADO ###############
+			// ############### FIM DO BLOCO DE CÓDIGO ATUALIZADO ###############
 
 
 			/*	var solicitante = form.getValue('cpMatriculaSolicitante'),
