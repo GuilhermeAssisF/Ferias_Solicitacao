@@ -573,10 +573,7 @@ var preencheColaborador = function(colaborador) {
 	$("#cpGerenteGeral").val(colaborador.COD_GESTOR);
 	$("#cpSuperintendente").val(colaborador.COD_GESTOR);
 	$("#cpDiretor").val(colaborador.COD_DIRETOR);
-	$("#cpDtNascimento").val(colaborador.DATANASCIMENTO);
 	$("#cpSituacao").val(colaborador.SITUACAO);
-	$("#cpIdade").val(colaborador.IDADE);
-	$("#cpCTPS").val(colaborador.CTPS);
 	$("#cpEmpresa").val(colaborador.NOMEFANTASIA),
 	$("#cpFimContrato").val(colaborador.FIMPRAZOCONTR) 
 	SituacaoFun = colaborador.SITUACAO;

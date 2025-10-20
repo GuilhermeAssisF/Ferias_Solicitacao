@@ -45,6 +45,7 @@ function displayFields(form, customHTML) {
 		//DADOS DO SOLICITANTE
 		form.setValue('cpLoginFluig', dadosColaborador.get(0).get("login"));
 		form.setValue('cpNomeSolicitante', DadosSolicitante.getValue(0, "NOME"));
+		form.setValue('cpEmailSolicitante', dadosColaborador.get(0).get("mail"));
 		form.setValue('cpMatriculaSolicitante', DadosSolicitante.getValue(0, "CHAPA"));
 		form.setValue('cpFuncaoSolicitante', DadosSolicitante.getValue(0, "CARGO"));
 		form.setValue('cpEmpresaSolicitante', DadosSolicitante.getValue(0, "NOMEFANTASIA"));
@@ -132,7 +133,6 @@ function displayFields(form, customHTML) {
 		var InicioPerAqui = form.getValue("cpInicioPeriodoAquisitivo");
 		var FimPerAqui = form.getValue("cpFimPeriodoAquisitivo");
 		var DataAdmissao = form.getValue("cpDataAdmissao");
-		var DtNascimento = form.getValue("cpDtNascimento");
 		var DataAbertura = form.getValue("cpDataAbertura"); 
 		
 		
@@ -163,21 +163,11 @@ function displayFields(form, customHTML) {
 			var DtmudancaForm = formatoInput.parse(DataAdmissao);
 			dtAtualFormatado = formatoOutput.format(DtmudancaForm);
 			form.setValue('cpDataAdmissao',dtAtualFormatado);
-		}if(DtNascimento.search('-')>0){
-			var DtmudancaForm = formatoInput.parse(DtNascimento);
-			dtAtualFormatado = formatoOutput.format(DtmudancaForm);
-			form.setValue('cpDtNascimento',dtAtualFormatado);
 		}if(DataAbertura.search('-')>0){
 			var DtmudancaForm = formatoInput.parse(DataAbertura);
 			dtAtualFormatado = formatoOutput.format(DtmudancaForm);
 			form.setValue('cpDataAbertura',dtAtualFormatado);
 		}
 		
-		
-		
-		
-		
-	
-	
 }
 
