@@ -264,24 +264,42 @@ function validateForm(form) {
 	}
 
 	// ### INÍCIO DA VALIDAÇÃO PARA ATIVIDADE 90 ###
-    // Validação para a Atividade 90 (Gerar Kit Férias - Analista BPO)
-    if (atividade == 90 && (acaoUsuario == "true")) {
-        // Verifica se a flag 'Cadastro' está marcada (deve estar por padrão)
-        if (form.getValue("cpFlagCadastro") != "on") {
-             Errors.push("A flag 'Cadastro' deve estar marcada."); // Segurança
+	// Validação para a Atividade 90 (Gerar Kit Férias - Analista BPO)
+	if (atividade == 90 && (acaoUsuario == "true")) {
+
+		// Verifica se o botão "Visualizar Anexos RH" foi clicado
+        if (form.getValue("rhAnexoVisualizado") != "true") {
+             Errors.push("É obrigatório clicar em 'Visualizar Anexos RH' antes de marcar as flags e enviar.");
         }
-        // Verifica se a flag 'Cálculo' está marcada
-        if (form.getValue("cpFlagCalculo") != "on") {
-            Errors.push("Por favor, marque a flag 'Cálculo'.");
-        }
-        // Verifica se a flag 'Kit Férias' está marcada
-        if (form.getValue("cpFlagKitFerias") != "on") {
-            Errors.push("Por favor, marque a flag 'Kit Férias'.");
-        }
-        // Valida se o parecer foi preenchido
-        validaVazio('cpParecerProcessamento', 'O parecer do Analista BPO é obrigatório.');
-    }
-    // ### FIM DA VALIDAÇÃO PARA ATIVIDADE 90 ###
+		// Verifica se a flag 'Cadastro' está marcada (deve estar por padrão)
+		if (form.getValue("cpFlagCadastro") != "on") {
+			Errors.push("A flag 'Cadastro' deve estar marcada."); // Segurança
+		}
+		// Verifica se a flag 'Cálculo' está marcada
+		if (form.getValue("cpFlagCalculo") != "on") {
+			Errors.push("Por favor, marque a flag 'Cálculo'.");
+		}
+		// Verifica se a flag 'Kit Férias' está marcada
+		if (form.getValue("cpFlagKitFerias") != "on") {
+			Errors.push("Por favor, marque a flag 'Kit Férias'.");
+		}
+		// Valida se o parecer foi preenchido
+		validaVazio('cpParecerProcessamento', 'O parecer do Analista BPO é obrigatório.');
+	}
+	// ### FIM DA VALIDAÇÃO PARA ATIVIDADE 90 ###
+
+	// Validação para a Atividade 93 (Assinar Kit Férias - Solicitante)
+	if (atividade == 93 && (acaoUsuario == "true")) {
+		var ckb1Marcado = form.getValue("Ckb1") == "on"; // Verifica se Aviso de Férias está OK
+		var ckb2Marcado = form.getValue("Ckb2") == "on"; // Verifica se Recibo de Férias está OK
+
+		// Se PELO MENOS UM dos checkboxes NÃO estiver marcado (indicando necessidade de correção)
+		if (!ckb1Marcado || !ckb2Marcado) {
+			// Então, o parecer se torna obrigatório
+			validaVazio('cpParecerAssinatura', 'O parecer é obrigatório ao indicar necessidade de correção no Kit Férias (desmarcar Aviso ou Recibo).');
+		}
+		// Se ambos estiverem marcados, o parecer é opcional e não precisa ser validado aqui.
+	}
 
 	if (Errors.length) {
 		throw Errors[0];
