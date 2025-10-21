@@ -4762,7 +4762,7 @@
   <bpmn2:BpmnAnnotation id="annotationtask127" name="Fim do Processo" outgoing="flow128" type="0"/>
   <bpmn2:BpmnAnnotation id="annotationtask133" name="Gestor Solicitante" outgoing="flow134" type="0"/>
   <bpmn2:BpmnAnnotation id="annotationtask151" name="Processos Cancelado - Reprovado" outgoing="flow152" type="0"/>
-  <bpmn2:BpmnProcess id="FLUIG-0001" name="F&#xe9;rias" serverId="SOTER_HOM" version="37" author="" extendedFields="&lt;list/>" cardIndex="5" formSource="server" category="Departamento Pessoal" volume="Default" expedient="Default" instruction="" mobileReady="true" complementsLevel="1" notifyResponsibleComplements="true" notifyRequisitionerComplements="true"/>
+  <bpmn2:BpmnProcess id="FLUIG-0001" name="F&#xe9;rias" serverId="SOTER_HOM" version="41" author="" extendedFields="&lt;list/>" cardIndex="5" formSource="server" category="Departamento Pessoal" volume="Default" expedient="Default" instruction="" mobileReady="true" complementsLevel="1" notifyResponsibleComplements="true" notifyRequisitionerComplements="true"/>
   <bpmn2:SequenceFlow id="flow11" name="" sourceRef="task9" targetRef="exclusivegateway10" atividadeFluxo="" atividadeRetorno="" extendedFields="&lt;list/>"/>
   <bpmn2:SequenceFlow id="flow13" name="" sourceRef="exclusivegateway10" targetRef="endcancel12" atividadeFluxo="" atividadeRetorno="" extendedFields="&lt;list/>"/>
   <bpmn2:SequenceFlow id="flow16" name="" sourceRef="startevent4" targetRef="exclusivegateway15" atividadeFluxo="" atividadeRetorno="" extendedFields="&lt;list/>"/>

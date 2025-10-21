@@ -263,7 +263,25 @@ function validateForm(form) {
 
 	}
 
-
+	// ### INÍCIO DA VALIDAÇÃO PARA ATIVIDADE 90 ###
+    // Validação para a Atividade 90 (Gerar Kit Férias - Analista BPO)
+    if (atividade == 90 && (acaoUsuario == "true")) {
+        // Verifica se a flag 'Cadastro' está marcada (deve estar por padrão)
+        if (form.getValue("cpFlagCadastro") != "on") {
+             Errors.push("A flag 'Cadastro' deve estar marcada."); // Segurança
+        }
+        // Verifica se a flag 'Cálculo' está marcada
+        if (form.getValue("cpFlagCalculo") != "on") {
+            Errors.push("Por favor, marque a flag 'Cálculo'.");
+        }
+        // Verifica se a flag 'Kit Férias' está marcada
+        if (form.getValue("cpFlagKitFerias") != "on") {
+            Errors.push("Por favor, marque a flag 'Kit Férias'.");
+        }
+        // Valida se o parecer foi preenchido
+        validaVazio('cpParecerProcessamento', 'O parecer do Analista BPO é obrigatório.');
+    }
+    // ### FIM DA VALIDAÇÃO PARA ATIVIDADE 90 ###
 
 	if (Errors.length) {
 		throw Errors[0];

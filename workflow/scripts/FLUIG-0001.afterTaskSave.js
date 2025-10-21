@@ -4,7 +4,7 @@ function afterTaskSave(colleagueId, nextSequenceId, userList) {
 
     // CONFIRME O ID da atividade de "Correção do Solicitante" no seu diagrama de processo
     // Estou assumindo o ID 41, que é o mesmo usado no processo de movimentação.
-    var ATIVIDADE_CORRECAO = 41; 
+    var ATIVIDADE_CORRECAO = 41;
     var atividadeAtual = getValue("WKNumState");
 
     log.info("--- [FLUIG-0001] Atividade Atual: " + atividadeAtual);
@@ -20,12 +20,12 @@ function afterTaskSave(colleagueId, nextSequenceId, userList) {
         // Se a decisão for "Reencaminhar", limpa os campos de pareceres anteriores
         if (decisaoSolicitante == "1") {
             log.info("--- [FLUIG-0001] Limpando campos de pareceres anteriores para nova avaliação. Processo: " + getValue("WKNumProces"));
-            
+
             // 1. Limpa Campos - Aprovação Gestor
             hAPI.setCardValue("cpRespGestor", "");
             hAPI.setCardValue("cpAprovacaoGestor", "");
             hAPI.setCardValue("cpParecercol", "");
-            
+
             // 2. Limpa Campos - Aprovação Diretor
             hAPI.setCardValue("cpRespDiretor", "");
             hAPI.setCardValue("cpAprovacaoDiretor", "");

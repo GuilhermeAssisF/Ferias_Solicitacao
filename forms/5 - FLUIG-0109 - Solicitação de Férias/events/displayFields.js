@@ -55,6 +55,14 @@ function displayFields(form, customHTML) {
 
 
 	}
+
+	// Adicione esta condição para a Atividade 90
+    if (atividade == 90) {
+        // Define o valor do checkbox 'cpFlagCadastro' como 'on' (marcado)
+        form.setValue("cpFlagCadastro", "on");
+        // Ou, dependendo da implementação exata do checkbox no HTML:
+        // form.setValue("cpFlagCadastro", true);
+    }
 	
 	if (atividade=="14") { 
 		filter = new java.util.HashMap();
@@ -170,4 +178,3 @@ function displayFields(form, customHTML) {
 		}
 		
 }
-
