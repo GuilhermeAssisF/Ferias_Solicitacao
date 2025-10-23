@@ -28,7 +28,7 @@
     <processDefinitionVersionPK>
       <companyId>1</companyId>
       <processId>Férias</processId>
-      <version>41</version>
+      <version>42</version>
     </processDefinitionVersionPK>
     <versionDescription></versionDescription>
     <formId>5</formId>
@@ -1971,7 +1971,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>10</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoSolicitante&quot;)==&quot;1&quot; </condition>
@@ -1983,7 +1983,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>10</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoSolicitante&quot;)==&quot;2&quot; </condition>
@@ -1995,7 +1995,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpVerPrazos&apos;)!=&quot;2&quot;</condition>
@@ -2007,7 +2007,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpLoginFluig&apos;)==hAPI.getCardValue(&apos;cpChapaGestor&apos;)</condition>
@@ -2019,7 +2019,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpLoginFluig&apos;)!=hAPI.getCardValue(&apos;cpChapaGestor&apos;)</condition>
@@ -2031,7 +2031,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;1&quot;</condition>
@@ -2043,7 +2043,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;2&quot;</condition>
@@ -2055,7 +2055,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;3&quot;</condition>
@@ -2067,7 +2067,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;1&quot;</condition>
@@ -2079,7 +2079,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;2&quot;</condition>
@@ -2091,7 +2091,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;3&quot;</condition>
@@ -2103,7 +2103,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>83</sequence>
       </conditionProcessStatePK>
       <condition>CadastraFerias()</condition>
@@ -2115,7 +2115,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>83</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -2127,7 +2127,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>138</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;1&quot; </condition>
@@ -2139,7 +2139,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>138</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;2&quot; </condition>
@@ -2151,7 +2151,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>157</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;1&quot; </condition>
@@ -2163,7 +2163,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>157</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;2&quot; </condition>
@@ -2175,7 +2175,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>159</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -2187,7 +2187,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>41</version>
+        <version>42</version>
         <sequence>159</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -3279,24 +3279,25 @@
         <processId>FLUIG-0001</processId>
         <version>1</version>
       </workflowProcessEventPK>
-      <eventDescription>function beforeTaskSave(colleagueId,nextSequenceId,userList){&#xd;
-    &#xd;
-    var atividadeAtual = getValue(&quot;WKNumState&quot;);&#xd;
-    var funcao = hAPI.getCardValue(&apos;cpFuncao&apos;);&#xd;
-    var Antecipa13Salario = hAPI.getCardValue(&apos;cpAntecipar13Salario&apos;);&#xd;
-    &#xd;
-    &#xd;
-    function isEstagiario(funcao) {&#xd;
-		return funcao.search(&apos;ESTAGIARIO&apos;) &gt; -1;&#xd;
-	};&#xd;
-    &#xd;
-    if ((atividadeAtual == 0 || atividadeAtual == 4 ) &amp;&amp; !isEstagiario(funcao) &amp;&amp; Antecipa13Salario == 1) {&#xd;
-        if (hAPI.listAttachments() == &quot;[]&quot;) {&#xd;
-            throw &quot;Favor anexar ao o Termo de Adiantamento do 13º salário&quot;;&#xd;
-        }&#xd;
-    }&#xd;
-   &#xd;
-}&#xd;
+      <eventDescription>function beforeTaskSave(colleagueId,nextSequenceId,userList){
+    
+    var atividadeAtual = getValue(&quot;WKNumState&quot;);
+    var funcao = hAPI.getCardValue(&apos;cpFuncao&apos;);
+    var Antecipa13Salario = hAPI.getCardValue(&apos;cpAntecipar13Salario&apos;);
+    
+    
+    function isEstagiario(funcao) {
+		return funcao.search(&apos;ESTAGIARIO&apos;) &gt; -1;
+	};
+    
+    if ((atividadeAtual == 0 || atividadeAtual == 4 ) &amp;&amp; !isEstagiario(funcao) &amp;&amp; Antecipa13Salario == 1) {
+        if (hAPI.listAttachments() == &quot;[]&quot;) {
+            throw &quot;Favor anexar ao o Termo de Adiantamento do 13º salário&quot;;
+        }
+    }
+   
+}
+
 </eventDescription>
     </WorkflowProcessEvent>
     <WorkflowProcessEvent>
@@ -3358,183 +3359,184 @@
         <processId>FLUIG-0001</processId>
         <version>1</version>
       </workflowProcessEventPK>
-      <eventDescription>var INTEGRACAO = 83; //INTEGRA NA ATIVIDADE 24 DE apos o PROCESSAMENTO DE FERIAS&#xd;
-&#xd;
-function beforeStateEntry(sequenceId){&#xd;
-	&#xd;
-	if(sequenceId==INTEGRACAO){&#xd;
-		CadastraFerias();&#xd;
-	}&#xd;
-}&#xd;
-&#xd;
-function CadastraFerias(){&#xd;
-&#xd;
-	var retorno =true;&#xd;
-	var xml;&#xd;
-&#xd;
-	var formatoInput = new java.text.SimpleDateFormat(&quot;dd/MM/yyyy&quot;);&#xd;
-	var formatoOutput = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;hh:mm:ss&quot;);&#xd;
-&#xd;
-	var xml =&quot;&quot;;&#xd;
-	var xmlCalcula=&quot;&quot;;&#xd;
-	var xmlFerias=&quot;&quot;;&#xd;
-	var xmlFeriasRecibo=&quot;&quot;;&#xd;
-&#xd;
-//	inicio de ferias&#xd;
-	var InicioFerias = hAPI.getCardValue(&quot;cpDataInicioFerias&quot;);&#xd;
-	var DtInicio = formatoInput.parse(InicioFerias);&#xd;
-	var DtinicioFormatada = formatoOutput.format(DtInicio);&#xd;
-	log.info(&quot;Ferias DtinicioFormatada&quot; + DtinicioFormatada);&#xd;
-	var DtinicioFormatada2 = DtinicioFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);&#xd;
-&#xd;
-&#xd;
-//	DATA DE PAGAMENTO&#xd;
-	var Dtpagto = hAPI.getCardValue(&quot;cpDtPagto&quot;);&#xd;
-	var DtPagamento = formatoInput.parse(Dtpagto);&#xd;
-	var DtPagamentoFormatada = formatoOutput.format(DtPagamento);&#xd;
-	log.info(&quot;Ferias DtPagamentoFormatada&quot; + DtPagamentoFormatada);&#xd;
-	var DtPagamentoFormatada2 = DtPagamentoFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);&#xd;
-&#xd;
-//	fim de ferias &#xd;
-	var FimFerias = hAPI.getCardValue(&quot;cpDataFimFerias&quot;);&#xd;
-	var DtFim = formatoInput.parse(FimFerias);&#xd;
-	var DtFimFormatada = formatoOutput.format(DtFim);&#xd;
-	var DtFimFormatada2 = DtFimFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);&#xd;
-	log.info(&quot;Ferias DtFimFormatada&quot; + DtFimFormatada);&#xd;
-&#xd;
-&#xd;
-//	inicio de periodo aquisitivo&#xd;
-	var InicioPerAqui = hAPI.getCardValue(&quot;cpInicioPeriodoAquisitivo&quot;);&#xd;
-	var DtPErAqui = formatoInput.parse(InicioPerAqui);&#xd;
-	var DtinicioPerAquiForm = formatoOutput.format(DtPErAqui);&#xd;
-	log.info(&quot;Ferias DtinicioPerAquiForm&quot; + DtinicioPerAquiForm);&#xd;
-&#xd;
-//	fim de periodo aquisitivo&#xd;
-	var FimPerAqui = hAPI.getCardValue(&quot;cpFimPeriodoAquisitivo&quot;);&#xd;
-	var DtFimAqui = formatoInput.parse(FimPerAqui);&#xd;
-	var DtFimAquiFormatada = formatoOutput.format(DtFimAqui);&#xd;
-	var DtFimAquiFormatada2 = DtFimAquiFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);&#xd;
-	log.info(&quot;Ferias DtFimAquiFormatada&quot; + DtFimAquiFormatada);&#xd;
-&#xd;
-&#xd;
-	var chapa = hAPI.getCardValue(&quot;cpMatricula&quot;);&#xd;
-	var Coligada = hAPI.getCardValue(&quot;cpColigada&quot;); &#xd;
-	var DiasFerias = hAPI.getCardValue(&quot;cpDiasFerias&quot;);&#xd;
-	var Abono = hAPI.getCardValue(&quot;cpDiasAbono&quot;); &#xd;
-	var HaveraAbono = hAPI.getCardValue(&quot;cpHaveraAbono&quot;); &#xd;
-	var Antecipar13Salario = hAPI.getCardValue(&quot;cpAntecipar13Salario&quot;); &#xd;
-	&#xd;
-	var temAbono;&#xd;
-	if(HaveraAbono==1){&#xd;
-		temAbono=&quot;1&quot;;&#xd;
-	}else{&#xd;
-		temAbono=&quot;0&quot;;&#xd;
-	}&#xd;
-	&#xd;
-	var Antecipar13;&#xd;
-	if(Antecipar13Salario==1){&#xd;
-		Antecipar13=&quot;1&quot;;&#xd;
-	}else{&#xd;
-		Antecipar13=&quot;0&quot;;&#xd;
-	}&#xd;
-	&#xd;
-	var Ferias = InicioFerias.substring(3,5)+&apos;/&apos;+InicioFerias.substring(0,2)+&apos;/&apos;+InicioFerias.substring(6,10);&#xd;
-	log.info(&quot;Andre Ferias2 &quot;+Ferias);&#xd;
-	var date = new Date(Ferias);&#xd;
-	date.setDate(date.getDate() - 30);&#xd;
-	var dia = date.getDate();&#xd;
-	if(parseFloat(dia)&lt;parseFloat(10)){&#xd;
-		dia = &apos;0&apos;+dia;&#xd;
-	}else{&#xd;
-		dia = dia;&#xd;
-	}&#xd;
-	log.info(&quot;Andre dia &quot;+dia);&#xd;
-	var mes = date.getMonth();&#xd;
-	mes = mes+1;&#xd;
-	if(parseFloat(mes)&lt;parseFloat(10)){&#xd;
-	mes = &apos;0&apos;+mes;&#xd;
-	}else{&#xd;
-	mes = mes;&#xd;
-	}&#xd;
-	log.info(&quot;Andre mes &quot;+mes);&#xd;
-	var ano = date.getFullYear();&#xd;
-	var DatadePagamento = (dia+&apos;/&apos;+mes+&apos;/&apos;+ano);&#xd;
-//	DATA DO AVISO DE FERIAS&#xd;
-	&#xd;
-	var DTAVISO = formatoInput.parse(DatadePagamento);&#xd;
-	var DTAvisoFer = formatoOutput.format(DTAVISO);&#xd;
-	var DTAvisoFer2 = DTAvisoFer.replace(&quot;T12&quot;,&quot;T00&quot;);&#xd;
-	log.info(&quot;Ferias DTAvisoFer2&quot; + DTAvisoFer2);&#xd;
-&#xd;
-//	preenche dados de ferias &#xd;
-&#xd;
-	xmlFerias +=&apos; &lt;PFUFeriasPer&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;CODCOLIGADA&gt;&apos;+Coligada+&apos;&lt;/CODCOLIGADA&gt;&apos;;&#xd;
-	xmlFerias +=&apos; &lt;CHAPA&gt;&apos;+chapa+&apos;&lt;/CHAPA&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;FIMPERAQUIS&gt;&apos;+DtFimAquiFormatada2+&apos;&lt;/FIMPERAQUIS&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;DATAPAGTO&gt;&apos;+DtPagamentoFormatada2+&apos;&lt;/DATAPAGTO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;DATAINICIO&gt;&apos;+DtinicioFormatada2+&apos;&lt;/DATAINICIO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;DATAFIM&gt;&apos;+DtFimFormatada2+&apos;&lt;/DATAFIM&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;DATAAVISO&gt;&apos;+DTAvisoFer2+&apos;&lt;/DATAAVISO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;SITUACAOFERIAS&gt;M&lt;/SITUACAOFERIAS&gt;&apos;;&#xd;
-	xmlFerias +=&apos; &lt;NRODIASFERIAS&gt;&apos;+DiasFerias+&apos;&lt;/NRODIASFERIAS&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;NRODIASABONO&gt;&apos;+Abono+&apos;&lt;/NRODIASABONO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;NRODIASFERIASCORRIDOS&gt;0.00&lt;/NRODIASFERIASCORRIDOS&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;NRODIASABONOCORRIDOS&gt;0.00&lt;/NRODIASABONOCORRIDOS&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;POSICAOABONO&gt;&apos;+temAbono+&apos;&lt;/POSICAOABONO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;IMAGEMSITUACAO&gt;Marcadas&lt;/IMAGEMSITUACAO&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;PAGA1APARC13O&gt;&apos;+Antecipar13+&apos;&lt;/PAGA1APARC13O&gt;&apos;;&#xd;
-	xmlFerias +=&apos;&lt;/PFUFeriasPer&gt;&apos;;&#xd;
-&#xd;
-	var CONNECT = DatasetFactory.getDataset(&quot;ds_connector&quot;, null, null, null);&#xd;
-	var USUARIO = CONNECT.getValue(0,&quot;INTEGRADOR&quot;);&#xd;
-	var SENHA = CONNECT.getValue(0, &quot;SENHA&quot;);&#xd;
-	var NOME_SERVICO = &quot;WSDATASERVER&quot;;&#xd;
-	var CAMINHO_SERVICO = &quot;com.totvs.WsDataServer&quot;;&#xd;
-&#xd;
-	var servico = ServiceManager.getServiceInstance(NOME_SERVICO);&#xd;
-&#xd;
-	var serviceHelper = servico.getBean();&#xd;
-	var instancia = servico.instantiate(CAMINHO_SERVICO);&#xd;
-&#xd;
-	var ws = instancia.getRMIwsDataServer();&#xd;
-&#xd;
-	var authenticatedService = serviceHelper.getBasicAuthenticatedClient(ws, &quot;com.totvs.IwsDataServer&quot;, USUARIO, SENHA); &#xd;
-&#xd;
-&#xd;
-	log.info(&quot;@xmlFerias diz: xmlFerias: &quot; + xmlFerias);&#xd;
-&#xd;
-	try&#xd;
-	{&#xd;
-		var result = authenticatedService.saveRecordEmail(&apos;FopFuFeriasPerDataBR&apos;, xmlFerias, &apos;CODCOLIGADA=&apos; + Coligada + &apos;;CODSISTEMA=P&apos;,&quot;suportesoter@consultoriainterativa.com.br&quot;);&#xd;
-&#xd;
-		if ((result != null) &amp;&amp; (result.indexOf(&quot;===&quot;) != -1))&#xd;
-		{&#xd;
-			var msgErro = result.substring(0, result.indexOf(&quot;===&quot;));&#xd;
-			throw msgErro;&#xd;
-&#xd;
-		}&#xd;
-		else&#xd;
-		{&#xd;
-		}&#xd;
-	}&#xd;
-	catch (e)&#xd;
-	{&#xd;
-		if (e == null)&#xd;
-		{&#xd;
-			e = &quot;Erro desconhecido; verifique o log do AppServer&quot;;&#xd;
-		}&#xd;
-&#xd;
-		var mensagemErro = &quot;Erro na comunicação com o TOTVS TBC: &quot; + e;&#xd;
-		log.error(mensagemErro + &quot; ---&gt; &quot; + xmlFerias);&#xd;
-		throw mensagemErro;&#xd;
-	}&#xd;
-&#xd;
-	log.info(&quot;@xmlFerias Cadastro diz: RESULT: &quot; + result);&#xd;
-&#xd;
-	return retorno;&#xd;
-}&#xd;
-&#xd;
+      <eventDescription>var INTEGRACAO = 83; //INTEGRA NA ATIVIDADE 24 DE apos o PROCESSAMENTO DE FERIAS
+
+function beforeStateEntry(sequenceId){
+	
+	if(sequenceId==INTEGRACAO){
+		CadastraFerias();
+	}
+}
+
+function CadastraFerias(){
+
+	var retorno =true;
+	var xml;
+
+	var formatoInput = new java.text.SimpleDateFormat(&quot;dd/MM/yyyy&quot;);
+	var formatoOutput = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;hh:mm:ss&quot;);
+
+	var xml =&quot;&quot;;
+	var xmlCalcula=&quot;&quot;;
+	var xmlFerias=&quot;&quot;;
+	var xmlFeriasRecibo=&quot;&quot;;
+
+//	inicio de ferias
+	var InicioFerias = hAPI.getCardValue(&quot;cpDataInicioFerias&quot;);
+	var DtInicio = formatoInput.parse(InicioFerias);
+	var DtinicioFormatada = formatoOutput.format(DtInicio);
+	log.info(&quot;Ferias DtinicioFormatada&quot; + DtinicioFormatada);
+	var DtinicioFormatada2 = DtinicioFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);
+
+
+//	DATA DE PAGAMENTO
+	var Dtpagto = hAPI.getCardValue(&quot;cpDtPagto&quot;);
+	var DtPagamento = formatoInput.parse(Dtpagto);
+	var DtPagamentoFormatada = formatoOutput.format(DtPagamento);
+	log.info(&quot;Ferias DtPagamentoFormatada&quot; + DtPagamentoFormatada);
+	var DtPagamentoFormatada2 = DtPagamentoFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);
+
+//	fim de ferias 
+	var FimFerias = hAPI.getCardValue(&quot;cpDataFimFerias&quot;);
+	var DtFim = formatoInput.parse(FimFerias);
+	var DtFimFormatada = formatoOutput.format(DtFim);
+	var DtFimFormatada2 = DtFimFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);
+	log.info(&quot;Ferias DtFimFormatada&quot; + DtFimFormatada);
+
+
+//	inicio de periodo aquisitivo
+	var InicioPerAqui = hAPI.getCardValue(&quot;cpInicioPeriodoAquisitivo&quot;);
+	var DtPErAqui = formatoInput.parse(InicioPerAqui);
+	var DtinicioPerAquiForm = formatoOutput.format(DtPErAqui);
+	log.info(&quot;Ferias DtinicioPerAquiForm&quot; + DtinicioPerAquiForm);
+
+//	fim de periodo aquisitivo
+	var FimPerAqui = hAPI.getCardValue(&quot;cpFimPeriodoAquisitivo&quot;);
+	var DtFimAqui = formatoInput.parse(FimPerAqui);
+	var DtFimAquiFormatada = formatoOutput.format(DtFimAqui);
+	var DtFimAquiFormatada2 = DtFimAquiFormatada.replace(&quot;T12&quot;,&quot;T00&quot;);
+	log.info(&quot;Ferias DtFimAquiFormatada&quot; + DtFimAquiFormatada);
+
+
+	var chapa = hAPI.getCardValue(&quot;cpMatricula&quot;);
+	var Coligada = hAPI.getCardValue(&quot;cpColigada&quot;); 
+	var DiasFerias = hAPI.getCardValue(&quot;cpDiasFerias&quot;);
+	var Abono = hAPI.getCardValue(&quot;cpDiasAbono&quot;); 
+	var HaveraAbono = hAPI.getCardValue(&quot;cpHaveraAbono&quot;); 
+	var Antecipar13Salario = hAPI.getCardValue(&quot;cpAntecipar13Salario&quot;); 
+	
+	var temAbono;
+	if(HaveraAbono==1){
+		temAbono=&quot;1&quot;;
+	}else{
+		temAbono=&quot;0&quot;;
+	}
+	
+	var Antecipar13;
+	if(Antecipar13Salario==1){
+		Antecipar13=&quot;1&quot;;
+	}else{
+		Antecipar13=&quot;0&quot;;
+	}
+	
+	var Ferias = InicioFerias.substring(3,5)+&apos;/&apos;+InicioFerias.substring(0,2)+&apos;/&apos;+InicioFerias.substring(6,10);
+	log.info(&quot;Andre Ferias2 &quot;+Ferias);
+	var date = new Date(Ferias);
+	date.setDate(date.getDate() - 30);
+	var dia = date.getDate();
+	if(parseFloat(dia)&lt;parseFloat(10)){
+		dia = &apos;0&apos;+dia;
+	}else{
+		dia = dia;
+	}
+	log.info(&quot;Andre dia &quot;+dia);
+	var mes = date.getMonth();
+	mes = mes+1;
+	if(parseFloat(mes)&lt;parseFloat(10)){
+	mes = &apos;0&apos;+mes;
+	}else{
+	mes = mes;
+	}
+	log.info(&quot;Andre mes &quot;+mes);
+	var ano = date.getFullYear();
+	var DatadePagamento = (dia+&apos;/&apos;+mes+&apos;/&apos;+ano);
+//	DATA DO AVISO DE FERIAS
+	
+	var DTAVISO = formatoInput.parse(DatadePagamento);
+	var DTAvisoFer = formatoOutput.format(DTAVISO);
+	var DTAvisoFer2 = DTAvisoFer.replace(&quot;T12&quot;,&quot;T00&quot;);
+	log.info(&quot;Ferias DTAvisoFer2&quot; + DTAvisoFer2);
+
+//	preenche dados de ferias 
+
+	xmlFerias +=&apos; &lt;PFUFeriasPer&gt;&apos;;
+	xmlFerias +=&apos;&lt;CODCOLIGADA&gt;&apos;+Coligada+&apos;&lt;/CODCOLIGADA&gt;&apos;;
+	xmlFerias +=&apos; &lt;CHAPA&gt;&apos;+chapa+&apos;&lt;/CHAPA&gt;&apos;;
+	xmlFerias +=&apos;&lt;FIMPERAQUIS&gt;&apos;+DtFimAquiFormatada2+&apos;&lt;/FIMPERAQUIS&gt;&apos;;
+	xmlFerias +=&apos;&lt;DATAPAGTO&gt;&apos;+DtPagamentoFormatada2+&apos;&lt;/DATAPAGTO&gt;&apos;;
+	xmlFerias +=&apos;&lt;DATAINICIO&gt;&apos;+DtinicioFormatada2+&apos;&lt;/DATAINICIO&gt;&apos;;
+	xmlFerias +=&apos;&lt;DATAFIM&gt;&apos;+DtFimFormatada2+&apos;&lt;/DATAFIM&gt;&apos;;
+	xmlFerias +=&apos;&lt;DATAAVISO&gt;&apos;+DTAvisoFer2+&apos;&lt;/DATAAVISO&gt;&apos;;
+	xmlFerias +=&apos;&lt;SITUACAOFERIAS&gt;M&lt;/SITUACAOFERIAS&gt;&apos;;
+	xmlFerias +=&apos; &lt;NRODIASFERIAS&gt;&apos;+DiasFerias+&apos;&lt;/NRODIASFERIAS&gt;&apos;;
+	xmlFerias +=&apos;&lt;NRODIASABONO&gt;&apos;+Abono+&apos;&lt;/NRODIASABONO&gt;&apos;;
+	xmlFerias +=&apos;&lt;NRODIASFERIASCORRIDOS&gt;0.00&lt;/NRODIASFERIASCORRIDOS&gt;&apos;;
+	xmlFerias +=&apos;&lt;NRODIASABONOCORRIDOS&gt;0.00&lt;/NRODIASABONOCORRIDOS&gt;&apos;;
+	xmlFerias +=&apos;&lt;POSICAOABONO&gt;&apos;+temAbono+&apos;&lt;/POSICAOABONO&gt;&apos;;
+	xmlFerias +=&apos;&lt;IMAGEMSITUACAO&gt;Marcadas&lt;/IMAGEMSITUACAO&gt;&apos;;
+	xmlFerias +=&apos;&lt;PAGA1APARC13O&gt;&apos;+Antecipar13+&apos;&lt;/PAGA1APARC13O&gt;&apos;;
+	xmlFerias +=&apos;&lt;/PFUFeriasPer&gt;&apos;;
+
+	var CONNECT = DatasetFactory.getDataset(&quot;ds_connector&quot;, null, null, null);
+	var USUARIO = CONNECT.getValue(0,&quot;INTEGRADOR&quot;);
+	var SENHA = CONNECT.getValue(0, &quot;SENHA&quot;);
+	var NOME_SERVICO = &quot;WSDATASERVER&quot;;
+	var CAMINHO_SERVICO = &quot;com.totvs.WsDataServer&quot;;
+
+	var servico = ServiceManager.getServiceInstance(NOME_SERVICO);
+
+	var serviceHelper = servico.getBean();
+	var instancia = servico.instantiate(CAMINHO_SERVICO);
+
+	var ws = instancia.getRMIwsDataServer();
+
+	var authenticatedService = serviceHelper.getBasicAuthenticatedClient(ws, &quot;com.totvs.IwsDataServer&quot;, USUARIO, SENHA); 
+
+
+	log.info(&quot;@xmlFerias diz: xmlFerias: &quot; + xmlFerias);
+
+	try
+	{
+		var result = authenticatedService.saveRecordEmail(&apos;FopFuFeriasPerDataBR&apos;, xmlFerias, &apos;CODCOLIGADA=&apos; + Coligada + &apos;;CODSISTEMA=P&apos;,&quot;suportesoter@consultoriainterativa.com.br&quot;);
+
+		if ((result != null) &amp;&amp; (result.indexOf(&quot;===&quot;) != -1))
+		{
+			var msgErro = result.substring(0, result.indexOf(&quot;===&quot;));
+			throw msgErro;
+
+		}
+		else
+		{
+		}
+	}
+	catch (e)
+	{
+		if (e == null)
+		{
+			e = &quot;Erro desconhecido; verifique o log do AppServer&quot;;
+		}
+
+		var mensagemErro = &quot;Erro na comunicação com o TOTVS TBC: &quot; + e;
+		log.error(mensagemErro + &quot; ---&gt; &quot; + xmlFerias);
+		throw mensagemErro;
+	}
+
+	log.info(&quot;@xmlFerias Cadastro diz: RESULT: &quot; + result);
+
+	return retorno;
+}
+
+
 </eventDescription>
     </WorkflowProcessEvent>
     <WorkflowProcessEvent>
@@ -3544,23 +3546,23 @@ function CadastraFerias(){&#xd;
         <processId>FLUIG-0001</processId>
         <version>1</version>
       </workflowProcessEventPK>
-      <eventDescription>function GestorSol(){&#xd;
-	&#xd;
-	var cpLoginFluig = hAPI.getCardValue(&apos;cpLoginFluig&apos;);&#xd;
-	var cpChapaGestor = hAPI.getCardValue(&apos;cpChapaGestor&apos;);&#xd;
-	if(cpChapaGestor==cpLoginFluig){&#xd;
-		return true;&#xd;
-	}else{&#xd;
-		return false;&#xd;
-	}&#xd;
-}&#xd;
-function verificaPrazo(){&#xd;
-	var cpVerPrazos = hAPI.getCardValue(&apos;cpVerPrazos&apos;);&#xd;
-	if(cpVerPrazos==&quot;2&quot;){&#xd;
-		return true;&#xd;
-	}else{&#xd;
-		return false;&#xd;
-	}&#xd;
+      <eventDescription>function GestorSol(){
+	
+	var cpLoginFluig = hAPI.getCardValue(&apos;cpLoginFluig&apos;);
+	var cpChapaGestor = hAPI.getCardValue(&apos;cpChapaGestor&apos;);
+	if(cpChapaGestor==cpLoginFluig){
+		return true;
+	}else{
+		return false;
+	}
+}
+function verificaPrazo(){
+	var cpVerPrazos = hAPI.getCardValue(&apos;cpVerPrazos&apos;);
+	if(cpVerPrazos==&quot;2&quot;){
+		return true;
+	}else{
+		return false;
+	}
 }</eventDescription>
     </WorkflowProcessEvent>
   </list>
@@ -4048,7 +4050,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>16</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4059,7 +4061,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>28</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4070,7 +4072,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>32</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4081,7 +4083,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>34</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4092,7 +4094,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>58</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4103,7 +4105,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>62</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4114,7 +4116,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>66</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4125,7 +4127,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>78</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4136,7 +4138,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>142</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4147,7 +4149,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>150</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4158,7 +4160,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>164</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4169,7 +4171,7 @@ function verificaPrazo(){&#xd;
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>41</version>
+        <version>42</version>
         <linkSequence>165</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>

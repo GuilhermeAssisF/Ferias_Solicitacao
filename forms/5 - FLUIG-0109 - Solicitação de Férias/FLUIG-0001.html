@@ -775,6 +775,7 @@
 						</div>
 						<!-- FIM - GESTOR IMEDIATO -->
 
+						<!-- PROCESSAMENTO DE FERIAS -->
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
@@ -796,16 +797,6 @@
 										<div class="col-md-3">
 											<button type="button" class="btn btn-info" id="Recibo">Recibo de
 												F&eacute;rias</button>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<button type="button" class="btn btn-primary" id="btnVisualizarAnexosRH"
-												name="btnVisualizarAnexosRH">1. Visualizar Anexos RH</button>
-											<small class="help-block">Clique aqui após verificar os anexos da etapa
-												anterior.</small>
-											<input type="hidden" id="rhAnexoVisualizado" name="rhAnexoVisualizado">
 										</div>
 									</div>
 									<hr>
@@ -832,12 +823,9 @@
 										<div class="col-md-4">
 											<div class="checkbox">
 												<label>
-													<input type="checkbox" name="cpFlagKitFerias" id="cpFlagKitFerias"
-														disabled>
-													2. Kit Férias
+													<input type="checkbox" name="cpFlagKitFerias" id="cpFlagKitFerias">
+													Kit Férias
 												</label>
-												<small class="help-block">(Habilitado após clicar em "Visualizar Anexos
-													RH")</small>
 											</div>
 										</div>
 									</div>
@@ -853,6 +841,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
+											<!-- HISTORICO PARECER - PROCESSAMENTO DE FERIAS -->
 											<table class='table tabelaHistorico' id="histAtv20" tablename="histAtv20"
 												noaddbutton="true" nodeletebutton="true">
 												<thead>
@@ -882,21 +871,33 @@
 													</tr>
 												</tbody>
 											</table>
+											<!-- FIM -  HISTORICO - PROCESSAMENTO DE FERIAS -->
 										</div>
 									</div>
 								</div>
+								<!-- CLOSE PANEL-BODY -->
 							</div>
 						</div>
+						<!-- FIM - PROCESSAMENTO DE FERIAS -->
 						<!-- CONFERENCIA E ASSINATURA -->
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
 									data-target="#panelAtividade_93">
-									Assinar Kit de Férias
+									Validar Kit Férias
 								</div>
 							</div>
 							<div id="panelAtividade_93" class="panel-collapse collapse">
 								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Nome do Aprovador</label>
+												<input type="text" class="form-control" name="cpNomeConfKit"
+													id="cpNomeConfKit" readonly>
+											</div>
+										</div>
+									</div>
 									<div class="row">
 										<h4>
 											<span class="fluigicon  fluigicon-plus"></span>
