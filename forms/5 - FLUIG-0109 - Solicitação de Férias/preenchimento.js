@@ -1,5 +1,5 @@
 var atividade;
-$(document).ready(function() {
+$(document).ready(function () {
 
 	var atividade = getAtividade();
 	var funcaoSelecionada = $("#cpFuncao").val();
@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 	$("#blockChamadosAbertos").hide();
 	//inicio, reabertura e ajuste
-	if ((atividade == 0 || atividade == 1 || atividade == 9 )) {
+	if ((atividade == 0 || atividade == 1 || atividade == 9)) {
 
 		criaDatepickers();
 		bindEventos();
@@ -16,100 +16,100 @@ $(document).ready(function() {
 		criaDatepickersPagto();
 		//$(".btnZoom").css('opacity', '0');
 
-		$("#cpDataInicioFerias").blur(function(){
+		$("#cpDataInicioFerias").blur(function () {
 			veriDataCorreMarcada();
 		});
 	}
 
-	if (atividade == 24){
-		$("#cpAprovarAssinatura").change(function(){
+	if (atividade == 24) {
+		$("#cpAprovarAssinatura").change(function () {
 			$(".limpaAvaliacao").val('');
 			var aprovado = $("#cpAprovarAssinatura").val() == '1';
 			$(".blockAvaliacao").toggle(aprovado);
 		});
 	}
-	if($("#cpAtencao").val()!=""){
+	if ($("#cpAtencao").val() != "") {
 		$("#PeriodoVencido").show();
-	}else{
+	} else {
 		$("#PeriodoVencido").hide();
 	}
 
-	if(funcaoSelecionada){
+	if (funcaoSelecionada) {
 		estagiarioBloqueiaCampos(funcaoSelecionada);
 		estagiarioOcultaCampos(funcaoSelecionada);
 		controlaExibicaoTextoInformativo(funcaoSelecionada);
 	}
 
 	if ((atividade == 0 || atividade == 1 || atividade == 11 ||
-			atividade == 16 || atividade == 20 || atividade == 24  
-			|| atividade == 26 || atividade == 60)) {
+		atividade == 16 || atividade == 20 || atividade == 24
+		|| atividade == 26 || atividade == 60)) {
 
-		$("#zoomSituacao").click(function(){
+		$("#zoomSituacao").click(function () {
 			FLUIG_0109.zoomHistsituacao();
 		});
-		$("#zoomFaltas").click(function(){
+		$("#zoomFaltas").click(function () {
 			FLUIG_0109.zoomHistFaltas();
 		});
-		$("#zoomAfastamento").click(function(){
+		$("#zoomAfastamento").click(function () {
 			FLUIG_0109.zoomHistAfastamentos();
 		});
-		$("#zoomPeriodos").click(function(){
+		$("#zoomPeriodos").click(function () {
 			FLUIG_0109.HistPeriodos();
 		});
 
-		$("#zoomLiqFerias").click(function(){
+		$("#zoomLiqFerias").click(function () {
 			FLUIG_0109.zoomLiquidFerias();
 		});
 	}
 	//carrega o envelopa de ferias
-	if(atividade == 20 || atividade == 24){
+	if (atividade == 20 || atividade == 24) {
 		CarregaosLiquidodeFerias()
 	}
 
-	$("#cpHaveraAbono").change(function(){
+	$("#cpHaveraAbono").change(function () {
 		CalcFerias();
 	});
 
-	$("#tbItens").hide(); 
+	$("#tbItens").hide();
 });
 
-var FLUIG_0109= {
+var FLUIG_0109 = {
 
 
-		// Zoom SITUACAO
-		zoomHistsituacao: function() {
-			var zoomHistsituacao = ZoomFactory(ZoomConfigs.Histsituacao);
-			zoomHistsituacao.Abrir();
-		},
-		// Zoom FALTAS
-		zoomHistFaltas: function() {
-			var zoomHistFaltas = ZoomFactory(ZoomConfigs.HistFaltas);
-			zoomHistFaltas.Abrir();
-		},
-		// Zoom AFASTAMENTO
-		zoomHistAfastamentos: function() {
-			var HistAfastamentos = ZoomFactory(ZoomConfigs.HistAfastamentos);
-			HistAfastamentos.Abrir();
-		},
-		// Zoom PERIODOS
-		HistPeriodos: function() {
-			var zoomHistPeriodos = ZoomFactory(ZoomConfigs.HistPeriodos);
-			zoomHistPeriodos.Abrir();
-		},
-		// Zoom lIQUIDOfERIAS
-		zoomLiquidFerias: function() {
-			var zoomLiquidFerias = ZoomFactory(ZoomConfigs.LiquidFerias);
-			zoomLiquidFerias.Abrir();
-		}
+	// Zoom SITUACAO
+	zoomHistsituacao: function () {
+		var zoomHistsituacao = ZoomFactory(ZoomConfigs.Histsituacao);
+		zoomHistsituacao.Abrir();
+	},
+	// Zoom FALTAS
+	zoomHistFaltas: function () {
+		var zoomHistFaltas = ZoomFactory(ZoomConfigs.HistFaltas);
+		zoomHistFaltas.Abrir();
+	},
+	// Zoom AFASTAMENTO
+	zoomHistAfastamentos: function () {
+		var HistAfastamentos = ZoomFactory(ZoomConfigs.HistAfastamentos);
+		HistAfastamentos.Abrir();
+	},
+	// Zoom PERIODOS
+	HistPeriodos: function () {
+		var zoomHistPeriodos = ZoomFactory(ZoomConfigs.HistPeriodos);
+		zoomHistPeriodos.Abrir();
+	},
+	// Zoom lIQUIDOfERIAS
+	zoomLiquidFerias: function () {
+		var zoomLiquidFerias = ZoomFactory(ZoomConfigs.LiquidFerias);
+		zoomLiquidFerias.Abrir();
+	}
 
 }
 
 
-var getFeriados = (function(){
+var getFeriados = (function () {
 
 	var cacheFeriados = null;
 
-	var extractDadosFeriado = function(f){
+	var extractDadosFeriado = function (f) {
 		return {
 			dia: f.holidayDay,
 			mes: f.holidayMonth,
@@ -117,49 +117,49 @@ var getFeriados = (function(){
 		};
 	};
 
-	var carregaFeriados = function() {
+	var carregaFeriados = function () {
 		cacheFeriados = DatasetFactory.getDataset('globalCalendar').values.map(extractDadosFeriado);
 		return cacheFeriados;
 	};
 
-	return function(){
+	return function () {
 		return cacheFeriados || carregaFeriados();
 	};
 })();
 
 //CALCULA DATADE FIM DE FERIAS AUTOMATICAMENTE
-function CalcFerias(){
+function CalcFerias() {
 
 	var Inicio = $("#cpDataInicioFerias").val();
 	var DiasAbono = $("#cpDiasAbono").val();
-	var DiasDireto = $("#cpDiasDireito").val(); 
-	if(DiasAbono==""){
-		DiasAbono="0";
+	var DiasDireto = $("#cpDiasDireito").val();
+	if (DiasAbono == "") {
+		DiasAbono = "0";
 	}
 
-	if(Inicio!=""){
+	if (Inicio != "") {
 
 		var Data = Inicio;
-		var diaData = Data.substring(0,2);
-		var mesData = Data.substring(3,5);
-		var anoData = Data.substring(6,10);
+		var diaData = Data.substring(0, 2);
+		var mesData = Data.substring(3, 5);
+		var anoData = Data.substring(6, 10);
 
-		var dataInicio = new Date(mesData+"/"+diaData+"/"+anoData);
-		var Fim = new Date(dataInicio.setDate(dataInicio.getDate()+(parseFloat(DiasDireto)-parseFloat(DiasAbono)-parseFloat(1))));
+		var dataInicio = new Date(mesData + "/" + diaData + "/" + anoData);
+		var Fim = new Date(dataInicio.setDate(dataInicio.getDate() + (parseFloat(DiasDireto) - parseFloat(DiasAbono) - parseFloat(1))));
 
 		var diaFim = Fim.getDate();
-		var mesFim = Fim.getMonth()+1;
+		var mesFim = Fim.getMonth() + 1;
 		var anoFim = Fim.getFullYear();
 
-		if(mesFim<10){
-			mesFim= "0"+ mesFim;
-		}if(diaFim<10){
-			diaFim= "0"+ diaFim;
+		if (mesFim < 10) {
+			mesFim = "0" + mesFim;
+		} if (diaFim < 10) {
+			diaFim = "0" + diaFim;
 		}
 
-		var DataFim = (diaFim+"/"+mesFim+"/"+anoFim);
+		var DataFim = (diaFim + "/" + mesFim + "/" + anoFim);
 
-		$("#cpDataFimFerias").val(DataFim); 
+		$("#cpDataFimFerias").val(DataFim);
 
 		dataSelecionadaHandler();
 		VerificaFimPEr();
@@ -171,63 +171,67 @@ function CalcFerias(){
 
 //CRIA DATEPICKERS
 
-var carregaDataCorreta = function(){
-	var hoje  = new Date();
-	var dataVenc    = new Date(hoje.getTime() + (24 * 60 * 60 * 1000));
+var carregaDataCorreta = function () {
+	var hoje = new Date();
+	var dataVenc = new Date(hoje.getTime() + (24 * 60 * 60 * 1000));
 	//return dataVenc.getDate() + "/" + (dataVenc.getMonth() + 1) + "/" + dataVenc.getFullYear();
-	 $("#cpDataMin").val(dataVenc)
+	$("#cpDataMin").val(dataVenc)
 }
 
-var veriDataCorreMarcada = function(){
-	 var Correta=  $("#cpDataMin").val();
-	 var Marcada=  $("#cpDataInicioFerias").val();
-	 
-	 var FerCorreta = Marcada.substring(3,5)+'/'+Marcada.substring(0,2)+'/'+Marcada.substring(6,10);
-	 var date = new Date(FerCorreta);
-	 $("#cpDataPrazo").val(date);
-	 if(date<Correta){
+var veriDataCorreMarcada = function () {
+	var Correta = $("#cpDataMin").val();
+	var Marcada = $("#cpDataInicioFerias").val();
+
+	var FerCorreta = Marcada.substring(3, 5) + '/' + Marcada.substring(0, 2) + '/' + Marcada.substring(6, 10);
+	var date = new Date(FerCorreta);
+	$("#cpDataPrazo").val(date);
+	if (date < Correta) {
 		$("#cpVerPrazos").val("1");
-	 }else{
+	} else {
 		$("#cpVerPrazos").val("2");
-	 }
+	}
 }
 
-var criaDatepickers = function() {
+var criaDatepickers = function () {
 	carregaDataCorreta();
-	var minDate = new Date();
-	//minDate.setDate(minDate.getDate() + 30); Solicitado por Fred para retirar (Matheus Reis)
-	minDate.setDate(minDate.getDate() - 60);
-	
-	//VALIDA MATERNIDADE QQL DIA OU NAO SOMENTE SEUNDA E TERCA
+	var minDateInicioFerias = new Date();
+	//minDate.setDate(minDate.getDate() + 30); // Lógica original comentada ou ajustada
+	minDateInicioFerias.setDate(minDateInicioFerias.getDate() - 60); // Mantendo a lógica original encontrada
+
 
 	$("#cpDataInicioFerias").datepicker({
 		showOn: "button",
-		beforeShowDay : function(data) {
-			if(SituacaoFun!="Licença Mater."){
+		beforeShowDay: function (data) {
+			// --- Sua lógica existente para desabilitar feriados/dias da semana ---
+			// Esta parte permanece igual à sua função original
+			var situacaoFunc = $("#cpSituacao").val(); // Pega a situação atual do colaborador
+			if (situacaoFunc != "Licença Mater.") { // Ajuste para usar a variável correta
 
-				var validWeekDay = data.getDay() != 32;
+				// Sua lógica original para dias inválidos (ex: sábado/domingo ou qualquer outra)
+				// Exemplo (desabilitar Sáb/Dom): var validWeekDay = data.getDay() != 0 && data.getDay() != 6;
+				var validWeekDay = true; // Permite qualquer dia por padrão aqui, ajuste se necessário
 
 				var feriados = getFeriados();
 
-				var isFeriado = feriados.some(function(feriado){
+				var isFeriado = feriados.some(function (feriado) {
 					var isDia = feriado.dia == data.getDate(),
-					isMes = feriado.mes == data.getMonth() + 1,
-					isAno = (feriado.ano == 0 || feriado.ano == data.getFullYear());
+						isMes = feriado.mes == data.getMonth() + 1,
+						isAno = (feriado.ano == 0 || feriado.ano == data.getFullYear());
 					return isDia && isMes && isAno;
 				});
 
 				var isValid = validWeekDay && !isFeriado;
 
 				return [isValid, ''];
-			}else{
-
+			} else {
+				// Sua lógica original específica para Licença Maternidade, se houver
 				var validWeekDay = data.getDay() != 0 && data.getDay() != 6;
 				var feriados = getFeriados();
 
-				var isFeriado = feriados.some(function(feriado){
+				var isFeriado = feriados.some(function (feriado) {
 					var isDia = feriado.dia == data.getDate(),
-					isMes = feriado.mes == data.getMonth() + 1,
-					isAno = (feriado.ano == 0 || feriado.ano == data.getFullYear());
+						isMes = feriado.mes == data.getMonth() + 1,
+						isAno = (feriado.ano == 0 || feriado.ano == data.getFullYear());
 					return isDia && isMes && isAno;
 				});
 
@@ -235,98 +239,131 @@ var criaDatepickers = function() {
 
 				return [isValid, ''];
 			}
+			// --- Fim da lógica existente ---
 		},
-		onSelect: function(date) {
-			$(document).trigger('dataInicioSelected', date);
-			$(document).trigger('dataSelecionada');
-			CalcFerias();
+		onSelect: function (dateText, inst) {
+			var dataInicioSelecionada = $(this).datepicker('getDate'); // Pega o objeto Date selecionado
+
+			// --- Limpa Data de Pagamento antes de recalcular ---
+			$("#cpDtPagto").val(''); // Limpa o valor selecionado anteriormente
+			// --- Fim da limpeza ---
+
+			$(document).trigger('dataInicioSelected', dateText); // Evento original
+			$(document).trigger('dataSelecionada');             // Evento original
+			CalcFerias(); // Função original
+
+			// --- NOVA LÓGICA PARA ATUALIZAR cpDtPagto ---
+			if (dataInicioSelecionada) {
+				var maxPagamentoDate = new Date(dataInicioSelecionada.getTime());
+				maxPagamentoDate.setDate(dataInicioSelecionada.getDate() - 3); // Calcula Data Início - 3 dias (pagar no máx. dia anterior ao limite)
+				maxPagamentoDate.setHours(0, 0, 0, 0); // Zera horas para comparação
+
+				var hoje = new Date();
+				hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
+
+				// Atualiza o datepicker da Data de Pagamento
+				$("#cpDtPagto").datepicker("option", "minDate", hoje); // Garante que a data mínima é hoje
+				$("#cpDtPagto").datepicker("option", "maxDate", maxPagamentoDate); // Define a data máxima permitida
+
+				// Habilita o campo e o botão do datepicker de pagamento
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", false);
+
+			} else {
+				// Se a data de início for limpa, reseta o maxDate e desabilita
+				$("#cpDtPagto").datepicker("option", "minDate", hoje); // Reseta minDate para hoje
+				$("#cpDtPagto").datepicker("option", "maxDate", null); // Remove a restrição de data máxima
+				$("#cpDtPagto").val(''); // Limpa o valor
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true); // Desabilita novamente
+			}
+			// --- FIM DA NOVA LÓGICA ---
+
 		},
-		minDate: minDate
+		minDate: minDateInicioFerias // Usa a data mínima calculada para Início Férias
 
 	});
 
-	//DATA FIM
+	// DATA FIM - Mantém a lógica original
 	$("#cpDataFimFerias").datepicker({
 		showOn: "button",
-		onSelect: function() {
+		onSelect: function () {
 			$(document).trigger('dataSelecionada');
 		},
-		minDate: minDate
+		minDate: minDateInicioFerias // Usa a mesma data mínima inicial que Início Férias
 	});
-	
-	veriDataCorreMarcada();
+
+	veriDataCorreMarcada(); // Função original
 };
 
 //**************************************************************
 
-var bindEventos = function() {
+var bindEventos = function () {
 
 	//SOLICITAÇÃO PARA ...
-	$("#cpSolicitacaoPara").change(function(){
+	$("#cpSolicitacaoPara").change(function () {
 		selecionaColaborador(this.value);
 	});
 
-	$(document).on('departamentoSelecinado', function(ev, secao) {
+	$(document).on('departamentoSelecinado', function (ev, secao) {
 		departamentoSelecinadoHandler(secao);
 
-	}).on('colaboradorSelecionado', function(ev, colaborador, gestores) {
+	}).on('colaboradorSelecionado', function (ev, colaborador, gestores) {
 		colaboradorSelecionadoHandler(colaborador, gestores);
 
-	}).on('dataInicioSelected', function(ev, data) {
+	}).on('dataInicioSelected', function (ev, data) {
 		dataInicioSelectedHandler(data);
 
-	}).on('dataSelecionada', function() {
+	}).on('dataSelecionada', function () {
 		dataSelecionadaHandler();
 	});
 
 	//HAVERA ABONO
-	$("#cpHaveraAbono").change(function() {
+	$("#cpHaveraAbono").change(function () {
 		var haveraAbono = this.value == 1;
 		updateDiasAbono(haveraAbono);
 	});
 
 	//BUSCA DATA INICIO FERIAS
-	$("#buscarDataInicioFerias").click(function() {
+	$("#buscarDataInicioFerias").click(function () {
 		$("#cpDataInicioFerias").datepicker('show');
 	});
 
 	//BUSCA DATA FIM FERIAS
-	$("#buscarDataFimFerias").click(function() {
+	$("#buscarDataFimFerias").click(function () {
 		$("#cpDataFimFerias").datepicker('show');
 	});
 	//BUSCA DATA DE PAGAMENTO
-	$("#buscarDtPagto").click(function() {
+	$("#buscarDtPagto").click(function () {
 		$("#cpDtPagto").datepicker('show');
 	});
 
 	//TOGGLE DO BOTAO DE TERMO
-	$("#cpAntecipar13Salario").change(function() {
+	$("#cpAntecipar13Salario").change(function () {
 		toggleBotaoTermo13Salario(this.value);
 	});
 
 	//BOTAO PARA IMPRIMIR TERMO 13 SALARIO
-	$("#botaoImprimirTermo").click(function() {
+	$("#botaoImprimirTermo").click(function () {
 		validaCamposParaTermo();
 	});
 
 	//HAVERA SUBSTITUTO
-	$("#cpHaveraSubstituto").change(function() {
+	$("#cpHaveraSubstituto").change(function () {
 		toggleSubstituto(this.value);
 	});
 
 	//BUSCA  COLABORADOR SUBSTITUTO
-	$("#buscaColaboradorSubstituto").click(function() {
+	$("#buscaColaboradorSubstituto").click(function () {
 		buscaCentroCustoSubstituto();
 	});
 
-	$(document).on('departamentoSubstitutoSelected', function(ev, secao) {
+	$(document).on('departamentoSubstitutoSelected', function (ev, secao) {
 		departamentoSubstitutoSelectedHandler(secao);
 
-	}).on('colaboradorSubstitutoSelected', function(ev, colaborador) {
+	}).on('colaboradorSubstitutoSelected', function (ev, colaborador) {
 		colaboradorSubstitutoSelectedHandler(colaborador);
 	});
 
-	$("#buscaColaborador").click(function(){
+	$("#buscaColaborador").click(function () {
 		if (window.ultimaSecao) {
 			$(document).trigger('departamentoSelecinado', window.ultimaSecao);
 		} else {
@@ -334,7 +371,7 @@ var bindEventos = function() {
 		}
 	});
 
-	$("#buscaSecao").click(function(){
+	$("#buscaSecao").click(function () {
 		selecionaColaborador('2');
 	});
 };
@@ -344,46 +381,69 @@ var bindEventos = function() {
 
 
 var criaDatepickersPagto = function() {
-
+    var hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); // Garante que a hora não interfira
 
 	$("#cpDtPagto").datepicker({
 		showOn: "button",
-		showButtonPanel: "true",
-	    changeMonth: "true",
-	    changeYear: "true",
-	    showOtherMonths: "true",
-	    selectOtherMonths: "true", 
+		showButtonPanel: true, // Mantido como estava
+	    changeMonth: true,     // Mantido como estava
+	    changeYear: true,      // Mantido como estava
+	    showOtherMonths: true, // Mantido como estava
+	    selectOtherMonths: true,// Mantido como estava
 		onSelect: function() {
-		$(document).trigger('dataSelecionada');
-	},
-	minDate:0
+            // Pode adicionar lógica extra aqui se necessário ao selecionar a data de pagamento
+		    $(document).trigger('dataSelecionada'); // Mantém o gatilho original
+	    },
+	    minDate: hoje, // Data mínima é hoje
+        maxDate: null // Inicialmente não há data máxima definida
 	});
-}	
+
+    // Desabilita o campo e o botão inicialmente, pois depende da Data de Início
+	// Verifica se já existe uma Data de Início preenchida ao carregar a página
+	if ($("#cpDataInicioFerias").val() == "") {
+		$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true);
+	} else {
+		// Se já houver data de início, força a atualização do maxDate e habilita
+		var dataInicioInicial = $("#cpDataInicioFerias").datepicker('getDate');
+		if(dataInicioInicial){
+			var maxPagamentoInicial = new Date(dataInicioInicial.getTime());
+			maxPagamentoInicial.setDate(dataInicioInicial.getDate() - 3);
+			maxPagamentoInicial.setHours(0, 0, 0, 0);
+			$("#cpDtPagto").datepicker("option", "minDate", hoje);
+			$("#cpDtPagto").datepicker("option", "maxDate", maxPagamentoInicial);
+			$("#cpDtPagto, #buscarDtPagto button").prop("disabled", false);
+		} else {
+			// Caso a data inicial seja inválida por algum motivo, mantém desabilitado
+			$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true);
+		}
+	}
+};
 
 
-var selecionaColaborador = function(target){
+var selecionaColaborador = function (target) {
 
 	switch (target) {
-	// Proprio colaborador
-	case '1':
+		// Proprio colaborador
+		case '1':
 
-		window.loadingLayer.show();
+			window.loadingLayer.show();
 
-		setTimeout(function(){
-			proprioColaborador();
-		}, 100);
+			setTimeout(function () {
+				proprioColaborador();
+			}, 100);
 
 
-		$(".btnZoom").css('opacity', '0');
-		break;
+			$(".btnZoom").css('opacity', '0');
+			break;
 
 		// Outro Colaborador
-	case '2':
-		$(".btnZoom").css('opacity', '1');
-		buscaCentroCusto();
-		break;
+		case '2':
+			$(".btnZoom").css('opacity', '1');
+			buscaCentroCusto();
+			break;
 
-	default:
+		default:
 
 
 	}
@@ -391,7 +451,7 @@ var selecionaColaborador = function(target){
 }
 
 //PROPRIO COLABORADOR
-var proprioColaborador = function(){
+var proprioColaborador = function () {
 	var coligada = $("#cpSolicitanteColigada").val();
 	var dadosProprio = getDadosSecaoSolicitante();
 
@@ -408,10 +468,10 @@ var proprioColaborador = function(){
 }
 
 //OUTRO COLABORADOR
-var buscaColaborador = function(secao, coligada, gestores) {
+var buscaColaborador = function (secao, coligada, gestores) {
 	var zoomColaborador = criaZoomColaborador(secao, coligada);
 
-	zoomColaborador.Retorno = function(retorno) {
+	zoomColaborador.Retorno = function (retorno) {
 		var colaborador = getMapaColaborador(retorno, coligada, gestores);
 		$(document).trigger('colaboradorSelecionado', [colaborador, gestores]);
 	};
@@ -419,7 +479,7 @@ var buscaColaborador = function(secao, coligada, gestores) {
 	zoomColaborador.Abrir();
 };
 
-var criaZoomColaborador = function(codSecao, codColigada) {
+var criaZoomColaborador = function (codSecao, codColigada) {
 	var zoomColaborador = new Zoom();
 
 	zoomColaborador.FieldsName = ["codSecao", "codColigada"];
@@ -429,25 +489,25 @@ var criaZoomColaborador = function(codSecao, codColigada) {
 	zoomColaborador.setRawFilters("codSecao", codSecao);
 	zoomColaborador.setRawFilters("codColigada", codColigada);
 	zoomColaborador.Colunas = [
-		
-		{"title" : "CODCOLIGADA", "name" : "CODCOLIGADA"},
-		{"title" : "CHAPA", "name" : "CHAPA"},
-		{"title" : "NOMEFANTASIA", "name" : "NOMEFANTASIA", display: false},
-		{"title" : "NOME", "name" : "NOME"},
-		{"title" : "CARGO", "name" : "CARGO"},
-		{"title" : "SECAO", "name" : "SECAO"},
-		{"title" : "UF_SECAO", "name" : "UF_SECAO", display: false},
-		{"title" : "SITUACAO", "name" : "SITUACAO", display: false},
-		{"title" : "CTPS", "name" : "CTPS", display: false},
-		{"title" : "DATANASCIMENTO", "name" : "DATANASCIMENTO", display: false},
-		{"title" : "DATAADMISSAO", "name" : "DATAADMISSAO", display: false},
-		{"title" : "IDADE", "name" : "IDADE", display: false}
-		];
+
+		{ "title": "CODCOLIGADA", "name": "CODCOLIGADA" },
+		{ "title": "CHAPA", "name": "CHAPA" },
+		{ "title": "NOMEFANTASIA", "name": "NOMEFANTASIA", display: false },
+		{ "title": "NOME", "name": "NOME" },
+		{ "title": "CARGO", "name": "CARGO" },
+		{ "title": "SECAO", "name": "SECAO" },
+		{ "title": "UF_SECAO", "name": "UF_SECAO", display: false },
+		{ "title": "SITUACAO", "name": "SITUACAO", display: false },
+		{ "title": "CTPS", "name": "CTPS", display: false },
+		{ "title": "DATANASCIMENTO", "name": "DATANASCIMENTO", display: false },
+		{ "title": "DATAADMISSAO", "name": "DATAADMISSAO", display: false },
+		{ "title": "IDADE", "name": "IDADE", display: false }
+	];
 	return zoomColaborador;
 };
 
 //BUSCA CENTRO DE CUSTO
-var buscaCentroCusto = function() {
+var buscaCentroCusto = function () {
 
 	var login = $("#cpLoginFluig").val();
 
@@ -459,18 +519,18 @@ var buscaCentroCusto = function() {
 	zoomSecao.Titulo = "Buscar Obra/Departamento";
 	zoomSecao.setRawFilters("login", login);
 	zoomSecao.Colunas = [
-		
-		{"title" : "Obra/Departamento", "name" : "SECAO"},
-		{"title" : "Cod.Secao", "name" : "CODSECAO", "display" : false},
-		{"title" : "Cod.Coligada", "name" : "CODCOLIGADA", "display" : false},
-		{"title" : "", "name" : "COD_GESTOR", "display" : false},
-		{"title" : "", "name" : "NOME_GESTOR", "display" : false},
-		{"title" : "", "name" : "COD_DIRETOR", "display" : false},
-		{"title" : "", "name" : "NOME_DIRETOR", "display" : false},
-		{"title" : "Empresa", "name" : "EMPRESA", "display" : false}
-		];
 
-	zoomSecao.Retorno = function(retorno){
+		{ "title": "Obra/Departamento", "name": "SECAO" },
+		{ "title": "Cod.Secao", "name": "CODSECAO", "display": false },
+		{ "title": "Cod.Coligada", "name": "CODCOLIGADA", "display": false },
+		{ "title": "", "name": "COD_GESTOR", "display": false },
+		{ "title": "", "name": "NOME_GESTOR", "display": false },
+		{ "title": "", "name": "COD_DIRETOR", "display": false },
+		{ "title": "", "name": "NOME_DIRETOR", "display": false },
+		{ "title": "Empresa", "name": "EMPRESA", "display": false }
+	];
+
+	zoomSecao.Retorno = function (retorno) {
 		var secao = getMapSecao(retorno);
 		window.ultimaSecao = secao;
 		$(document).trigger('departamentoSelecinado', secao);
@@ -479,7 +539,7 @@ var buscaCentroCusto = function() {
 	zoomSecao.Abrir();
 };
 
-var montaDadosSolicitante = function(){
+var montaDadosSolicitante = function () {
 	return {
 		nome: $("#cpNomeSolicitante").val(),
 		chapa: $("#cpMatriculaSolicitante").val(),
@@ -490,48 +550,48 @@ var montaDadosSolicitante = function(){
 };
 
 
-var getDadosSecaoSolicitante = function() {
+var getDadosSecaoSolicitante = function () {
 
 	var codpessoa = $("#cpLoginFluig").val();
-	var coligada = $("#cpSolicitanteColigada").val();	
+	var coligada = $("#cpSolicitanteColigada").val();
 	var funcao = $("#cpFuncaoSolicitante").val();
 	var chapa = $("#cpMatriculaSolicitante").val();
 	var datasetResult = DatasetFactory.getDataset("DS_FLUIG_0006", [codpessoa], null, null).values[0];
-	
+
 	return {
-		dadosSecao : [
+		dadosSecao: [
 			datasetResult.SECAO,
 			datasetResult.CODSECAO,
 			datasetResult.CODCOLIGADA,
-			datasetResult.COD_DIRETOR, 
-			datasetResult.NOME_DIRETOR, 
+			datasetResult.COD_DIRETOR,
+			datasetResult.NOME_DIRETOR,
 			datasetResult.COD_GESTOR,
 			datasetResult.NOME_GESTOR,
-			],
-			dadosColaborador: [
-				coligada,
-				chapa,
-				datasetResult.NOMEFANTASIA,
-				datasetResult.NOME,
-				funcao,
-				datasetResult.SECAO,
-				datasetResult.UF_SECAO,
-				datasetResult.SITUACAO,
-				datasetResult.CTPS,
-				datasetResult.DATANASCIMENTO,
-				datasetResult.DATAADMISSAO,
-				datasetResult.IDADE 
+		],
+		dadosColaborador: [
+			coligada,
+			chapa,
+			datasetResult.NOMEFANTASIA,
+			datasetResult.NOME,
+			funcao,
+			datasetResult.SECAO,
+			datasetResult.UF_SECAO,
+			datasetResult.SITUACAO,
+			datasetResult.CTPS,
+			datasetResult.DATANASCIMENTO,
+			datasetResult.DATAADMISSAO,
+			datasetResult.IDADE
 
-				]
+		]
 	};
 };
 
-var getMapaColaborador = function(retorno, coligada, gestores){
+var getMapaColaborador = function (retorno, coligada, gestores) {
 	return {
-		
+
 		coligada: retorno[0],
 		chapa: retorno[1],
-		NOMEFANTASIA:retorno[2],
+		NOMEFANTASIA: retorno[2],
 		nome: retorno[3],
 		funcao: retorno[4],
 		secao: retorno[5],
@@ -541,11 +601,11 @@ var getMapaColaborador = function(retorno, coligada, gestores){
 		DATANASCIMENTO: retorno[9],
 		DATAADMISSAO: retorno[10],
 		IDADE: retorno[11]
-		
+
 	};
 };
 
-var getMapSecao = function(retorno){
+var getMapSecao = function (retorno) {
 	return {
 		nome: retorno[0],
 		codigo: retorno[1],
@@ -565,7 +625,7 @@ var getMapSecao = function(retorno){
 };
 
 var SituacaoFun;
-var preencheColaborador = function(colaborador) {
+var preencheColaborador = function (colaborador) {
 	$("#cpColaborador").val(colaborador.nome);
 	$("#cpMatricula").val(colaborador.chapa);
 	$("#cpFuncao").val(colaborador.funcao);
@@ -578,7 +638,7 @@ var preencheColaborador = function(colaborador) {
 	$("#cpIdade").val(colaborador.IDADE);
 	$("#cpCTPS").val(colaborador.CTPS);
 	$("#cpEmpresa").val(colaborador.NOMEFANTASIA),
-	$("#cpFimContrato").val(colaborador.FIMPRAZOCONTR) 
+		$("#cpFimContrato").val(colaborador.FIMPRAZOCONTR)
 	SituacaoFun = colaborador.SITUACAO;
 	console.log(SituacaoFun);
 
@@ -589,8 +649,8 @@ var preencheColaborador = function(colaborador) {
 	PrazoGravida();*/
 };
 
-var carregaFimContrato = function(chapa, coligada, funcao){
-	if(isEstagiario(funcao)){
+var carregaFimContrato = function (chapa, coligada, funcao) {
+	if (isEstagiario(funcao)) {
 		var contrato = getFimContrato(chapa, coligada);
 
 		var fimPrazoContrato = sqlDateToStr(contrato.FIMPRAZOCONTR);
@@ -598,12 +658,12 @@ var carregaFimContrato = function(chapa, coligada, funcao){
 	}
 }
 
-var getFimContrato = function(chapa, coligada){
+var getFimContrato = function (chapa, coligada) {
 	var datasetResult = DatasetFactory.getDataset("DS_FLUIG_0003", [chapa + '', coligada + '']);
 	return datasetResult.values[0];
 }
 
-var colaboradorSelecionadoHandler = function(colaborador, gestores) {
+var colaboradorSelecionadoHandler = function (colaborador, gestores) {
 	limpaCamposPosColab();
 
 	preencheColaborador(colaborador);
@@ -618,14 +678,14 @@ var colaboradorSelecionadoHandler = function(colaborador, gestores) {
 	controlaExibicaoTextoInformativo(colaborador.funcao);
 	desabilitaHabono();
 
-	setTimeout(function(){
+	setTimeout(function () {
 		window.loadingLayer.hide();
 	}, 100);
 
 };
 
 //BUSCA GESTOR IMEDIATO DO COLABORADOR SELECIONADO
-var getSuperiorImediato = function(gestores, solicitante) {
+var getSuperiorImediato = function (gestores, solicitante) {
 
 	solicitante = solicitante + '';
 
@@ -662,10 +722,10 @@ var getSuperiorImediato = function(gestores, solicitante) {
 };
 
 //RETORNA GESTOR IMEDIATO
-var preencheGestorImediato = function(colaborador, gestores) {
+var preencheGestorImediato = function (colaborador, gestores) {
 
-		$("#cpGestorImediato").val(gestores.GESTOR.nome);
-		$("#cpChapaGestor").val(gestores.GESTOR.chapa);
+	$("#cpGestorImediato").val(gestores.GESTOR.nome);
+	$("#cpChapaGestor").val(gestores.GESTOR.chapa);
 
 };
 
@@ -673,25 +733,25 @@ var preencheGestorImediato = function(colaborador, gestores) {
 
 //VERIFICA SE CARGO E ESTAGIARIO
 
-var isEstagiario = function(funcao) {
+var isEstagiario = function (funcao) {
 	return funcao.search('ESTAGIARIO') > -1;
 };
 
-var estagiarioBloqueiaCampos = function(funcao) {
+var estagiarioBloqueiaCampos = function (funcao) {
 	$("#opcaoSimHaveraAbono, #opcaoSim13Salario").prop('disabled', isEstagiario(funcao));
 };
 
-var estagiarioOcultaCampos = function(funcao){
+var estagiarioOcultaCampos = function (funcao) {
 	var estagiario = isEstagiario(funcao);
 	$("#fimContrato").toggle(estagiario);
 	$(".ocultaCampo").toggle(!estagiario);
 };
 
-var controlaExibicaoTextoInformativo = function(funcao){
+var controlaExibicaoTextoInformativo = function (funcao) {
 	escondeTextoAvisoEstagiario();
 	mostraTextoAvisoColaborador();
 
-	if(isEstagiario(funcao)){
+	if (isEstagiario(funcao)) {
 		mostraTextoAvisoEstagiario();
 		escondeTextoAvisoColaborador();
 	}
@@ -699,15 +759,15 @@ var controlaExibicaoTextoInformativo = function(funcao){
 
 //***************************************************************
 
-var dataSelecionadaHandler = function() {
+var dataSelecionadaHandler = function () {
 	var diasFerias = getDiasFerias();
 	diasFerias = diasFerias || 0;
 	$("#cpDiasFerias").val(diasFerias);
-	
+
 	carregaLimitedeFerias();
 };
 
-var getDiasFerias = function() {
+var getDiasFerias = function () {
 	var inicio = getInicioFerias();
 	var fim = getFimFerias();
 
@@ -717,46 +777,46 @@ var getDiasFerias = function() {
 	var date1_ms = inicio.getTime()
 	var date2_ms = fim.getTime()
 
-	if(date1_ms<date2_ms){
+	if (date1_ms < date2_ms) {
 
-		var difference_ms = Math.abs((date2_ms - date1_ms)+ONE_DAY)
-		return Math.round(difference_ms/ONE_DAY)
-	}else{
+		var difference_ms = Math.abs((date2_ms - date1_ms) + ONE_DAY)
+		return Math.round(difference_ms / ONE_DAY)
+	} else {
 		return 0;
 	}
 
 };
-function carregaLimitedeFerias(){
+function carregaLimitedeFerias() {
 
 	var FimPerAqui = $("#cpFimPeriodoAquisitivo").val();
-	var dia = FimPerAqui.substring(0,2);
-	var mes = FimPerAqui.substring(3,5);
-	var ano = FimPerAqui.substring(6,10);
+	var dia = FimPerAqui.substring(0, 2);
+	var mes = FimPerAqui.substring(3, 5);
+	var ano = FimPerAqui.substring(6, 10);
 
-	var fimPer = new Date (ano+'/'+mes+'/'+dia);
-	var Fim = new Date(fimPer.setMonth(fimPer.getMonth()+11));
+	var fimPer = new Date(ano + '/' + mes + '/' + dia);
+	var Fim = new Date(fimPer.setMonth(fimPer.getMonth() + 11));
 	//fim periodo aquisitivo adicionado de 11 dias, para verificar limite de ferias
 
 
 	var IniFerias = $("#cpDataInicioFerias").val();
-	var diaIni = IniFerias.substring(0,2);
-	var mesIni = IniFerias.substring(3,5);
-	var anoIni = IniFerias.substring(6,10);
+	var diaIni = IniFerias.substring(0, 2);
+	var mesIni = IniFerias.substring(3, 5);
+	var anoIni = IniFerias.substring(6, 10);
 
-	var fimF = new Date (anoIni+'/'+mesIni+'/'+diaIni);
+	var fimF = new Date(anoIni + '/' + mesIni + '/' + diaIni);
 	//fim das férias selecionadas
-	if(Fim!="" && fimF!=""){
-	if(fimF>Fim){
-		$("#exibeLimiteInfIniciofer").show();
-	}else{
-		$("#exibeLimiteInfIniciofer").hide();
-	}
-	}else {
+	if (Fim != "" && fimF != "") {
+		if (fimF > Fim) {
+			$("#exibeLimiteInfIniciofer").show();
+		} else {
+			$("#exibeLimiteInfIniciofer").hide();
+		}
+	} else {
 		$("#exibeLimiteInfIniciofer").hide();
 	}
 
 }
-var dataInicioSelectedHandler = function(dataSelecionada) {
+var dataInicioSelectedHandler = function (dataSelecionada) {
 	var funcao = $("#cpFuncao").val();
 
 	clearCamposPosDataInicio();
@@ -769,22 +829,22 @@ var dataInicioSelectedHandler = function(dataSelecionada) {
 	toggleAvisoDiaDaSemana();
 };
 
-var updateDiasDireito = function() {
+var updateDiasDireito = function () {
 	var diasDireito = getDiasDireitoEstagiario();
 	$("#cpDiasDireito").val(diasDireito);
 };
 
-var getDiasDireitoEstagiario = function() {
+var getDiasDireitoEstagiario = function () {
 	var inicioPeriodo = getInicioPeriodoAquisitivo();
 	var inicioFerias = getInicioFerias();
 	var mesesDecorridos = calcMesesDecorridos(inicioPeriodo, inicioFerias);
 
-	if (mesesDecorridos > 11)  return 30;
+	if (mesesDecorridos > 11) return 30;
 	if (mesesDecorridos > 5) return 15;
 	return 0;
 };
 
-var calcMesesDecorridos = function(inicioPeriodo, inicioFerias) {
+var calcMesesDecorridos = function (inicioPeriodo, inicioFerias) {
 	var mesesDecorridos = 0;
 
 	while (inicioPeriodo <= inicioFerias) {
@@ -795,7 +855,7 @@ var calcMesesDecorridos = function(inicioPeriodo, inicioFerias) {
 	return mesesDecorridos;
 };
 
-var updateDiasAbono = function(haveraAbono) {
+var updateDiasAbono = function (haveraAbono) {
 	var diasDireito = $("#cpDiasDireito").val();
 	var diasAbono = haveraAbono ? calcDiasAbono(parseInt(diasDireito)) : 0;
 	diasAbono = diasAbono || 0;
@@ -803,39 +863,39 @@ var updateDiasAbono = function(haveraAbono) {
 };
 
 
-var calcDiasAbono = function(diasDireito) {
+var calcDiasAbono = function (diasDireito) {
 	return Math.floor(diasDireito / 3);
 };
 
-var updatePickers = function(funcao) {
+var updatePickers = function (funcao) {
 	var PrazoGravida = $("#cpPrazoGravida").val();
-	if(PrazoGravida!=""){
-	var dia = PrazoGravida.substring(0,2); 
-	var mes = PrazoGravida.substring(3,5); 
-	var ano= PrazoGravida.substring(6,10);
-	var Data = new Date(mes +"/"+dia+"/"+ano)
-	
-	var prazoMin = isEstagiario(funcao) ? 20 : 0;
-	var minDate = getMinDate(prazoMin, funcao);
-	//fim do afast de gravidez maior que data fim do periodo set ele como minDate
-	if(Data>minDate){
-	$("#cpDataInicioFerias, #cpDataFimFerias").datepicker( "option", "minDate", Data);
-	//se for menor ou igual set o minDate de 45 dias
-	}else{
-		$("#cpDataInicioFerias, #cpDataFimFerias").datepicker( "option", "minDate", minDate);
-	}
-	//se não existir esse prazo, fica com o prazo anterior
-	}else{
-		
+	if (PrazoGravida != "") {
+		var dia = PrazoGravida.substring(0, 2);
+		var mes = PrazoGravida.substring(3, 5);
+		var ano = PrazoGravida.substring(6, 10);
+		var Data = new Date(mes + "/" + dia + "/" + ano)
+
 		var prazoMin = isEstagiario(funcao) ? 20 : 0;
 		var minDate = getMinDate(prazoMin, funcao);
-		$("#cpDataInicioFerias, #cpDataFimFerias").datepicker( "option", "minDate", minDate);
-		
-		
+		//fim do afast de gravidez maior que data fim do periodo set ele como minDate
+		if (Data > minDate) {
+			$("#cpDataInicioFerias, #cpDataFimFerias").datepicker("option", "minDate", Data);
+			//se for menor ou igual set o minDate de 45 dias
+		} else {
+			$("#cpDataInicioFerias, #cpDataFimFerias").datepicker("option", "minDate", minDate);
+		}
+		//se não existir esse prazo, fica com o prazo anterior
+	} else {
+
+		var prazoMin = isEstagiario(funcao) ? 20 : 0;
+		var minDate = getMinDate(prazoMin, funcao);
+		$("#cpDataInicioFerias, #cpDataFimFerias").datepicker("option", "minDate", minDate);
+
+
 	}
 };
 
-var getMinDate = function(prazo, funcao) {
+var getMinDate = function (prazo, funcao) {
 
 	var minDate = new Date();
 	minDate.setDate(minDate.getDate() + prazo);
@@ -851,28 +911,28 @@ var getMinDate = function(prazo, funcao) {
 };
 
 
-var getFimPeriodoAquisitivo = function() {
+var getFimPeriodoAquisitivo = function () {
 	return getDataConvertida('cpFimPeriodoAquisitivo');
 };
 
-var getInicioPeriodoAquisitivo = function() {
+var getInicioPeriodoAquisitivo = function () {
 	return getDataConvertida('cpInicioPeriodoAquisitivo');
 };
 
-var getInicioFerias = function() {
+var getInicioFerias = function () {
 	return getDataConvertida('cpDataInicioFerias');
 };
 
-var getFimFerias = function() {
+var getFimFerias = function () {
 	return getDataConvertida('cpDataFimFerias');
 };
 
-var getDataConvertida = function(campo) {
+var getDataConvertida = function (campo) {
 	var inicioPeriodo = $("#" + campo).val();
 	return dateStrToDate(inicioPeriodo);
 };
 
-var departamentoSelecinadoHandler = function(secao) {
+var departamentoSelecinadoHandler = function (secao) {
 
 	limpaPosSelecaoCentroCusto();
 	escondeBotaoTermo13Salario();
@@ -881,35 +941,35 @@ var departamentoSelecinadoHandler = function(secao) {
 	$("#cpCentroCusto").val(secao.nome);
 	$("#cpEmpresa").val(secao.empresa);
 
-	if(!secao.pulaZoom) {
+	if (!secao.pulaZoom) {
 		buscaColaborador(secao.codigo, secao.coligada, secao.gestores);
 	}
 };
 
 
-var cached_getPeriodoAtivo = (function(){
+var cached_getPeriodoAtivo = (function () {
 	var cache = {};
-	return function(chapa, coligada) {
+	return function (chapa, coligada) {
 		var key = chapa + '_' + coligada,
-		safeChapa = chapa + '',
-		safeColigada = coligada + '';
+			safeChapa = chapa + '',
+			safeColigada = coligada + '';
 		return cache[key] || (cache[key] = DatasetFactory.getDataset('DS_FLUIG_DATASERVER_0002', [safeChapa, safeColigada], null, null).values[0]);
 	};
 })();
 
 
-var cached_getFeriasMarcada = (function(){
+var cached_getFeriasMarcada = (function () {
 	var cache = {};
-	return function(chapa, coligada, fimPeriodoAquisitivo) {
+	return function (chapa, coligada, fimPeriodoAquisitivo) {
 		var key = chapa + '_' + coligada + '_' + fimPeriodoAquisitivo,
-		safeChapa = chapa + '',
-		safeColigada = coligada + '';
+			safeChapa = chapa + '',
+			safeColigada = coligada + '';
 		return cache[key] || (cache[key] = DatasetFactory.getDataset('DS_FLUIG_DATASERVER_0003', [safeChapa, safeColigada, fimPeriodoAquisitivo], null, null).values);
 	};
 })();
 
 //BUSCA PERIODO AQUISITIVO
-var carregaPeriodoAquisitivo = function(chapa, coligada, funcao) {
+var carregaPeriodoAquisitivo = function (chapa, coligada, funcao) {
 
 	var periodoAtivo = cached_getPeriodoAtivo(chapa, coligada);
 
@@ -939,9 +999,9 @@ var carregaPeriodoAquisitivo = function(chapa, coligada, funcao) {
 	}
 };
 
-var isPrimeiroAno = function(dtBase, periodo) {
+var isPrimeiroAno = function (dtBase, periodo) {
 	var inicio = sqlStrDateToDate(periodo.INICIOPERAQUIS),
-	fim = sqlStrDateToDate(periodo.FIMPERAQUIS);
+		fim = sqlStrDateToDate(periodo.FIMPERAQUIS);
 
 	inicio.setHours(0);
 	fim.setHours(0);
@@ -950,18 +1010,18 @@ var isPrimeiroAno = function(dtBase, periodo) {
 }
 
 
-var cached_getDetalhesPeriodoAtivo = (function(){
+var cached_getDetalhesPeriodoAtivo = (function () {
 	var cache = {};
-	return function(chapa, coligada, fimPeriodoAquisitivo) {
+	return function (chapa, coligada, fimPeriodoAquisitivo) {
 		var key = chapa + '_' + coligada + '_' + fimPeriodoAquisitivo,
-		safeChapa = chapa + '',
-		safeColigada = coligada + '';
+			safeChapa = chapa + '',
+			safeColigada = coligada + '';
 		return cache[key] || (cache[key] = DatasetFactory.getDataset('DS_FLUIG_DATASERVER_0001', [safeChapa, safeColigada, fimPeriodoAquisitivo], null, null).values[0]);
 	};
 })();
 
 
-var carregaPeriodoDisponivel = function(detalhesPeriodoAtivo) {
+var carregaPeriodoDisponivel = function (detalhesPeriodoAtivo) {
 	$("#cpSituacaoFerias").val('Não possuí férias marcadas');
 	$("#cpNumeroFaltas").val(detalhesPeriodoAtivo.FALTAS);
 	$("#cpDiasDireito").val(parseInt(detalhesPeriodoAtivo.DIASAMARCAR));
@@ -970,25 +1030,25 @@ var carregaPeriodoDisponivel = function(detalhesPeriodoAtivo) {
 	$("#cpfimfperAquiData").val(detalhesPeriodoAtivo.FIMPERAQUIS);
 
 	//conta os 365 par o proximo periodo aquisitivo
-	var fim= new Date($("#cpfimfperAquiData").val());
+	var fim = new Date($("#cpfimfperAquiData").val());
 	//fim.setYear(fim.getFullYear()+1)
-	fim.setDate(fim.getDate()+366)
+	fim.setDate(fim.getDate() + 366)
 	$("#cpfimfperAquiData").val(fim);
 };
 
 
-var desabilitaHabono = function(){
+var desabilitaHabono = function () {
 
 	var diasDireito = parseInt($("#cpDiasDireito").val());
 	abonoPermiteEditar();
-	if(diasDireito < 15){
+	if (diasDireito < 15) {
 		abonoSomenteLeitura();
 	}
 }
 
 
 //FERIAS MARCADAS
-var preencheDadosFeriasMarcadas = function(periodo, ferias, detalhes) {
+var preencheDadosFeriasMarcadas = function (periodo, ferias, detalhes) {
 
 	var feriasMarcada = ferias[0];
 
@@ -1001,43 +1061,43 @@ var preencheDadosFeriasMarcadas = function(periodo, ferias, detalhes) {
 	$("#dtPagFeriasMarcadas").html(sqlDateToStr(feriasMarcada.DATAPAGTO));
 	$("#diasFeriasMarcadas").html(feriasMarcada.NRODIASFERIAS);
 	$("#diasAbonoFeriasMarcadas").html(feriasMarcada.NRODIASABONO || 0);
-	
-	
+
+
 }
 
 
-var sqlDateToStr = function(sqlDate) {
+var sqlDateToStr = function (sqlDate) {
 	var dtArr = sqlDate.substring(0, 10).split('-');
 	return [dtArr[2], dtArr[1], dtArr[0]].join('/');
 };
 
 
-var sqlStrDateToDate = function(dateStr) {
+var sqlStrDateToDate = function (dateStr) {
 	return new Date(dateStr.replace('T0', 'T1'));
 };
 
 
-var dateStrToDate = function(dateStr) {
+var dateStrToDate = function (dateStr) {
 
 	var dateArr = dateStr;
 
-	var dia = dateArr.substring(0,2); 
-	var mes = dateArr.substring(3,5); 
-	var ano= dateArr.substring(6,10);
-	return  new Date(mes+'/'+dia+'/'+ano);
+	var dia = dateArr.substring(0, 2);
+	var mes = dateArr.substring(3, 5);
+	var ano = dateArr.substring(6, 10);
+	return new Date(mes + '/' + dia + '/' + ano);
 
 };
 
 //**************************************************************
 //DIA DA SEMANA
 
-var updateDiaSemada = function(dataSelecionada) {
+var updateDiaSemada = function (dataSelecionada) {
 	var diaSemana = getDiaSemana(dateStrToDate(dataSelecionada));
 	$("#cpDiaSemana").val(diaSemana);
 	toggleAvisoDiaDaSemana();
 };
 
-var getDiaSemana = function(data) {
+var getDiaSemana = function (data) {
 	var diasSemana = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
 	return diasSemana[data.getDay()];
 };
@@ -1045,12 +1105,12 @@ var getDiaSemana = function(data) {
 //***************************************************************
 //13 SALARIO
 
-var checkAntecipacao = function(dataSelecionada) {
+var checkAntecipacao = function (dataSelecionada) {
 	var data = dateStrToDate(dataSelecionada);
 	return data.getMonth() != 0 && data.getMonth() != 11 && data.getMonth() != 10;
 };
 
-var toggleAntecipacao = function(podeAntecipar) {
+var toggleAntecipacao = function (podeAntecipar) {
 
 	var opcao13Salario = $("#opcaoSim13Salario");
 
@@ -1062,7 +1122,7 @@ var toggleAntecipacao = function(podeAntecipar) {
 	}
 };
 
-var naoImprimi13 = function(){
+var naoImprimi13 = function () {
 	$("#cp13SalarioImprimir").val('N');
 }
 
@@ -1081,59 +1141,59 @@ var toggleBotaoTermo13Salario = function (desejaAntecipar) {
 	}
 };
 
-var escondeBotaoTermo13Salario = function() {
+var escondeBotaoTermo13Salario = function () {
 	$("#botaoImprimirTermo").hide();
 };
 
-var escondeFimContrato = function(){
+var escondeFimContrato = function () {
 	$("#fimContrato").hide();
 }
 
-var escondeFeriasMarcadas = function() {
+var escondeFeriasMarcadas = function () {
 	$("#blockPossuiFeriasMarcadas").hide();
 };
 
 
-var mostraFeriasMarcadas = function() {
+var mostraFeriasMarcadas = function () {
 	$("#blockPossuiFeriasMarcadas").show();
 };
 
-var escondeDadosDasFerias = function() {
+var escondeDadosDasFerias = function () {
 	$("#blockDadosDasFerias").hide();
 };
 
-var mostraDadosDasFerias = function() {
+var mostraDadosDasFerias = function () {
 	$("#blockDadosDasFerias").show();
 };
 
-var escondeTextoAvisoEstagiario = function(){
+var escondeTextoAvisoEstagiario = function () {
 	$("#exibeTextoEstagiario").hide();
 };
 
-var mostraTextoAvisoEstagiario = function(){
+var mostraTextoAvisoEstagiario = function () {
 	$("#exibeTextoEstagiario").show();
 };
 
-var escondeTextoAvisoColaborador = function(){
+var escondeTextoAvisoColaborador = function () {
 	$("#exibeTextoColaborador").hide();
 };
 
-var mostraTextoAvisoColaborador = function(){
+var mostraTextoAvisoColaborador = function () {
 	$("#exibeTextoColaborador").show();
 };
 
-var abonoSomenteLeitura = function(){
+var abonoSomenteLeitura = function () {
 	$("#cpHaveraAbono").val('2');
 	$("#cpDiasAbono").val('0');
 	$("#cpHaveraAbono").prop('disabled', true);
 };
 
-var abonoPermiteEditar = function(){
+var abonoPermiteEditar = function () {
 	$("#cpHaveraAbono").val('');
 	$("#cpHaveraAbono").prop('disabled', false);
 };
 
-var getDadosTermo = function() {
+var getDadosTermo = function () {
 
 	var hoje = new Date();
 
@@ -1145,20 +1205,20 @@ var getDadosTermo = function() {
 		colaborador: $("#cpColaborador").val(),
 		matricula: $("#cpMatricula").val(),
 		funcao: $("#cpFuncao").val(),
-		inicoFerias:$("#cpDataInicioFerias").val(),
+		inicoFerias: $("#cpDataInicioFerias").val(),
 		fimFerias: $("#cpDataFimFerias").val(),
 		dia: d,
 		mes: getMesNome(hoje.getMonth()),
 		ano: hoje.getFullYear(),
 		inicioPeriodo: $("#cpInicioPeriodoAquisitivo").val(),
 		fimPeriodo: $("#cpFimPeriodoAquisitivo").val(),
-		cpColaborador : $("#cpColaborador").val(),
-		cpGestorImediato : $("#cpGestorImediato").val(),
+		cpColaborador: $("#cpColaborador").val(),
+		cpGestorImediato: $("#cpGestorImediato").val(),
 	};
 
 };
 
-var getMesNome = function(mes) {
+var getMesNome = function (mes) {
 	var nomeMes = ["Janeiro",
 		"Fevereiro",
 		"Março",
@@ -1175,9 +1235,9 @@ var getMesNome = function(mes) {
 	return nomeMes[mes];
 };
 
-var imprimeTermo = function() {
+var imprimeTermo = function () {
 	var dadosTermo = getDadosTermo();
-	$.get('Termo.html', function(template) {
+	$.get('Termo.html', function (template) {
 		var termo = window.open('', '');
 		termo.document.write(Mustache.render(template, dadosTermo));
 		termo.focus();
@@ -1187,14 +1247,14 @@ var imprimeTermo = function() {
 var validaCamposParaTermo = function () {
 
 	var empresa = $("#cpEmpresa").val(),
-	centroCusto = $("#cpCentroCusto").val(),
-	colaborador = $("#cpColaborador").val(),
-	matricula = $("#cpMatricula").val(),
-	funcao = $("#cpFuncao").val(),
-	inicoFerias = $("#cpDataInicioFerias").val(),
-	fimFerias = $("#cpDataFimFerias").val();
+		centroCusto = $("#cpCentroCusto").val(),
+		colaborador = $("#cpColaborador").val(),
+		matricula = $("#cpMatricula").val(),
+		funcao = $("#cpFuncao").val(),
+		inicoFerias = $("#cpDataInicioFerias").val(),
+		fimFerias = $("#cpDataFimFerias").val();
 
-	if ((empresa && centroCusto &&  colaborador && matricula && funcao && inicoFerias && fimFerias) == "") {
+	if ((empresa && centroCusto && colaborador && matricula && funcao && inicoFerias && fimFerias) == "") {
 		$("#cp13SalarioImprimir").val('N');
 		alert("Campos necessários para gerar termo estão vazios.");
 
@@ -1208,7 +1268,7 @@ var validaCamposParaTermo = function () {
 //COLABROADOR SUBSTITUTO
 
 //BUSCA CENTRO DE CUSTO SUBSTITUTO
-var buscaCentroCustoSubstituto = function() {
+var buscaCentroCustoSubstituto = function () {
 
 	var zoomSecaoSubstituto = new Zoom();
 
@@ -1218,17 +1278,17 @@ var buscaCentroCustoSubstituto = function() {
 	zoomSecaoSubstituto.Titulo = "Buscar Obra/Departamento";
 
 	zoomSecaoSubstituto.Colunas = [
-		{"title" : "Obra/Departamento", "name" : "SECAO"},
-		{"title" : "Cod. Seção", "name" : "CODSECAO", "display" : false},
-		{"title" : "Cod. Coligada", "name" : "CODCOLIGADA", "display" : false},
-		];
+		{ "title": "Obra/Departamento", "name": "SECAO" },
+		{ "title": "Cod. Seção", "name": "CODSECAO", "display": false },
+		{ "title": "Cod. Coligada", "name": "CODCOLIGADA", "display": false },
+	];
 
-	zoomSecaoSubstituto.Retorno = function(retorno) {
+	zoomSecaoSubstituto.Retorno = function (retorno) {
 
 		var secao = {
-				nome: retorno[0],
-				codSecao: retorno[1],
-				codColigada: retorno[2],
+			nome: retorno[0],
+			codSecao: retorno[1],
+			codColigada: retorno[2],
 		};
 
 		$(document).trigger('departamentoSubstitutoSelected', secao);
@@ -1237,13 +1297,13 @@ var buscaCentroCustoSubstituto = function() {
 	zoomSecaoSubstituto.Abrir();
 };
 
-var buscaColaboradorSubstituto = function(secao, coligada) {
+var buscaColaboradorSubstituto = function (secao, coligada) {
 	var zoomSubs = criaZoomColaborador(secao, coligada);
 
-	zoomSubs.Retorno = function(retorno) {
+	zoomSubs.Retorno = function (retorno) {
 		var subs = {
-				nome:  retorno[0],
-				matricula: retorno[1]
+			nome: retorno[0],
+			matricula: retorno[1]
 		};
 
 		$(document).trigger('colaboradorSubstitutoSelected', subs);
@@ -1252,12 +1312,12 @@ var buscaColaboradorSubstituto = function(secao, coligada) {
 	zoomSubs.Abrir();
 };
 
-var departamentoSubstitutoSelectedHandler = function(secao) {
+var departamentoSubstitutoSelectedHandler = function (secao) {
 	$("#cpCentroCustoSubstituto").val(secao.nome);
 	buscaColaboradorSubstituto(secao.codSecao, secao.codColigada);
 };
 
-var colaboradorSubstitutoSelectedHandler = function(colaborador) {
+var colaboradorSubstitutoSelectedHandler = function (colaborador) {
 	$("#cpColaboradorSubstituto").val(colaborador.nome);
 	$("#cpMatriculaSubstituto").val(colaborador.matricula);
 };
@@ -1266,12 +1326,12 @@ var colaboradorSubstitutoSelectedHandler = function(colaborador) {
 //LIMPA CAMPOS
 
 //LIMPA CAMPOS NOME E CHAPA GESTOR IMEDIATO
-var limpaGestorImediato = function() {
+var limpaGestorImediato = function () {
 	$(".clearGestorImediato").val('');
 };
 
 //LIMPA CAMPOS APOS SELECIONAR CENTRO DE CUSTO
-var limpaPosSelecaoCentroCusto = function() {
+var limpaPosSelecaoCentroCusto = function () {
 	$(".clearPosCentroCusto").val('');
 };
 
@@ -1286,7 +1346,7 @@ var limpaCamposPosColab = function () {
 };
 
 var clearCamposPosDataInicio = function () {
-	$(".clearPosDataInicio").val("");
+	$(".clearPosDataInicio").not('#cpDtPagto').val("");
 };
 
 
@@ -1298,7 +1358,7 @@ function CarregaosLiquidodeFerias() {
 	var COLIGADA = $("#cpMatricula").val();
 	var FIMPERAQUIS = $("#cpFimPeriodoAquisitivo").val();
 
-	var fields = new Array(CHAPA,COLIGADA,FIMPERAQUIS );
+	var fields = new Array(CHAPA, COLIGADA, FIMPERAQUIS);
 
 	var EVENTO = 0;
 	var TIPO_EVENTO = 0;
@@ -1321,7 +1381,7 @@ function CarregaosLiquidodeFerias() {
 			var indexRCM = wdkAddChild("tbItens");
 
 			//aviso das regras de RG
-			FLUIGC.popover('.bs-docs-popover-hover',{trigger: 'hover', placement: 'auto'});
+			FLUIGC.popover('.bs-docs-popover-hover', { trigger: 'hover', placement: 'auto' });
 
 
 			EVENTO = tabela.values[i].EVENTO.toString();
@@ -1334,14 +1394,14 @@ function CarregaosLiquidodeFerias() {
 			DESCONTO = tabela.values[i].DESCONTO.toString();
 			DESCONTO = tabela.values[i].DESCONTO.toString();
 			CARTAOUNIK = tabela.values[i].CARTAOUNIK.toString();
-			
+
 			$("#EVENTO___" + indexRCM).val(EVENTO);
 			$("#TIPO_EVENTO___" + indexRCM).val(TIPO_EVENTO);
 			$("#QUANTIDADE___" + indexRCM).val(QUANTIDADE);
 			$("#DATA_PAGTO___" + indexRCM).val(DATA_PAGTO);
-			if(TIPO_EVENTO=="PROVENTO"){
+			if (TIPO_EVENTO == "PROVENTO") {
 				$("#PROVENTO___" + indexRCM).val(VALOR);
-			}else{
+			} else {
 				$("#DESCONTO___" + indexRCM).val(VALOR);
 			}
 			$("#LIQUIDOFERIAS").val(LIQUIDO_FERIAS);
@@ -1354,7 +1414,7 @@ function CarregaosLiquidodeFerias() {
 
 
 		}
-		$("#tbItens").hide(); 
+		$("#tbItens").hide();
 		VLRMONETARIOPOREXTENSO();
 	}
 
@@ -1402,8 +1462,8 @@ function VLRMONETARIOPOREXTENSO() {
 function verificaDesligamentos() {
 	$("#cpJaTemFerias").val("");
 	var chapaDesligado = $("#cpMatricula").val(),
-	nomeDesligado = $("#cpColaborador").val(),
-	chamados = this.buscaDesligamentos(chapaDesligado, nomeDesligado);
+		nomeDesligado = $("#cpColaborador").val(),
+		chamados = this.buscaDesligamentos(chapaDesligado, nomeDesligado);
 
 	this.resetChamadosAbertos();
 
@@ -1424,22 +1484,22 @@ function verificaDesligamentos() {
 
 function filtraChamadosAbertos(chamados) {
 
-	var filtros = chamados.map(function(chamado){
+	var filtros = chamados.map(function (chamado) {
 		return DatasetFactory.createConstraint("workflowProcessPK.processInstanceId", chamado + '', chamado + '', ConstraintType.SHOULD);
 	});
 
 	var datasetResult = DatasetFactory.getDataset('workflowProcess', null, filtros, null);
-	if(datasetResult=="undefined"|| datasetResult==undefined || datasetResult=="" || datasetResult==null || datasetResult.values==undefined){
+	if (datasetResult == "undefined" || datasetResult == undefined || datasetResult == "" || datasetResult == null || datasetResult.values == undefined) {
 		return 0;
-	}else{
-	chamados = datasetResult.values.filter(function(chamado){
-		return chamado.active;
+	} else {
+		chamados = datasetResult.values.filter(function (chamado) {
+			return chamado.active;
 
-	}).map(function(chamado){
-		return chamado['workflowProcessPK.processInstanceId'];
-	});
+		}).map(function (chamado) {
+			return chamado['workflowProcessPK.processInstanceId'];
+		});
 
-	return chamados;
+		return chamados;
 	}
 };
 
@@ -1454,12 +1514,12 @@ function mostraChamadosAbertos(chamados) {
 	var urlBase = window.location.protocol + '//' + window.location.host + "/portal/p/1/pageworkflowview?app_ecm_workflowview_detailsProcessInstanceID=";
 	var listaChamados = $("#listaChamados");
 
-	var strToAppend = chamados.reduce(function(str, chamado){
+	var strToAppend = chamados.reduce(function (str, chamado) {
 		if (str != '') {
 			str += ', ';
 		}
 
-		return str + '<a target="_blank" href="'+ urlBase + chamado + '">' + chamado + '</a>';
+		return str + '<a target="_blank" href="' + urlBase + chamado + '">' + chamado + '</a>';
 	}, '');
 
 	listaChamados.append(strToAppend);
@@ -1469,7 +1529,7 @@ function buscaDesligamentos(matricula, nome) {
 	var c1 = DatasetFactory.createConstraint("cpMatricula", matricula + '', matricula + '', ConstraintType.MUST);
 	var c2 = DatasetFactory.createConstraint("cpColaborador", nome, nome, ConstraintType.MUST);
 	var datasetReturn = DatasetFactory.getDataset('FLUIG_0001', ['cpNumeroSolicitacao'], [c1, c2], null);
-	var chamados = datasetReturn.values.map(function(chamado){
+	var chamados = datasetReturn.values.map(function (chamado) {
 		return chamado.cpNumeroSolicitacao;
 	});
 
@@ -1481,25 +1541,25 @@ function PrazoGravida() {
 
 	var CHAPA = $("#cpMatricula").val();
 	var COLIGADA = $("#cpColigada").val();
-	
 
-	var fields = new Array(CHAPA,COLIGADA );
+
+	var fields = new Array(CHAPA, COLIGADA);
 
 	var DATA_PRAZO_GESTANTE = 0;
-	
+
 	try {
 
 		var tabela = DatasetFactory.getDataset("DS_FLUIG_0152", fields, null, null);
 
 
 		for (var i = 0; i < tabela.values.length; i++) {
-			
-			
+
+
 			DATA_PRAZO_GESTANTE = tabela.values[i].DATA_PRAZO_GESTANTE.toString();
-			
-			
-			
-				$("#cpPrazoGravida").val(DATA_PRAZO_GESTANTE);
+
+
+
+			$("#cpPrazoGravida").val(DATA_PRAZO_GESTANTE);
 
 		}
 	}
@@ -1512,33 +1572,33 @@ function PrazoGravida() {
 	return 0;
 
 }
-function VerificaFimPEr(){
+function VerificaFimPEr() {
 	var cpfimfperAquiData = $("#cpfimfperAquiData").val();
 	var FimFerias = $("#cpDataFimFerias").val();
 	var Data = FimFerias;
-	var diaData = Data.substring(0,2);
-	var mesData = Data.substring(3,5);
-	var anoData = Data.substring(6,10);
+	var diaData = Data.substring(0, 2);
+	var mesData = Data.substring(3, 5);
+	var anoData = Data.substring(6, 10);
 
-	cpfimfperAquiData = new Date (cpfimfperAquiData);
-	
+	cpfimfperAquiData = new Date(cpfimfperAquiData);
+
 	var mesprox = cpfimfperAquiData.getMonth();
 	var diaprox = cpfimfperAquiData.getDate();
-	mesprox = parseFloat(mesprox)+parseFloat(1);
-	var DataFinaldoprox =diaprox +"/"+mesprox+"/"+cpfimfperAquiData.getFullYear();
+	mesprox = parseFloat(mesprox) + parseFloat(1);
+	var DataFinaldoprox = diaprox + "/" + mesprox + "/" + cpfimfperAquiData.getFullYear();
 
-	var datafim = new Date(mesData+"/"+diaData+"/"+anoData);
+	var datafim = new Date(mesData + "/" + diaData + "/" + anoData);
 
-	if(new Date(datafim)>new Date(cpfimfperAquiData)){
+	if (new Date(datafim) > new Date(cpfimfperAquiData)) {
 		window.parent.FLUIGC.message.alert({
-			message: "Aviso de férias em dobro: a data final das férias não pode ser superior ao início do próximo período aquisitivo "+DataFinaldoprox+". Com exceção de período vencido por motivo de afastamento, licença maternidade e reintegração!",
+			message: "Aviso de férias em dobro: a data final das férias não pode ser superior ao início do próximo período aquisitivo " + DataFinaldoprox + ". Com exceção de período vencido por motivo de afastamento, licença maternidade e reintegração!",
 			title: 'Erro',
 			label: 'Ok'
-			});
-			$("#cpAtencao").val("Aviso de férias em dobro: a data final das férias não pode ser superior ao início do próximo período aquisitivo "+DataFinaldoprox+". Com exceção de período vencido por motivo de afastamento, licença maternidade e reintegração!");
-			$("#PeriodoVencido").show();
-	}else{
+		});
+		$("#cpAtencao").val("Aviso de férias em dobro: a data final das férias não pode ser superior ao início do próximo período aquisitivo " + DataFinaldoprox + ". Com exceção de período vencido por motivo de afastamento, licença maternidade e reintegração!");
+		$("#PeriodoVencido").show();
+	} else {
 		$("#cpAtencao").val("");
 		$("#PeriodoVencido").hide();
 	}
-	}
+}

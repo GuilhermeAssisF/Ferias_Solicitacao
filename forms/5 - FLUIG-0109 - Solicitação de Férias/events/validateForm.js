@@ -156,44 +156,44 @@ function validateForm(form){
 			validaVazio('cpDataAdmissao', 'Data de admissão não informada');
 			validaVazio('cpDtPagto', 'Data de Pagamento não informada');
 
-			// ##############################################################################################################
-			// Validação da data de pagamento conforme CLT - deve ser com mais de 2 dias de antecedência do início das férias
-			// ##############################################################################################################
-			if (form.getValue('cpDataInicioFerias') != '' && form.getValue('cpDtPagto') != '') {
-				try {
-					// Função auxiliar para converter dd/MM/yyyy para Date
-					var parseDate = function (dateStr) {
-						var parts = dateStr.split('/');
-						// new Date(year, monthIndex, day) - monthIndex é 0-based
-						return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
-					};
+			// // ##############################################################################################################
+			// // Validação da data de pagamento conforme CLT - deve ser com mais de 2 dias de antecedência do início das férias
+			// // ##############################################################################################################
+			// if (form.getValue('cpDataInicioFerias') != '' && form.getValue('cpDtPagto') != '') {
+			// 	try {
+			// 		// Função auxiliar para converter dd/MM/yyyy para Date
+			// 		var parseDate = function (dateStr) {
+			// 			var parts = dateStr.split('/');
+			// 			// new Date(year, monthIndex, day) - monthIndex é 0-based
+			// 			return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+			// 		};
 
-					var dataInicioFeriasStr = form.getValue('cpDataInicioFerias');
-					var dataPagamentoStr = form.getValue('cpDtPagto');
+			// 		var dataInicioFeriasStr = form.getValue('cpDataInicioFerias');
+			// 		var dataPagamentoStr = form.getValue('cpDtPagto');
 
-					var dataInicioFerias = parseDate(dataInicioFeriasStr);
-					var dataPagamento = parseDate(dataPagamentoStr);
+			// 		var dataInicioFerias = parseDate(dataInicioFeriasStr);
+			// 		var dataPagamento = parseDate(dataPagamentoStr);
 
-					// Calcula a data limite para pagamento (2 dias antes do início das férias)
-					var dataLimitePagamento = new Date(dataInicioFerias);
-					dataLimitePagamento.setDate(dataInicioFerias.getDate() - 2);
+			// 		// Calcula a data limite para pagamento (2 dias antes do início das férias)
+			// 		var dataLimitePagamento = new Date(dataInicioFerias);
+			// 		dataLimitePagamento.setDate(dataInicioFerias.getDate() - 2);
 
-					// Define as horas, minutos, segundos e milissegundos para 0 para comparar apenas as datas
-					dataPagamento.setHours(0, 0, 0, 0);
-					dataLimitePagamento.setHours(0, 0, 0, 0);
+			// 		// Define as horas, minutos, segundos e milissegundos para 0 para comparar apenas as datas
+			// 		dataPagamento.setHours(0, 0, 0, 0);
+			// 		dataLimitePagamento.setHours(0, 0, 0, 0);
 
-					// Valida se a data de pagamento NÃO é ANTERIOR à data limite de 2 dias antes.
-					// Conforme o exemplo: se inicia dia 24, não pode pagar dia 22 ou 23. Deve ser 21 ou antes.
-					// Isso significa que a data de pagamento não pode ser maior ou igual à data limite.
-					if (dataPagamento >= dataLimitePagamento) {
-						Errors.push('Conforme a norma da CLT, o pagamento deve ser efetuado com mais de 2 dias de antecedência do início das férias.');
-					}
+			// 		// Valida se a data de pagamento NÃO é ANTERIOR à data limite de 2 dias antes.
+			// 		// Conforme o exemplo: se inicia dia 24, não pode pagar dia 22 ou 23. Deve ser 21 ou antes.
+			// 		// Isso significa que a data de pagamento não pode ser maior ou igual à data limite.
+			// 		if (dataPagamento >= dataLimitePagamento) {
+			// 			Errors.push('Conforme a norma da CLT, o pagamento deve ser efetuado com mais de 2 dias de antecedência do início das férias.');
+			// 		}
 
-				} catch (e) {
-					log.error("Erro ao validar datas de pagamento/início de férias: " + e);
-					Errors.push("Erro ao processar as datas. Verifique os formatos (dd/MM/yyyy).");
-				}
-			}
+			// 	} catch (e) {
+			// 		log.error("Erro ao validar datas de pagamento/início de férias: " + e);
+			// 		Errors.push("Erro ao processar as datas. Verifique os formatos (dd/MM/yyyy).");
+			// 	}
+			// }
 
 
 		/*	var solicitante = form.getValue('cpMatriculaSolicitante'),
@@ -277,8 +277,9 @@ function validateForm(form){
         if (form.getValue("cpFlagKitFerias") != "on") {
             Errors.push("Por favor, marque a flag 'Kit Férias'.");
         }
+		
         // Valida se o parecer foi preenchido
-        validaVazio('cpParecerProcessamento', 'O parecer do Analista BPO é obrigatório.');
+        // validaVazio('cpParecerProcessamento', 'O parecer do Analista BPO é obrigatório.');
     }
 
 	if (Errors.length) {
