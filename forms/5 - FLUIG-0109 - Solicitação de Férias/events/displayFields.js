@@ -70,10 +70,10 @@ function displayFields(form, customHTML) {
 		form.setValue('cpNomeAprovador2', colaborador.get(0).get("colleagueName"));
 	}
 	if (atividade == "93") {
-		filter = new java.util.HashMap();
-		filter.put("colleaguePK.colleagueId", getValue("WKUser"));
-		var colaborador = getDatasetValues('colleague', filter);
-		form.setValue('cpNomeConfKit', colaborador.get(0).get("colleagueName"));
+		// filter = new java.util.HashMap();
+		// filter.put("colleaguePK.colleagueId", getValue("WKUser"));
+		// var colaborador = getDatasetValues('colleague', filter);
+		// form.setValue('cpNomeConfKit', colaborador.get(0).get("colleagueName"));
 	}
 	if (atividade == "153" || atividade == "136") {
 		filter = new java.util.HashMap();
