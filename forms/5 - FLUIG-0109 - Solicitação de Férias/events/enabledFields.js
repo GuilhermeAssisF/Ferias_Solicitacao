@@ -3,6 +3,7 @@ function enableFields(form) {
 	log.info("INICIO do EnableFields do formulário FLUIG-0001 - FERIAS"); //
 
 	var atividade = parseInt(getValue("WKNumState")); //
+	var ATIVIDADE_GERAR_ARQUIVO = 112; // Define a constante para a atividade
 
 	// Lista de campos habilitados por atividade (Regra Geral)
 	// Removido Ckb1 e Ckb2 da atividade 93
@@ -33,6 +34,13 @@ function enableFields(form) {
 
 		//GERAR O KIT (BPO)
 		{ "campo": "cpParecerProcessamento", "atividade": "90" }, //
+
+		// ADICIONADO PARA ATIVIDADE 112
+        { "campo": "cpArquivoBancario", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
+        { "campo": "cpLancamentoFinanceiro", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
+        { "campo": "cpParecerArquivoPagamento", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() }, // Habilita o parecer opcional
+        // FIM DA ADIÇÃO
+
 		//validar ferias rh (agrupado)
 		{ "campo": "cpAprovarGestor3", "atividade": "153,136" }, //
 		{ "campo": "cpParecerGestor3", "atividade": "153,136" }  //
@@ -50,19 +58,26 @@ function enableFields(form) {
 
 		} else {
 			// Desabilita o campo se não estiver na atividade correta
-			// Adicionada verificação para não desabilitar indevidamente campos não listados (como os novos checkboxes)
-			// nas atividades posteriores
-			if (atividade != 0 && atividade != 4 && atividade != 9) {
-				var campoEstaNaLista = Campos.some(function (c) { return c.campo === Campo.campo; });
-				if (campoEstaNaLista) {
-					form.setEnabled(Campo["campo"], false); // Desabilita o campo se ele estiver na lista Campos
-				}
-			} else {
-				// Nas atividades iniciais/correção, desabilita apenas os campos que NÃO pertencem a elas
-				if (atividades.indexOf(atividade.toString()) < 0) {
-					form.setEnabled(Campo["campo"], false);
-				}
-			}
+            // Garante que campos não explicitamente listados para a atividade atual sejam desabilitados
+            var habilitarCampo = false;
+            for(var i = 0; i < atividades.length; i++) {
+                if (parseInt(atividades[i]) === atividade) {
+                    habilitarCampo = true;
+                    break;
+                }
+            }
+            if (!habilitarCampo) {
+                 // Verifica se o campo existe antes de tentar desabilitar
+                try {
+                     // Tenta acessar o campo para ver se ele existe no formulário atual
+                     // Isso evita erros caso um campo listado não exista de fato no HTML
+                     if(form.getValue(Campo["campo"]) != null || form.getField(Campo["campo"]) != null) {
+                        form.setEnabled(Campo["campo"], false);
+                     }
+                 } catch(e) {
+                     log.warn("Campo [" + Campo["campo"] + "] não encontrado no formulário ao tentar desabilitar. Ignorando.");
+                 }
+            }
 		}
 	}
 
@@ -83,6 +98,17 @@ function enableFields(form) {
         form.setEnabled("Ckb2", false);              // Garante que Ckb2 (antigo) está desabilitado
         // Outros campos como cpParecerAssinatura, cpAprovarAvaliacao, cpParecerAvaliacao já foram habilitados pelo loop
 	}
+
+	// Garante que os outros checkboxes de controle (atividades 90 e 93) estejam desabilitados
+    if (atividade == ATIVIDADE_GERAR_ARQUIVO) {
+        form.setEnabled("cpFlagCadastro", false);
+        form.setEnabled("cpFlagCalculo", false);
+        form.setEnabled("cpFlagKitFerias", false);
+        form.setEnabled("cpAnexoValidado", false);
+        form.setEnabled("cpFeriasValidada", false);
+        form.setEnabled("Ckb1", false);
+		form.setEnabled("Ckb2", false);
+    }
 
 	// Condição específica para Atividades Iniciais (0 ou 4) ou Correção (9)
 	if (atividade == 0 || atividade == 4 || atividade == 9) { //

@@ -3,6 +3,7 @@ function validateForm(form) {
 	log.info("INICIO do VALIDATE do formulário FLUIG-0001 - FERIAS");
 
 	var atividade = getValue("WKNumState");
+	var ATIVIDADE_GERAR_ARQUIVO = 112;
 	var funcao = form.getValue('cpFuncao');
 	var acaoUsuario = getValue("WKCompletTask");
 	var Errors = [];
@@ -41,14 +42,68 @@ function validateForm(form) {
 
 	if (atividade == 0 || atividade == 4 || atividade == 9 && (acaoUsuario == "true")) {
 
-
-
 		//NAO PERMITE ABRIR FERIAS PARA QUEM JA POSSUI FERIAS MARCADAS
 		var situacaoFerias = form.getValue('cpSituacaoFerias');
 		if (situacaoFerias == "Possuí férias marcadas") {
 			Errors.push('Não é possível abrir solicitação de férias para quem já possuí férias marcadas.');
 
 		} else {
+
+			var haveraAbono = form.getValue('cpHaveraAbono'); // Pega o valor
+
+			// *** INÍCIO DA VALIDAÇÃO CONDICIONAL ***
+			if (haveraAbono != "3") { // Só valida o bloco abaixo se NÃO for "Somente Abono"
+
+				//DIAS DE FERIAS MAIS DIAS DE ABONO NAO PODEM SER MAIOR QUE DIAS DE DIREITO
+				var diasFerias = parseInt(form.getValue('cpDiasFerias'));
+				var diasAbono = 0;
+				var diasDireito = parseInt(form.getValue('cpDiasDireito'));
+
+				if (!isEstagiario(funcao)) {
+					diasAbono = parseInt(form.getValue('cpDiasAbono'));
+				}
+
+				// ... (outras validações existentes para diasFerias, datas, etc.) ...
+
+				if (isEstagiario(funcao)) {
+					if (diasFerias < 5) {
+						Errors.push('Não é permitido tirar menos do que 5 Dias de Férias.');
+					}
+
+					if (diasFerias > diasDireito) {
+						Errors.push('Não é permitido tirar Dias de Férias maior que os Dias de Direito.');
+					}
+				}
+
+				if (isEstagiario(funcao)) {
+					var dataFimFerias = getDtConvertida('cpDataFimFerias'),
+						dataFimContrato = getDtConvertida('cpFimContrato');
+					if (dataFimFerias > dataFimContrato) {
+						Errors.push('Não é permitido tirar Dias de Férias depois que o contrato terminou.');
+					}
+				}
+
+				// Validar data início, fim, dias férias, dia semana
+				validaVazio('cpDataInicioFerias', 'Data de início não informada');
+				validaVazio('cpDataFimFerias', 'Data fim não informada');
+				validaVazio('cpDiasFerias', 'Dias de férias não informado');
+				validaVazio('cpDiaSemana', 'Dia da semana não informada');
+
+				// Validação adiantamento 13º
+				if (!isEstagiario(funcao)) {
+					validaVazio('cpAntecipar13Salario', 'Antecipar o pagamento da 1ª parcela do 13º salário não informado');
+					var antecipar13Salario = form.getValue('cpAntecipar13Salario');
+					var selecionouImpressao = form.getValue('cp13SalarioImprimir');
+					if (antecipar13Salario == 1) {
+						if (selecionouImpressao == 'N') {
+							Errors.push('É necessário imprimir e assinar o Termo de Adiantamento do 13º salário');
+						}
+					}
+				}
+
+				// ... (outras validações que dependem dos campos ocultos) ...
+
+			} // *** FIM DA VALIDAÇÃO CONDICIONAL ***
 
 			//DIAS DE FERIAS MAIS DIAS DE ABONO NAO PODEM SER MAIOR QUE DIAS DE DIREITO
 			var diasFerias = parseInt(form.getValue('cpDiasFerias'));
@@ -306,6 +361,19 @@ function validateForm(form) {
 		}
 		// Você pode adicionar um 'else' aqui se precisar validar algo específico caso o RH tenha reprovado na etapa anterior
 	}
+
+	// *** INÍCIO DA VALIDAÇÃO PARA ATIVIDADE 112 ***
+	if (atividade == ATIVIDADE_GERAR_ARQUIVO && (acaoUsuario == "true")) {
+		// Verifica se a flag 'Arquivo Bancário Gerado' está marcada
+		if (form.getValue("cpArquivoBancario") != "on") {
+			Errors.push("É obrigatório marcar a flag 'Arquivo Bancário Gerado'.");
+		}
+		// Verifica se a flag 'Lançamento Financeiro Realizado' está marcada
+		if (form.getValue("cpLancamentoFinanceiro") != "on") {
+			Errors.push("É obrigatório marcar a flag 'Lançamento Financeiro Realizado'.");
+		}
+	}
+	// *** FIM DA VALIDAÇÃO PARA ATIVIDADE 112 ***
 
 	if (Errors.length) {
 		throw Errors[0];

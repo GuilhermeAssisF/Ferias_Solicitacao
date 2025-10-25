@@ -318,8 +318,58 @@ var bindEventos = function () {
 
 	//HAVERA ABONO
 	$("#cpHaveraAbono").change(function () {
-		var haveraAbono = this.value == 1;
-		updateDiasAbono(haveraAbono);
+		var haveraAbono = this.value; // Pega o valor selecionado (1, 2 ou 3)
+
+		if (haveraAbono == "3") { // Caso "Somente Abono"
+			$(".hideAbonoOnly").hide(); // Esconde os campos específicos
+			// Limpa os valores dos campos escondidos para evitar dados inconsistentes
+			$("#cpDataInicioFerias, #cpDataFimFerias, #cpDiasFerias, #cpDiaSemana, #cpAntecipar13Salario").val('');
+			$("#cpDiasAbono").val(''); // Limpa dias abono para preenchimento manual ou cálculo específico
+			$("#cpDiasAbono").prop('readonly', false); // Permite editar dias de abono
+			$("#cpDtPagto").prop('disabled', false).prop('readonly', false); // Garante que data de pagamento esteja visível/editável
+			$("#buscarDtPagto button").prop("disabled", false); // Habilita botão do datepicker de pagamento
+			// Opcional: Se quiser resetar o datepicker de pagamento para não ter maxDate
+			var hoje = new Date();
+			hoje.setHours(0, 0, 0, 0);
+			$("#cpDtPagto").datepicker("option", "minDate", hoje);
+			$("#cpDtPagto").datepicker("option", "maxDate", null);
+
+
+		} else { // Caso "Sim" (1) ou "Não" (2)
+			$(".hideAbonoOnly").show(); // Mostra os campos
+			$("#cpDiasAbono").prop('readonly', true); // Volta a ser somente leitura (calculado)
+			$("#cpDtPagto").prop('readonly', true); // Volta a ser somente leitura (depende da data início)
+
+
+			// Aplica a lógica original para calcular dias de abono (se houver)
+			var calcularAbono = (haveraAbono == "1");
+			updateDiasAbono(calcularAbono); // Recalcula abono (vai zerar se for "Não")
+
+			// Reabilita/Desabilita Data Pagamento com base na Data Início (se houver)
+			var dataInicioSelecionada = $("#cpDataInicioFerias").datepicker('getDate');
+			if (dataInicioSelecionada) {
+				var maxPagamentoDate = new Date(dataInicioSelecionada.getTime());
+				maxPagamentoDate.setDate(dataInicioSelecionada.getDate() - 3);
+				maxPagamentoDate.setHours(0, 0, 0, 0);
+				var hoje = new Date();
+				hoje.setHours(0, 0, 0, 0);
+				$("#cpDtPagto").datepicker("option", "minDate", hoje);
+				$("#cpDtPagto").datepicker("option", "maxDate", maxPagamentoDate);
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", false);
+			} else {
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true);
+				$("#cpDtPagto").val(''); // Limpa se não houver data de início
+				$("#cpDtPagto").datepicker("option", "maxDate", null);
+			}
+
+		}
+		// Recalcula as férias caso a opção não seja "Somente Abono" e haja data de início
+		if (haveraAbono != "3" && $("#cpDataInicioFerias").val() != '') {
+			CalcFerias();
+		} else if (haveraAbono != "3") {
+			// Se não for "Somente Abono" mas não tiver data de início, limpa data fim e dias
+			$("#cpDataFimFerias, #cpDiasFerias").val('');
+		}
 	});
 
 	//BUSCA DATA INICIO FERIAS
@@ -380,33 +430,33 @@ var bindEventos = function () {
 
 
 
-var criaDatepickersPagto = function() {
-    var hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); // Garante que a hora não interfira
+var criaDatepickersPagto = function () {
+	var hoje = new Date();
+	hoje.setHours(0, 0, 0, 0); // Garante que a hora não interfira
 
 	$("#cpDtPagto").datepicker({
 		showOn: "button",
 		showButtonPanel: true, // Mantido como estava
-	    changeMonth: true,     // Mantido como estava
-	    changeYear: true,      // Mantido como estava
-	    showOtherMonths: true, // Mantido como estava
-	    selectOtherMonths: true,// Mantido como estava
-		onSelect: function() {
-            // Pode adicionar lógica extra aqui se necessário ao selecionar a data de pagamento
-		    $(document).trigger('dataSelecionada'); // Mantém o gatilho original
-	    },
-	    minDate: hoje, // Data mínima é hoje
-        maxDate: null // Inicialmente não há data máxima definida
+		changeMonth: true,     // Mantido como estava
+		changeYear: true,      // Mantido como estava
+		showOtherMonths: true, // Mantido como estava
+		selectOtherMonths: true,// Mantido como estava
+		onSelect: function () {
+			// Pode adicionar lógica extra aqui se necessário ao selecionar a data de pagamento
+			$(document).trigger('dataSelecionada'); // Mantém o gatilho original
+		},
+		minDate: hoje, // Data mínima é hoje
+		maxDate: null // Inicialmente não há data máxima definida
 	});
 
-    // Desabilita o campo e o botão inicialmente, pois depende da Data de Início
+	// Desabilita o campo e o botão inicialmente, pois depende da Data de Início
 	// Verifica se já existe uma Data de Início preenchida ao carregar a página
 	if ($("#cpDataInicioFerias").val() == "") {
 		$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true);
 	} else {
 		// Se já houver data de início, força a atualização do maxDate e habilita
 		var dataInicioInicial = $("#cpDataInicioFerias").datepicker('getDate');
-		if(dataInicioInicial){
+		if (dataInicioInicial) {
 			var maxPagamentoInicial = new Date(dataInicioInicial.getTime());
 			maxPagamentoInicial.setDate(dataInicioInicial.getDate() - 3);
 			maxPagamentoInicial.setHours(0, 0, 0, 0);
