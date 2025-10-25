@@ -284,7 +284,7 @@ function validateForm(form) {
 
 	// ****** INÍCIO DO BLOCO PARA ATIVIDADE 93 ******
 	// Validação para a Atividade 93 (Validar Kit Férias)
-	if (atividade == 93 && acaoUsuario == "true") { // Verifica se é a atividade 93 e se o usuário está ENVIANDO a tarefa
+	if (atividade == 153 && acaoUsuario == "true") { // Verifica se é a atividade 93 e se o usuário está ENVIANDO a tarefa
 		log.info("--- Entrando na validação da Atividade 93 ---"); // Log para depuração
 		var anexoValidado = form.getValue("cpAnexoValidado");
 		var feriasValidada = form.getValue("cpFeriasValidada");

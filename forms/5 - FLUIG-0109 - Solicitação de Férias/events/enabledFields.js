@@ -76,7 +76,7 @@ function enableFields(form) {
 	}
 
 	// Condição específica para a Atividade 93 (Validar Kit Férias)
-	if (atividade == 93) {
+	if (atividade == 153) {
 		form.setEnabled("cpAnexoValidado", false);  // Começa desabilitado (JS do formulário habilita após clique no botão)
 		form.setEnabled("cpFeriasValidada", false); // << ALTERADO AQUI para começar desabilitado também
         form.setEnabled("Ckb1", false);              // Garante que Ckb1 (antigo) está desabilitado
