@@ -163,51 +163,6 @@ $(document).ready(function(){
 	
 	var atividade = getAtividade();
 
-	// Lógica específica para a Atividade 93
-    if (atividade == 93) {
-        // --- Código adicionado anteriormente ---
-        // Desabilita os checkboxes inicialmente (reforço, pois enabledFields já faz isso)
-        $('#cpAnexoValidado, #cpFeriasValidada').prop('disabled', true);
-        $('#cpAnexoValidado, #cpFeriasValidada').prop('checked', false); // Garante que comecem desmarcados
-
-        // Adiciona evento ao botão "Verificar Anexos"
-        $('#btnVerificarAnexos').on('click', function() {
-            // Abre a aba/modal de anexos padrão do Fluig
-            if (parent && parent.ECM && parent.ECM.workflowView && parent.ECM.workflowView.openAttachment) {
-                 parent.ECM.workflowView.openAttachment();
-            } else if (parent && parent.WKFView && parent.WKFView.showAttach) {
-                 parent.WKFView.showAttach();
-            } else if (window.parent && window.parent.parent && window.parent.parent.ECM && window.parent.parent.ECM.workflowView && window.parent.parent.ECM.workflowView.openAttachment) {
-                 window.parent.parent.ECM.workflowView.openAttachment();
-            }
-             else {
-                alert("Não foi possível abrir a aba de anexos automaticamente. Por favor, acesse-a manualmente.");
-            }
-
-            // Habilita o checkbox 'Anexo validado' após o clique no botão
-            $('#cpAnexoValidado').prop('disabled', false);
-        });
-        // --- Fim do código adicionado anteriormente ---
-
-
-        // ****** INÍCIO DA NOVA LÓGICA ******
-        // Adiciona evento de mudança ao checkbox 'Anexo validado'
-        $('#cpAnexoValidado').on('change', function() {
-            // Verifica se o checkbox 'Anexo validado' está marcado
-            if ($(this).is(':checked')) {
-                // Se estiver marcado, habilita o checkbox 'Férias Validada'
-                $('#cpFeriasValidada').prop('disabled', false);
-            } else {
-                // Se for desmarcado, desabilita e desmarca o checkbox 'Férias Validada'
-                $('#cpFeriasValidada').prop('disabled', true);
-                $('#cpFeriasValidada').prop('checked', false);
-            }
-        });
-        // ****** FIM DA NOVA LÓGICA ******
-
-    }
-    // Fim da lógica da Atividade 93
-
 	if ((atividade == 20 || atividade == 24  
 			|| atividade == 26 || atividade == 60)) {
 	//carregando os campos dentro de um template

@@ -889,38 +889,20 @@
 							</div>
 							<div id="panelAtividade_93" class="panel-collapse collapse">
 								<div class="panel-body">
-
-									<div class="row">
-										<div class="col-md-6">
-											<button type="button" class="btn btn-info" id="btnVerificarAnexos">
-												<span class="fluigicon fluigicon-attach"></span> Verificar Anexos
-											</button>
-											<p class="help-block">Clique para ver os anexos antes de validar.</p>
-										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpAnexoValidado" id="cpAnexoValidado">
-													Anexo(s) validado(s) <span class="CampoObrigatorio"> *</span>
-												</label>
-											</div>
-										</div>
-									</div>
-									<hr>
-
 									<div class="row">
 										<h4>
-											<span class="fluigicon fluigicon-check"></span> &nbsp;Validação Final <span
-												class="CampoObrigatorio"> *</span>
+											<span class="fluigicon  fluigicon-plus"></span>
+											&nbsp;Chek List de Férias
 										</h4>
 										<div class="col-md-6">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpFeriasValidada"
-														id="cpFeriasValidada">
-													Kit Férias validado (Anexos e Dados OK)
-												</label>
-											</div>
+											<input type="hidden" id="Ckb1V" name="Ckb1V" />
+											<input type="checkbox" id="Ckb1" name="Ckb1" />
+											<label>Aviso de Férias</label>
+										</div>
+										<div class="col-md-6">
+											<input type="hidden" id="Ckb2V" name="Ckb2V" />
+											<input type="checkbox" id="Ckb2" name="Ckb2" />
+											<label>Recibo de Férias</label>
 										</div>
 									</div>
 									<div class="row">
@@ -934,19 +916,19 @@
 									</div>
 									<h4 class="blockAvaliacao">
 										<span class="fluigicon  fluigicon-pointer-right fluigicon-sm"></span>Qual o seu
-										grau de satisfação quanto ao atendimento desse chamado?
+										grau de satisfa&ccedil;&atilde;o quanto ao atendimento desse chamado?
 									</h4>
 									<div class="row blockAvaliacao">
 										<div class="col-md-6">
 											<div class="form-group">
 												<div class="input-group">
-													<span class="input-group-addon">Avaliação</span>
+													<span class="input-group-addon">Avalia&ccedil;&atilde;o</span>
 													<select name="cpAprovarAvaliacao" id="cpAprovarAvaliacao"
 														class="form-control limpaAvaliacao">
 														<option value="">Selecione...</option>
 														<option value="1">Muito satisfeito</option>
 														<option value="2">Satisfeito</option>
-														<option value="3">Insatisfeito (Justifique)</option>
+														<option value="3">Insatisfeito (Justifique)</option>
 														<option value="4">Muito insatisfeito (Justifique)</option>
 													</select>
 												</div>
@@ -956,7 +938,7 @@
 									<div class="row blockAvaliacao">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label>Observações / Justificativas</label>
+												<label>Observa&ccedil;&otilde;es / Justificativas</label>
 												<textarea class="form-control limpaAvaliacao" rows="5"
 													name="cpParecerAvaliacao" id="cpParecerAvaliacao"></textarea>
 											</div>
@@ -964,12 +946,13 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
+											<!--  HISTORICO - CONFERENCIA E ASSINATURA -->
 											<table class='table tabelaHistorico' id="histAtv24" tablename="histAtv24"
 												noaddbutton="true" nodeletebutton="true">
 												<thead>
 													<tr>
-														<th>Data da aprovação</th>
-														<th>Status da aprovação</th>
+														<th>Data da aprova&ccedil;&atilde;o</th>
+														<th>Status da aprova&ccedil;&atilde;o</th>
 														<th>Parecer</th>
 													</tr>
 												</thead>
@@ -983,7 +966,7 @@
 														<td>
 															<input type="text" class="form-control HistAprov"
 																name="cpHistAprovacaoAtv24" id="cpHistAprovacaoAtv24"
-																readonly />
+																data-select="cpAprovarAssinatura" readonly />
 														</td>
 														<td>
 															<input type="text" class="form-control"
@@ -993,9 +976,11 @@
 													</tr>
 												</tbody>
 											</table>
+											<!-- FIM -  HISTORICO -  CONFERENCIA E ASSINATURA -->
 										</div>
 									</div>
 								</div>
+								<!-- CLOSE PANEL-BODY -->
 							</div>
 						</div>
 						<!-- FIM - CONFERENCIA E ASSINATURA -->
