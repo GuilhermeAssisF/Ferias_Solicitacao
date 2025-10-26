@@ -165,28 +165,6 @@ $(document).ready(function () {
 	var ATIVIDADE_GERAR_ARQUIVO = 112; // Define a constante para a atividade
 	var funcaoSelecionada = $("#cpFuncao").val();
 
-	// *** INÍCIO DA LÓGICA PARA "SOMENTE ABONO" NA CARGA ***
-	var valorHaveraAbono = $("#cpHaveraAbono").val();
-	if (valorHaveraAbono == "3") {
-		$(".hideAbonoOnly").hide();
-		$("#cpDiasAbono").prop('readonly', false); // Garante que esteja editável
-		$("#cpDtPagto").prop('disabled', false).prop('readonly', false); // Garante que data de pagamento esteja visível/editável
-		$("#buscarDtPagto button").prop("disabled", false); // Habilita botão do datepicker de pagamento
-		// Opcional: Reseta o datepicker de pagamento
-		var hoje = new Date();
-		hoje.setHours(0, 0, 0, 0);
-		$("#cpDtPagto").datepicker("option", "minDate", hoje);
-		$("#cpDtPagto").datepicker("option", "maxDate", null);
-
-	} else {
-		$(".hideAbonoOnly").show();
-		$("#cpDiasAbono").prop('readonly', true); // Garante que esteja readonly
-		// A lógica de habilitar/desabilitar data de pagamento já existe nos datepickers
-		// Mas garantimos que o campo em si esteja readonly inicialmente se não for "Somente Abono"
-		$("#cpDtPagto").prop('readonly', true);
-	}
-	// *** FIM DA LÓGICA PARA "SOMENTE ABONO" NA CARGA ***
-
 	// Esconde a nova seção por padrão AQUI:
 	$(".blocoAtividade112").hide();
 

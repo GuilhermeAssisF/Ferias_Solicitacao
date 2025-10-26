@@ -174,5 +174,3 @@ function CadastraFerias(){
 
 	return retorno;
 }
-
-
