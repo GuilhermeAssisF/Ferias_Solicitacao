@@ -289,14 +289,10 @@ function validateForm(form) {
 	if (atividade == 93 && (acaoUsuario == "true")) {
 
 		// Valida se o checkbox "Anexo validado" foi marcado
-		if (form.getValue("cpAnexoValidado") != "on") {
-			Errors.push("É obrigatório verificar os anexos e marcar a opção 'Anexo(s) validado(s)' para prosseguir.");
+		if (form.getValue("cpKitAssinado") != "on") {
+			Errors.push("É obrigatório marcar a opção 'Assinado' para prosseguir.");
 		}
 
-		// Valida se o checkbox "Férias Validada" foi marcado
-		if (form.getValue("cpFeriasValidada") != "on") {
-			Errors.push("É obrigatório marcar a opção 'Férias validadas (Anexos e Dados OK)' para prosseguir.");
-		}
 
 		// Validação da Avaliação (Mantida - ajuste se a lógica de aprovação mudou)
 		// Verifique se a avaliação ainda deve depender do cpAprovarGestor3 ou se deve ser sempre obrigatória

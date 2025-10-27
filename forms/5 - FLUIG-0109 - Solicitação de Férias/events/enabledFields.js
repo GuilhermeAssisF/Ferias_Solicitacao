@@ -4,6 +4,8 @@ function enableFields(form) {
 
 	var atividade = parseInt(getValue("WKNumState")); //
 	var ATIVIDADE_GERAR_ARQUIVO = 112; // Define a constante para a atividade
+	var ATIVIDADE_ASSINAR_KIT = 93; // Define a constante para a atividade de assinar kit
+	var ATIVIDADE_GERAR_KIT = 90; // Define a constante para a atividade de gerar kit
 
 	// Lista de campos habilitados por atividade (Regra Geral)
 	// Removido Ckb1 e Ckb2 da atividade 93
@@ -26,7 +28,6 @@ function enableFields(form) {
 		{ "campo": "cpParecerGestor2", "atividade": "20" }, //
 
 		//VALIDAR O KIT (ATIVIDADE 93)
-		{ "campo": "cpParecerAssinatura", "atividade": "93" }, //
 		{ "campo": "cpAprovarAvaliacao", "atividade": "93" }, // Habilitado para avaliação
 		{ "campo": "cpParecerAvaliacao", "atividade": "93" }, // Habilitado para avaliação
 		// { "campo": "Ckb1", "atividade": "93" }, // Removido
@@ -83,6 +84,14 @@ function enableFields(form) {
 
 	// --- TRATAMENTOS ESPECÍFICOS POR ATIVIDADE ---
 
+	// Garante que flags da Atividade 90 estejam DESABILITADAS, EXCETO na atividade 90
+    if (atividade != ATIVIDADE_GERAR_KIT) {
+        form.setEnabled("cpFlagCalculo", false);
+        form.setEnabled("cpFlagKitFerias", false);
+        // cpFlagCadastro geralmente é apenas leitura após a criação, então desabilitamos sempre
+        form.setEnabled("cpFlagCadastro", false);
+    }
+
 	// Condição específica para a Atividade 90 (BPO)
 	if (atividade == 90) { //
 		form.setEnabled("cpFlagCadastro", false); // Mantém cpFlagCadastro desabilitado (somente leitura) //
@@ -90,10 +99,14 @@ function enableFields(form) {
 		form.setEnabled("cpFlagKitFerias", true); // Habilita cpFlagKitFerias //
 	}
 
-	// Condição específica para a Atividade 93 (Validar Kit Férias)
+	// Garante que o checkbox 'cpKitAssinado' esteja DESABILITADO em todas as atividades, EXCETO na 93
+    if (atividade != ATIVIDADE_ASSINAR_KIT) {
+        form.setEnabled("cpKitAssinado", false);
+    }
+
+	// Condição específica para a Atividade 93 (Assinar Kit Férias)
 	if (atividade == 93) {
-		form.setEnabled("cpAnexoValidado", true);
-		form.setEnabled("cpFeriasValidada", true);
+		form.setEnabled("cpKitAssinado", true);
 		form.setEnabled("Ckb1", false);              // Mantém desabilitado (campo antigo)
 		form.setEnabled("Ckb2", false);              // Mantém desabilitado (campo antigo)
 		// Os outros campos necessários para a atividade 93 já estão sendo habilitados pelo loop principal:
