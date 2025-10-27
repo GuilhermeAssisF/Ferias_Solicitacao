@@ -302,10 +302,10 @@ function validateForm(form) {
 		// Verifique se a avaliação ainda deve depender do cpAprovarGestor3 ou se deve ser sempre obrigatória
 		var aprovacaoRH = form.getValue("cpAprovarGestor3"); // Pega a decisão do RH na etapa anterior (136/153)
 		if (aprovacaoRH == '1') { // Só exige avaliação se o RH validou
-			validaNotSelected('cpAprovarAvaliacao', 'É necessário preencher a Avaliação do atendimento.');
-			if ((form.getValue("cpAprovarAvaliacao") == '3' || form.getValue("cpAprovarAvaliacao") == '4') && form.getValue("cpParecerAvaliacao") == '') {
-				Errors.push('É necessário justificar a Avaliação Insatisfeito ou Muito Insatisfeito.');
-			}
+			// validaNotSelected('cpAprovarAvaliacao', 'É necessário preencher a Avaliação do atendimento.');
+			// if ((form.getValue("cpAprovarAvaliacao") == '3' || form.getValue("cpAprovarAvaliacao") == '4') && form.getValue("cpParecerAvaliacao") == '') {
+			// 	Errors.push('É necessário justificar a Avaliação Insatisfeito ou Muito Insatisfeito.');
+			// }
 		}
 		// Você pode adicionar um 'else' aqui se precisar validar algo específico caso o RH tenha reprovado na etapa anterior
 	}

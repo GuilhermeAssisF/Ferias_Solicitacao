@@ -36,10 +36,10 @@ function enableFields(form) {
 		{ "campo": "cpParecerProcessamento", "atividade": "90" }, //
 
 		// ADICIONADO PARA ATIVIDADE 112
-        { "campo": "cpArquivoBancario", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
-        { "campo": "cpLancamentoFinanceiro", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
-        { "campo": "cpParecerArquivoPagamento", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() }, // Habilita o parecer opcional
-        // FIM DA ADIÇÃO
+		{ "campo": "cpArquivoBancario", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
+		{ "campo": "cpLancamentoFinanceiro", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() },
+		{ "campo": "cpParecerArquivoPagamento", "atividade": ATIVIDADE_GERAR_ARQUIVO.toString() }, // Habilita o parecer opcional
+		// FIM DA ADIÇÃO
 
 		//validar ferias rh (agrupado)
 		{ "campo": "cpAprovarGestor3", "atividade": "153,136" }, //
@@ -58,26 +58,26 @@ function enableFields(form) {
 
 		} else {
 			// Desabilita o campo se não estiver na atividade correta
-            // Garante que campos não explicitamente listados para a atividade atual sejam desabilitados
-            var habilitarCampo = false;
-            for(var i = 0; i < atividades.length; i++) {
-                if (parseInt(atividades[i]) === atividade) {
-                    habilitarCampo = true;
-                    break;
-                }
-            }
-            if (!habilitarCampo) {
-                 // Verifica se o campo existe antes de tentar desabilitar
-                try {
-                     // Tenta acessar o campo para ver se ele existe no formulário atual
-                     // Isso evita erros caso um campo listado não exista de fato no HTML
-                     if(form.getValue(Campo["campo"]) != null || form.getField(Campo["campo"]) != null) {
-                        form.setEnabled(Campo["campo"], false);
-                     }
-                 } catch(e) {
-                     log.warn("Campo [" + Campo["campo"] + "] não encontrado no formulário ao tentar desabilitar. Ignorando.");
-                 }
-            }
+			// Garante que campos não explicitamente listados para a atividade atual sejam desabilitados
+			var habilitarCampo = false;
+			for (var i = 0; i < atividades.length; i++) {
+				if (parseInt(atividades[i]) === atividade) {
+					habilitarCampo = true;
+					break;
+				}
+			}
+			if (!habilitarCampo) {
+				// Verifica se o campo existe antes de tentar desabilitar
+				try {
+					// Tenta acessar o campo para ver se ele existe no formulário atual
+					// Isso evita erros caso um campo listado não exista de fato no HTML
+					if (form.getValue(Campo["campo"]) != null || form.getField(Campo["campo"]) != null) {
+						form.setEnabled(Campo["campo"], false);
+					}
+				} catch (e) {
+					log.warn("Campo [" + Campo["campo"] + "] não encontrado no formulário ao tentar desabilitar. Ignorando.");
+				}
+			}
 		}
 	}
 
@@ -92,23 +92,24 @@ function enableFields(form) {
 
 	// Condição específica para a Atividade 93 (Validar Kit Férias)
 	if (atividade == 93) {
-		form.setEnabled("cpAnexoValidado", false);  // Começa desabilitado (JS do formulário habilita após clique no botão)
-		form.setEnabled("cpFeriasValidada", false); // << ALTERADO AQUI para começar desabilitado também
-        form.setEnabled("Ckb1", false);              // Garante que Ckb1 (antigo) está desabilitado
-        form.setEnabled("Ckb2", false);              // Garante que Ckb2 (antigo) está desabilitado
-        // Outros campos como cpParecerAssinatura, cpAprovarAvaliacao, cpParecerAvaliacao já foram habilitados pelo loop
+		form.setEnabled("cpAnexoValidado", true);
+		form.setEnabled("cpFeriasValidada", true);
+		form.setEnabled("Ckb1", false);              // Mantém desabilitado (campo antigo)
+		form.setEnabled("Ckb2", false);              // Mantém desabilitado (campo antigo)
+		// Os outros campos necessários para a atividade 93 já estão sendo habilitados pelo loop principal:
+		// cpParecerAssinatura, cpAprovarAvaliacao, cpParecerAvaliacao
 	}
 
 	// Garante que os outros checkboxes de controle (atividades 90 e 93) estejam desabilitados
-    if (atividade == ATIVIDADE_GERAR_ARQUIVO) {
-        form.setEnabled("cpFlagCadastro", false);
-        form.setEnabled("cpFlagCalculo", false);
-        form.setEnabled("cpFlagKitFerias", false);
-        form.setEnabled("cpAnexoValidado", false);
-        form.setEnabled("cpFeriasValidada", false);
-        form.setEnabled("Ckb1", false);
+	if (atividade == ATIVIDADE_GERAR_ARQUIVO) {
+		form.setEnabled("cpFlagCadastro", false);
+		form.setEnabled("cpFlagCalculo", false);
+		form.setEnabled("cpFlagKitFerias", false);
+		form.setEnabled("cpAnexoValidado", false);
+		form.setEnabled("cpFeriasValidada", false);
+		form.setEnabled("Ckb1", false);
 		form.setEnabled("Ckb2", false);
-    }
+	}
 
 	// Condição específica para Atividades Iniciais (0 ou 4) ou Correção (9)
 	if (atividade == 0 || atividade == 4 || atividade == 9) { //

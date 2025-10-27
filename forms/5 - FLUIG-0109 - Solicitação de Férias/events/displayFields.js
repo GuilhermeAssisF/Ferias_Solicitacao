@@ -80,7 +80,7 @@ function displayFields(form, customHTML) {
 		filter.put("colleaguePK.colleagueId", getValue("WKUser"));
 		var colaborador = getDatasetValues('colleague', filter);
 		form.setValue('cpNomeAprovador3', colaborador.get(0).get("colleagueName"));
-	} 
+	}
 
 	// Adicione esta condição para a Atividade 90
 	if (atividade == 90) {
@@ -176,11 +176,7 @@ function displayFields(form, customHTML) {
 		form.setValue('cpDataAbertura', dtAtualFormatado);
 	}
 
-
-
-
-
-
+	log.info("FIM do DISPLAY do formulário FLUIG-0001 - FERIAS");
 
 }
 
