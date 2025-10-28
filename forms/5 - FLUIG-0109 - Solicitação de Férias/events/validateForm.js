@@ -275,23 +275,29 @@ function validateForm(form) {
 		log.info("--- Validando Atividade 153 ---");
 		if (acaoUsuario == "true") { // Garante a validação apenas no envio da tarefa
 
-			// Verifica se o checkbox "Anexos Validados" está marcado
-			// No validateForm (servidor), o valor de um checkbox marcado é "on"
-			if (form.getValue("cpAnexosValidadosKit") != "on") {
-				Errors.push("É obrigatório validar os anexos clicando em 'Ir para Anexos' e marcando a caixa 'Anexos Validados'.");
+			var aprovacaoKit = form.getValue("cpAprovacaoValidacaoKit"); // Pega o valor da aprovação
+
+			// Validação obrigatória: O campo 'Validação do Kit' deve ser selecionado
+			 if (aprovacaoKit == "" || aprovacaoKit == null) {
+				 Errors.push("O campo 'Validação do Kit' é obrigatório.");
+			 }
+
+			// Validação CONDICIONAL: 'Anexos Validados' só é obrigatório se estiver APROVANDO (valor 1)
+			if (aprovacaoKit == "1") {
+				if (form.getValue("cpAnexosValidadosKit") != "on") {
+					Errors.push("É obrigatório marcar a caixa 'Anexos Validados' ao aprovar o kit.");
+					// A mensagem de erro anterior sobre clicar no botão não é mais necessária aqui,
+					// pois o validateForm não sabe se o botão foi clicado, apenas se a caixa está marcada.
+					// A lógica no view.js já lida com a habilitação via botão.
+				}
 			}
 
-			// Validações originais da atividade 153 (mantidas)
-			if (form.getValue("cpAprovacaoValidacaoKit") == "") {
-				Errors.push("O campo 'Validação do Kit' é obrigatório.");
-			}
-			// O campo cpAnexosValidadosKit já foi validado acima.
+			// Validação CONDICIONAL: 'Parecer' é obrigatório se estiver SOLICITANDO CORREÇÃO (valor 2)
+			if (aprovacaoKit == "2" && (form.getValue("cpParecerValidacaoKit") == "" || form.getValue("cpParecerValidacaoKit") == null) ) {
+				 Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
+			 }
 
-			// Valida se o parecer é obrigatório quando reprovado
-			if (form.getValue("cpAprovacaoValidacaoKit") == "2" && (form.getValue("cpParecerValidacaoKit") == "" || form.getValue("cpParecerValidacaoKit") == null)) {
-				Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
-			}
-			log.info("--- Fim Validação Atividade 153 ---");
+			 log.info("--- Fim Validação Atividade 153 ---");
 		}
 	}
 	// --- Fim do Bloco Ajustado para Atividade 153 ---
