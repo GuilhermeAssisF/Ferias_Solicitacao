@@ -1,7 +1,10 @@
 var INTEGRACAO = 83; //INTEGRA NA ATIVIDADE 24 DE apos o PROCESSAMENTO DE FERIAS
 var ATIVIDADE_GERAR_KIT = 90; // GERAR KIT FERIAS (BPO)
+var ATIVIDADE_VALIDAR_KIT_RH = 153; // VALIDAR KIT FERIAS (RH)
 
 function beforeStateEntry(sequenceId){
+
+	var atividadeAnterior = getValue("WKPrevState"); // Pega a atividade de onde o fluxo está vindo
 	
 	if(sequenceId==INTEGRACAO){
 		CadastraFerias();
@@ -21,6 +24,17 @@ function beforeStateEntry(sequenceId){
             // Define o valor do campo como vazio ("") para desmarcar o checkbox
             hAPI.setCardValue("cpFlagKitFerias", "");
         }
+    }
+
+	// Verifica se está entrando na atividade de Validar Kit (153) E vindo da atividade Gerar Kit (90)
+    if (sequenceId == ATIVIDADE_VALIDAR_KIT_RH && atividadeAnterior == ATIVIDADE_GERAR_KIT) {
+        log.info("--- [FLUIG-0001] Entrando na atividade Validar Kit RH (153) vindo da Correção BPO (90) ---");
+        log.info("--- [FLUIG-0001] Limpando campos da atividade 153. Processo: " + getValue("WKNumProces"));
+
+        // Limpa os campos da atividade 153
+        hAPI.setCardValue("cpAprovacaoValidacaoKit", ""); // Limpa o select
+        hAPI.setCardValue("cpAnexosValidadosKit", "");    // Desmarca o checkbox
+        hAPI.setCardValue("cpParecerValidacaoKit", "");   // Limpa o parecer
     }
 }
 
