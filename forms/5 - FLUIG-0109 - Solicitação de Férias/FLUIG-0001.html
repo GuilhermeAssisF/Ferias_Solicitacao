@@ -879,6 +879,69 @@
 							</div>
 						</div>
 						<!-- FIM - PROCESSAMENTO DE FERIAS -->
+
+						<!-- VALIDAÇÃO DO KIT FÉRIAS -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+									data-target="#panelAtividade_153"> Validar Kit Férias (Pós-BPO) </div>
+							</div>
+							<div id="panelAtividade_153" class="panel-collapse collapse">
+								<div class="panel-body">
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="labelField">Validação do Kit <span
+														class="CampoObrigatorio"> *</span></label>
+												<select name="cpAprovacaoValidacaoKit" id="cpAprovacaoValidacaoKit"
+													class="form-control" obrigatorio>
+													<option value="">Selecione...</option>
+													<option value="1">Aprovado</option>
+													<option value="2">Corrigir Solicitação (BPO)</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>&nbsp;</label>
+												<div>
+													<button type="button" class="btn btn-info" id="btnIrParaAnexos">
+														<span class="fluigicon fluigicon-paperclip"></span> Ir para
+														Anexos
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="checkbox">
+												<label class="labelField">
+													<input type="checkbox" name="cpAnexosValidadosKit"
+														id="cpAnexosValidadosKit" obrigatorio>
+													Anexos Validados <span class="CampoObrigatorio"> *</span>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="labelField">Parecer Validação Kit</label>
+												<textarea name="cpParecerValidacaoKit" id="cpParecerValidacaoKit"
+													class="form-control" rows="3" parecer></textarea>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- FIM - VALIDAÇÃO DO KIT FÉRIAS -->
+
 						<!-- CONFERENCIA E ASSINATURA -->
 						<div class="panel panel-default">
 							<div class="panel-heading">

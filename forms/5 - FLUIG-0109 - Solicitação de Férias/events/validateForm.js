@@ -256,9 +256,32 @@ function validateForm(form) {
 		validaAprovacao('cpAprovarGestor2', 'cpParecerGestor2');
 
 	}
-	if ((atividade == 153 || atividade == 136) && (acaoUsuario == "true")) { //VALIDAR KIT DE FÉRIAS
-		validaAprovacao('cpAprovarGestor3', 'cpParecerGestor3');
 
+	// --- Validações da Validação de Férias RH (136) ---
+	if (atividade == 136) { // Corrigido para verificar apenas se a ação é de envio
+		if (acaoUsuario == "true") { // Adicionado para garantir a validação apenas no envio
+			if (form.getValue("cpAprovarGestor3") == "") {
+				Errors.push("O campo 'Aprovação' do RH é obrigatório.");
+			}
+			if (form.getValue("cpAprovarGestor3") == "2" && form.getValue("cpParecerGestor3") == "") { // Reprovado exige parecer
+				Errors.push("O 'Parecer' do RH é obrigatório ao solicitar correção.");
+			}
+		}
+	}
+
+	// --- Validações da Validação do Kit (RH Pós-BPO) (153) ---
+	if (atividade == 153) { // Corrigido para verificar apenas se a ação é de envio
+		if (acaoUsuario == "true") { // Adicionado para garantir a validação apenas no envio
+			if (form.getValue("cpAprovacaoValidacaoKit") == "") {
+				Errors.push("O campo 'Validação do Kit' é obrigatório.");
+			}
+			if (form.getValue("cpAnexosValidadosKit") != "on") { // Verifica se NÃO está marcado
+				Errors.push("É obrigatório marcar 'Anexos Validados'.");
+			}
+			if (form.getValue("cpAprovacaoValidacaoKit") == "2" && form.getValue("cpParecerValidacaoKit") == "") { // Correção exige parecer
+				Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
+			}
+		}
 	}
 
 	if (atividade == 9 && (acaoUsuario == "true")) { //reabertura

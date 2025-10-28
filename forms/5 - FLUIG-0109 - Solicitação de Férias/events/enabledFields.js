@@ -43,10 +43,15 @@ function enableFields(form) {
 		// FIM DA ADIÇÃO
 
 		//validar ferias rh (agrupado)
-		{ "campo": "cpAprovarGestor3", "atividade": "153,136" }, //
-		{ "campo": "cpParecerGestor3", "atividade": "153,136" }  //
+		{ "campo": "cpAprovarGestor3", "atividade": "136" },
+		{ "campo": "cpParecerGestor3", "atividade": "136" },
 
-	); //
+		//validar kit rh (agrupado)
+		{ "campo": "cpAprovacaoValidacaoKit", "atividade": "153" },
+		{ "campo": "cpAnexosValidadosKit", "atividade": "153" },
+		{ "campo": "cpParecerValidacaoKit", "atividade": "153" }
+
+	);
 
 	// Loop padrão para habilitar/desabilitar campos com base no array 'Campos'
 	for (var item in Campos) { //
@@ -85,12 +90,12 @@ function enableFields(form) {
 	// --- TRATAMENTOS ESPECÍFICOS POR ATIVIDADE ---
 
 	// Garante que flags da Atividade 90 estejam DESABILITADAS, EXCETO na atividade 90
-    if (atividade != ATIVIDADE_GERAR_KIT) {
-        form.setEnabled("cpFlagCalculo", false);
-        form.setEnabled("cpFlagKitFerias", false);
-        // cpFlagCadastro geralmente é apenas leitura após a criação, então desabilitamos sempre
-        form.setEnabled("cpFlagCadastro", false);
-    }
+	if (atividade != ATIVIDADE_GERAR_KIT) {
+		form.setEnabled("cpFlagCalculo", false);
+		form.setEnabled("cpFlagKitFerias", false);
+		// cpFlagCadastro geralmente é apenas leitura após a criação, então desabilitamos sempre
+		form.setEnabled("cpFlagCadastro", false);
+	}
 
 	// Condição específica para a Atividade 90 (BPO)
 	if (atividade == 90) { //
@@ -100,9 +105,9 @@ function enableFields(form) {
 	}
 
 	// Garante que o checkbox 'cpKitAssinado' esteja DESABILITADO em todas as atividades, EXCETO na 93
-    if (atividade != ATIVIDADE_ASSINAR_KIT) {
-        form.setEnabled("cpKitAssinado", false);
-    }
+	if (atividade != ATIVIDADE_ASSINAR_KIT) {
+		form.setEnabled("cpKitAssinado", false);
+	}
 
 	// Condição específica para a Atividade 93 (Assinar Kit Férias)
 	if (atividade == 93) {
