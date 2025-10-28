@@ -50,9 +50,6 @@ $(document).ready(function () {
 
 	carregaLimitedeFerias();
 
-
-
-
 	//validando checkbox
 
 	$("#Ckb1").click(function () {
@@ -72,6 +69,8 @@ $(document).ready(function () {
 			$("#Ckb2V").val(" ");
 		}
 	});
+
+
 
 
 });
@@ -163,10 +162,91 @@ $(document).ready(function () {
 
 	var atividade = getAtividade();
 	var ATIVIDADE_GERAR_ARQUIVO = 112; // Define a constante para a atividade
+	var ATIVIDADE_VALIDAR_KIT_FERIAS = 153; // Define a constante para a atividade de validar kit de férias
 	var funcaoSelecionada = $("#cpFuncao").val();
 
 	// Esconde a nova seção por padrão AQUI:
 	$(".blocoAtividade112").hide();
+
+	// Lógica específica para a Atividade 153 - Validar Kit de Férias
+	if (atividade == ATIVIDADE_VALIDAR_KIT_FERIAS) {
+		console.log("Executando lógica para atividade 153");
+
+		// 1. Desabilita o checkbox "Anexos Validados" inicialmente
+		$('#cpAnexosValidadosKit').prop('disabled', true);
+		console.log("Checkbox cpAnexosValidadosKit desabilitado.");
+
+		// 2. Mostra a mensagem instrutiva
+		$('#msgHabilitarAnexos').show();
+		console.log("Mensagem msgHabilitarAnexos exibida.");
+
+		// 3. Desabilita o botão principal de "Enviar" do Fluig inicialmente
+		try {
+			parent.$('#workflowActions').find('button[type="submit"]').prop('disabled', true);
+			console.log("Botão Enviar (parent) desabilitado.");
+		} catch (e) {
+			console.warn("Não foi possível acessar parent para desabilitar botão de envio inicialmente:", e);
+			// Tenta novamente após um pequeno delay
+			setTimeout(function () {
+				try {
+					parent.$('#workflowActions').find('button[type="submit"]').prop('disabled', true);
+					console.log("Botão Enviar (parent) desabilitado (tentativa 2).");
+				} catch (e2) {
+					console.error("Erro ao tentar desabilitar botão de envio via parent (tentativa 2).", e2);
+				}
+			}, 500);
+		}
+
+
+		// 4. Evento de clique no botão "Ir para Anexos"
+		// Usa .off().on() para evitar múltiplos listeners
+		$('#btnIrParaAnexos').off('click').on('click', function () {
+			console.log("Botão btnIrParaAnexos clicado.");
+			// Habilita o checkbox
+			$('#cpAnexosValidadosKit').prop('disabled', false);
+			console.log("Checkbox cpAnexosValidadosKit habilitado.");
+
+			// Esconde a mensagem instrutiva
+			$('#msgHabilitarAnexos').hide();
+			console.log("Mensagem msgHabilitarAnexos escondida.");
+
+			// Tenta clicar na aba de anexos
+			try {
+				var anexoTab = parent.$('a[href="#attachments-tab"]');
+				if (anexoTab.length > 0) {
+					console.log("Tentando clicar na aba Anexos...");
+					setTimeout(function () { anexoTab.click(); }, 100);
+				} else {
+					console.warn("Aba Anexos não encontrada no parent.");
+					FLUIGC.toast({ title: 'Atenção:', message: 'Aba "Anexos" não encontrada. Clique nela manualmente.', type: 'warning', timeout: 'slow' });
+				}
+			} catch (e) {
+				console.error("Erro ao tentar clicar na aba de anexos via parent:", e);
+				FLUIGC.toast({ title: 'Atenção:', message: 'Não foi possível ir para Anexos automaticamente. Clique na aba manualmente.', type: 'warning', timeout: 'slow' });
+			}
+		});
+
+		// 5. Evento de mudança no checkbox "Anexos Validados"
+		// Usa .off().on() para evitar múltiplos listeners
+		$('#cpAnexosValidadosKit').off('change').on('change', function () {
+			var isChecked = $(this).is(':checked');
+			console.log("Checkbox cpAnexosValidadosKit mudou. Estado:", isChecked);
+			// Habilita/Desabilita o botão de enviar baseado no estado do checkbox
+			try {
+				parent.$('#workflowActions').find('button[type="submit"]').prop('disabled', !isChecked);
+				console.log("Botão Enviar (parent) " + (isChecked ? "habilitado." : "desabilitado."));
+			} catch (e) {
+				console.error("Erro ao tentar habilitar/desabilitar botão de envio via parent:", e);
+			}
+		});
+
+	} else {
+		// Garante que a mensagem instrutiva esteja escondida em outras atividades
+		if ($('#msgHabilitarAnexos').length) { // Verifica se existe antes de tentar esconder
+			$('#msgHabilitarAnexos').hide();
+		}
+	}
+	// Fim da lógica da Atividade 153
 
 	// Mostra e configura a seção se for a atividade correta
 	if (atividade == ATIVIDADE_GERAR_ARQUIVO) {

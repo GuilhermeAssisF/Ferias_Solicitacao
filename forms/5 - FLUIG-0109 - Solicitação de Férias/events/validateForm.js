@@ -3,7 +3,8 @@ function validateForm(form) {
 	log.info("INICIO do VALIDATE do formulário FLUIG-0001 - FERIAS");
 
 	var atividade = getValue("WKNumState");
-	var ATIVIDADE_GERAR_ARQUIVO = 112;
+	var ATIVIDADE_GERAR_ARQUIVO = 112; // Define a constante para a atividade 112 - Gerar Arquivo de Pagamento
+	var ATIVIDADE_VALIDAR_KIT_FERIAS = 153; // Define a constante para a atividade 153 - Validar Kit de Férias
 	var funcao = form.getValue('cpFuncao');
 	var acaoUsuario = getValue("WKCompletTask");
 	var Errors = [];
@@ -269,20 +270,31 @@ function validateForm(form) {
 		}
 	}
 
-	// --- Validações da Validação do Kit (RH Pós-BPO) (153) ---
-	if (atividade == 153) { // Corrigido para verificar apenas se a ação é de envio
-		if (acaoUsuario == "true") { // Adicionado para garantir a validação apenas no envio
+	// --- Validações Ajustadas da Validação do Kit (RH Pós-BPO) (153) ---
+	if (atividade == ATIVIDADE_VALIDAR_KIT_FERIAS) {
+		log.info("--- Validando Atividade 153 ---");
+		if (acaoUsuario == "true") { // Garante a validação apenas no envio da tarefa
+
+			// Verifica se o checkbox "Anexos Validados" está marcado
+			// No validateForm (servidor), o valor de um checkbox marcado é "on"
+			if (form.getValue("cpAnexosValidadosKit") != "on") {
+				Errors.push("É obrigatório validar os anexos clicando em 'Ir para Anexos' e marcando a caixa 'Anexos Validados'.");
+			}
+
+			// Validações originais da atividade 153 (mantidas)
 			if (form.getValue("cpAprovacaoValidacaoKit") == "") {
 				Errors.push("O campo 'Validação do Kit' é obrigatório.");
 			}
-			if (form.getValue("cpAnexosValidadosKit") != "on") { // Verifica se NÃO está marcado
-				Errors.push("É obrigatório marcar 'Anexos Validados'.");
-			}
-			if (form.getValue("cpAprovacaoValidacaoKit") == "2" && form.getValue("cpParecerValidacaoKit") == "") { // Correção exige parecer
+			// O campo cpAnexosValidadosKit já foi validado acima.
+
+			// Valida se o parecer é obrigatório quando reprovado
+			if (form.getValue("cpAprovacaoValidacaoKit") == "2" && (form.getValue("cpParecerValidacaoKit") == "" || form.getValue("cpParecerValidacaoKit") == null)) {
 				Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
 			}
+			log.info("--- Fim Validação Atividade 153 ---");
 		}
 	}
+	// --- Fim do Bloco Ajustado para Atividade 153 ---
 
 	if (atividade == 9 && (acaoUsuario == "true")) { //reabertura
 		validaAprovacao('cpAprovacaoSolicitante', 'cpParecerAprovacaoSolicitante');
