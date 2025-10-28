@@ -1,10 +1,27 @@
 var INTEGRACAO = 83; //INTEGRA NA ATIVIDADE 24 DE apos o PROCESSAMENTO DE FERIAS
+var ATIVIDADE_GERAR_KIT = 90; // GERAR KIT FERIAS (BPO)
 
 function beforeStateEntry(sequenceId){
 	
 	if(sequenceId==INTEGRACAO){
 		CadastraFerias();
 	}
+
+	// Verifica se está entrando na atividade de Gerar Kit Férias (BPO)
+    if (sequenceId == ATIVIDADE_GERAR_KIT) {
+        log.info("--- [FLUIG-0001] Entrando na atividade Gerar Kit Férias (90) ---");
+
+        // Verifica se a flag 'Kit Férias' já está marcada (indicando um retorno para correção)
+        // Checkboxes marcados geralmente têm o valor "on" no servidor.
+        var flagKitFeriasAtual = hAPI.getCardValue("cpFlagKitFerias");
+        log.info("--- [FLUIG-0001] Valor atual cpFlagKitFerias: '" + flagKitFeriasAtual + "'");
+
+        if (flagKitFeriasAtual == "on") {
+            log.info("--- [FLUIG-0001] Desmarcando cpFlagKitFerias devido ao retorno para correção. Processo: " + getValue("WKNumProces"));
+            // Define o valor do campo como vazio ("") para desmarcar o checkbox
+            hAPI.setCardValue("cpFlagKitFerias", "");
+        }
+    }
 }
 
 function CadastraFerias(){
