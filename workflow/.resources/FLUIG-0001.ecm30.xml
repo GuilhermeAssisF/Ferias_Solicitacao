@@ -28,7 +28,7 @@
     <processDefinitionVersionPK>
       <companyId>1</companyId>
       <processId>Férias</processId>
-      <version>52</version>
+      <version>55</version>
     </processDefinitionVersionPK>
     <versionDescription></versionDescription>
     <formId>5</formId>
@@ -1971,7 +1971,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>10</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoSolicitante&quot;)==&quot;1&quot; </condition>
@@ -1983,7 +1983,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>10</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoSolicitante&quot;)==&quot;2&quot; </condition>
@@ -1995,7 +1995,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpVerPrazos&apos;)!=&quot;2&quot;</condition>
@@ -2007,7 +2007,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpLoginFluig&apos;)==hAPI.getCardValue(&apos;cpChapaGestor&apos;)</condition>
@@ -2019,7 +2019,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>15</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&apos;cpLoginFluig&apos;)!=hAPI.getCardValue(&apos;cpChapaGestor&apos;)</condition>
@@ -2031,7 +2031,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;1&quot;</condition>
@@ -2043,7 +2043,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;2&quot;</condition>
@@ -2055,7 +2055,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>23</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;3&quot;</condition>
@@ -2067,7 +2067,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;1&quot;</condition>
@@ -2079,7 +2079,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;2&quot;</condition>
@@ -2091,7 +2091,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>3</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>39</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor&quot;)==&quot;3&quot;</condition>
@@ -2103,7 +2103,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>83</sequence>
       </conditionProcessStatePK>
       <condition>CadastraFerias()</condition>
@@ -2115,7 +2115,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>83</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -2127,7 +2127,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>138</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;1&quot; </condition>
@@ -2139,7 +2139,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>138</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovarGestor3&quot;)==&quot;2&quot; </condition>
@@ -2151,7 +2151,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>157</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoValidacaoKit&quot;)==&quot;1&quot; </condition>
@@ -2163,7 +2163,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>157</sequence>
       </conditionProcessStatePK>
       <condition>hAPI.getCardValue(&quot;cpAprovacaoValidacaoKit&quot;)==&quot;2&quot; </condition>
@@ -2175,7 +2175,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>1</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>159</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -2187,7 +2187,7 @@
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
         <expressionOrder>2</expressionOrder>
-        <version>52</version>
+        <version>55</version>
         <sequence>159</sequence>
       </conditionProcessStatePK>
       <condition>true</condition>
@@ -3312,8 +3312,9 @@
     log.info(&quot;--- [FLUIG-0001] Evento afterTaskSave (Solicitação de Férias) ---&quot;);&#xd;
 &#xd;
     // CONFIRME O ID da atividade de &quot;Correção do Solicitante&quot; no seu diagrama de processo&#xd;
-    // Estou assumindo o ID 41, que é o mesmo usado no processo de movimentação.&#xd;
-    var ATIVIDADE_CORRECAO = 41;&#xd;
+    var ATIVIDADE_CORRECAO = 9; // Ajustado com base no fluxo usual&#xd;
+    var ATIVIDADE_GERAR_KIT = 90;&#xd;
+    var ATIVIDADE_VALIDAR_KIT_RH = 153;&#xd;
     var atividadeAtual = getValue(&quot;WKNumState&quot;);&#xd;
 &#xd;
     log.info(&quot;--- [FLUIG-0001] Atividade Atual: &quot; + atividadeAtual);&#xd;
@@ -3349,6 +3350,13 @@
             hAPI.setCardValue(&quot;cpAnalistaBPO&quot;, &quot;&quot;);&#xd;
             hAPI.setCardValue(&quot;cpParecerBPO&quot;, &quot;&quot;);&#xd;
         }&#xd;
+    }&#xd;
+&#xd;
+    if (atividadeAtual == ATIVIDADE_GERAR_KIT &amp;&amp; nextSequenceId == ATIVIDADE_VALIDAR_KIT_RH) {&#xd;
+        // Limpa os campos da atividade 153&#xd;
+        hAPI.setCardValue(&quot;cpAprovacaoValidacaoKit&quot;, &quot;&quot;);&#xd;
+        hAPI.setCardValue(&quot;cpAnexosValidadosKit&quot;, &quot;&quot;);&#xd;
+        hAPI.setCardValue(&quot;cpParecerValidacaoKit&quot;, &quot;&quot;);&#xd;
     }&#xd;
 }</eventDescription>
     </WorkflowProcessEvent>
@@ -3387,16 +3395,6 @@ function beforeStateEntry(sequenceId){
         }
     }
 
-	// Verifica se está entrando na atividade de Validar Kit (153) E vindo da atividade Gerar Kit (90)
-    if (sequenceId == ATIVIDADE_VALIDAR_KIT_RH &amp;&amp; atividadeAnterior == ATIVIDADE_GERAR_KIT) {
-        log.info(&quot;--- [FLUIG-0001] Entrando na atividade Validar Kit RH (153) vindo da Correção BPO (90) ---&quot;);
-        log.info(&quot;--- [FLUIG-0001] Limpando campos da atividade 153. Processo: &quot; + getValue(&quot;WKNumProces&quot;));
-
-        // Limpa os campos da atividade 153
-        hAPI.setCardValue(&quot;cpAprovacaoValidacaoKit&quot;, &quot;&quot;); // Limpa o select
-        hAPI.setCardValue(&quot;cpAnexosValidadosKit&quot;, &quot;&quot;);    // Desmarca o checkbox
-        hAPI.setCardValue(&quot;cpParecerValidacaoKit&quot;, &quot;&quot;);   // Limpa o parecer
-    }
 }
 
 function CadastraFerias(){
@@ -4078,7 +4076,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>16</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4089,7 +4087,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>28</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4100,7 +4098,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>32</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4111,7 +4109,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>34</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4122,7 +4120,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>58</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4133,7 +4131,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>62</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4144,7 +4142,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>66</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4155,7 +4153,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>78</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4166,7 +4164,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>142</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4177,7 +4175,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>150</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4188,7 +4186,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>164</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>
@@ -4199,7 +4197,7 @@ function verificaPrazo(){
       <processLinkBendPK>
         <companyId>1</companyId>
         <processId>FLUIG-0001</processId>
-        <version>52</version>
+        <version>55</version>
         <linkSequence>165</linkSequence>
         <bendSequence>1</bendSequence>
       </processLinkBendPK>

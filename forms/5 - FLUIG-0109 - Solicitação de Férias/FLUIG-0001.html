@@ -1030,7 +1030,7 @@
 						<!-- FIM - CONFERENCIA E ASSINATURA -->
 
 						<!-- GERAR ARQUIVO PAGAMENTO -->
-						<div class="panel panel-default blocoAtividade112" style="display: none;">
+						<div class="panel panel-default blocoAtividade112">
 							<div class="panel-heading">
 								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
 									data-target="#panelAtividade_112">
@@ -1042,19 +1042,19 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpArquivoBancario"
-														id="cpArquivoBancario" obrigatorio>
-													Arquivo Bancário Gerado
+												<label class="labelField"> <input type="checkbox"
+														name="cpArquivoBancario" id="cpArquivoBancario" obrigatorio>
+													Arquivo Bancário Gerado <span class="CampoObrigatorio"> *</span>
 												</label>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpLancamentoFinanceiro"
-														id="cpLancamentoFinanceiro" obrigatorio>
-													Lançamento Financeiro Realizado
+												<label class="labelField"> <input type="checkbox"
+														name="cpLancamentoFinanceiro" id="cpLancamentoFinanceiro"
+														obrigatorio>
+													Lançamento Financeiro Realizado <span class="CampoObrigatorio">
+														*</span>
 												</label>
 											</div>
 										</div>
@@ -1062,10 +1062,9 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label>Parecer (Opcional)</label>
-												<textarea name="cpParecerArquivoPagamento"
-													id="cpParecerArquivoPagamento" class="form-control" rows="3"
-													parecer></textarea>
+												<label class="labelField">Parecer (Opcional)</label> <textarea
+													name="cpParecerArquivoPagamento" id="cpParecerArquivoPagamento"
+													class="form-control" rows="3" parecer></textarea>
 											</div>
 										</div>
 									</div>

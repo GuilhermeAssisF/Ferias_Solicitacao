@@ -165,9 +165,6 @@ $(document).ready(function () {
 	var ATIVIDADE_VALIDAR_KIT_FERIAS = 153; // Define a constante para a atividade de validar kit de férias
 	var funcaoSelecionada = $("#cpFuncao").val();
 
-	// Esconde a nova seção por padrão AQUI:
-	$(".blocoAtividade112").hide();
-
 	// Lógica específica para a Atividade 153 - Validar Kit de Férias
 	if (atividade == ATIVIDADE_VALIDAR_KIT_FERIAS) {
 		console.log("Executando lógica para atividade 153");
@@ -250,7 +247,6 @@ $(document).ready(function () {
 
 	// Mostra e configura a seção se for a atividade correta
 	if (atividade == ATIVIDADE_GERAR_ARQUIVO) {
-		$(".blocoAtividade112").show();
 		Compartilhados.expandePainel(atividade); // Garante que o painel esteja expandido
 		Compartilhados.camposObrigatorio(); // Re-aplica para marcar os novos campos obrigatórios
 	}

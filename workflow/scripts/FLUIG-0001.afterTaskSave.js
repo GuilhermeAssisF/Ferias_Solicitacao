@@ -3,8 +3,9 @@ function afterTaskSave(colleagueId, nextSequenceId, userList) {
     log.info("--- [FLUIG-0001] Evento afterTaskSave (Solicitação de Férias) ---");
 
     // CONFIRME O ID da atividade de "Correção do Solicitante" no seu diagrama de processo
-    // Estou assumindo o ID 41, que é o mesmo usado no processo de movimentação.
-    var ATIVIDADE_CORRECAO = 41;
+    var ATIVIDADE_CORRECAO = 9; // Ajustado com base no fluxo usual
+    var ATIVIDADE_GERAR_KIT = 90;
+    var ATIVIDADE_VALIDAR_KIT_RH = 153;
     var atividadeAtual = getValue("WKNumState");
 
     log.info("--- [FLUIG-0001] Atividade Atual: " + atividadeAtual);
@@ -40,5 +41,12 @@ function afterTaskSave(colleagueId, nextSequenceId, userList) {
             hAPI.setCardValue("cpAnalistaBPO", "");
             hAPI.setCardValue("cpParecerBPO", "");
         }
+    }
+
+    if (atividadeAtual == ATIVIDADE_GERAR_KIT && nextSequenceId == ATIVIDADE_VALIDAR_KIT_RH) {
+        // Limpa os campos da atividade 153
+        hAPI.setCardValue("cpAprovacaoValidacaoKit", "");
+        hAPI.setCardValue("cpAnexosValidadosKit", "");
+        hAPI.setCardValue("cpParecerValidacaoKit", "");
     }
 }
