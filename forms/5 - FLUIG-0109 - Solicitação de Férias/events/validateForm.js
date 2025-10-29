@@ -44,115 +44,95 @@ function validateForm(form) {
 
 	if (atividade == 0 || atividade == 4 || atividade == 9 && (acaoUsuario == "true")) {
 
-
-
 		//NAO PERMITE ABRIR FERIAS PARA QUEM JA POSSUI FERIAS MARCADAS
 		var situacaoFerias = form.getValue('cpSituacaoFerias');
 		if (situacaoFerias == "Possuí férias marcadas") {
 			Errors.push('Não é possível abrir solicitação de férias para quem já possuí férias marcadas.');
 
-		} else {
+		} else { // Início do else (!situacaoFerias == "Possuí férias marcadas")
 
-			//DIAS DE FERIAS MAIS DIAS DE ABONO NAO PODEM SER MAIOR QUE DIAS DE DIREITO
-			var diasFerias = parseInt(form.getValue('cpDiasFerias'));
-			var diasAbono = 0;
-			var diasDireito = parseInt(form.getValue('cpDiasDireito'));
-
-			if (!isEstagiario(funcao)) {
-				diasAbono = parseInt(form.getValue('cpDiasAbono'));
-			}
-
-			/*if (!isEstagiario(funcao) && ((diasFerias + diasAbono) != diasDireito)) {
-				Errors.push('Dias de Férias somados com Dias de Abono diferente de Dias de Direito.');
-			}*/
+			// Validações gerais para Estagiário (já existentes)
+			var diasFerias = parseInt(form.getValue('cpDiasFerias')) || 0; // Pega dias de férias calculados no form
+			var diasDireito = parseInt(form.getValue('cpDiasDireito')) || 0; // Pega dias de direito
 
 			if (isEstagiario(funcao)) {
 				if (diasFerias < 5) {
 					Errors.push('Não é permitido tirar menos do que 5 Dias de Férias.');
 				}
-
 				if (diasFerias > diasDireito) {
 					Errors.push('Não é permitido tirar Dias de Férias maior que os Dias de Direito.');
 				}
-			}
-
-			if (isEstagiario(funcao)) {
-				var dataFimFerias = getDtConvertida('cpDataFimFerias'),
-					dataFimContrato = getDtConvertida('cpFimContrato');
-				if (dataFimFerias > dataFimContrato) {
-					Errors.push('Não é permitido tirar Dias de Férias depois que o contrato terminou.');
+				// Validar conversão de data antes de comparar
+				if (form.getValue('cpDataFimFerias') && form.getValue('cpFimContrato')) {
+					try {
+						var dataFimFerias = getDtConvertida('cpDataFimFerias');
+						var dataFimContrato = getDtConvertida('cpFimContrato');
+						if (dataFimFerias > dataFimContrato) {
+							Errors.push('Não é permitido tirar Dias de Férias depois que o contrato terminou.');
+						}
+					} catch (e) {
+						Errors.push('Erro ao comparar datas de Fim de Férias e Fim de Contrato. Verifique os formatos.');
+					}
+				} else if (isEstagiario(funcao) && !form.getValue('cpFimContrato')) {
+					Errors.push('Data Fim do Contrato não encontrada para o estagiário.'); // Adicionado para clareza
 				}
 			}
 
-			//validade idade e abono
-			var abono = form.getValue('cpHaveraAbono');
-			var idade = parseInt(form.getValue('cpIdade'));
-			/*	if(abono=="1" && (idade>parseInt(50) || idade<parseInt(18))){
-					Errors.push('O abono de férias não pode ser utilizado, por colaboradores menores de 18 anos e maiores de 50 anos.');
-				}*/
-			var cpJaTemFerias = parseInt(form.getValue('cpJaTemFerias'));
-			var vazio = "";
-			if (cpJaTemFerias == "1") {
+			// Validação de chamado já aberto (já existente)
+			var cpJaTemFerias = form.getValue('cpJaTemFerias'); // Ler como string ou valor direto
+			if (cpJaTemFerias == "1") { // Comparar como string
 				Errors.push('Já existe chamado de férias aberto, para este colaborador.');
 			}
 
+			// Validação do fim do período aquisitivo (já existente, embora comentada a verificação final)
+			var cpfimfperAquiData = form.getValue('cpfimfperAquiData'); // Ex: 2025-10-29T14:48:00 ou yyyy-MM-dd
+			var FimFerias = form.getValue('cpDataFimFerias'); // Ex: 29/10/2025
 
-			//final do proximo periodo aquisitivo
-			var cpfimfperAquiData = form.getValue('cpfimfperAquiData');
-			var FimFerias = form.getValue('cpDataFimFerias');
+			if (FimFerias != '' && cpfimfperAquiData != '' && haveraAbono != '3') { // Adicionado haveraAbono != '3' para não validar em "Somente Abono"
+				try {
+					log.info("### Validando Datas Fim Férias vs Fim Período Aquisitivo ###");
+					log.info("cpfimfperAquiData (raw): " + cpfimfperAquiData);
+					log.info("cpDataFimFerias (raw): " + FimFerias);
+
+					// --- Conversão Segura da Data Fim Período Aquisitivo ---
+					var dataFimPerAquiStr = cpfimfperAquiData.substring(0, 10); // Pega apenas a parte da data "yyyy-MM-dd"
+					var partesFimPerAqui = dataFimPerAquiStr.split('-');
+					// new Date(ano, mesIndex, dia) - mesIndex é 0-based
+					var Dtnac = new Date(parseInt(partesFimPerAqui[0], 10), parseInt(partesFimPerAqui[1], 10) - 1, parseInt(partesFimPerAqui[2], 10));
+					Dtnac.setHours(0, 0, 0, 0); // Zera hora para comparar só data
+					log.info("Data Fim Período Aquisitivo (Dtnac - Date): " + Dtnac);
 
 
-			if (FimFerias != '') {
-				//coloca data em formato brasileiro
-				var Dtnac = new Date(cpfimfperAquiData);
-				var diaDataNac = Dtnac.getDate();
-				var mesDataNac = Dtnac.getMonth();
-				mesDataNac = mesDataNac;
-				var anoDataNac = Dtnac.getFullYear();
+					// Formata para exibição na mensagem de erro (já existente)
+					var diaDataNac = Dtnac.getDate();
+					var mesDataNac = Dtnac.getMonth();
+					var anoDataNac = Dtnac.getFullYear();
+					var diaFormatado = diaDataNac < 10 ? "0" + diaDataNac : diaDataNac;
+					// Corrigido: mesDataNac já é 0-based, então +1 para formatar
+					var mesFormatado = (mesDataNac + 1) < 10 ? "0" + (mesDataNac + 1) : (mesDataNac + 1);
+					var DataFinaldoprox = diaFormatado + "/" + mesFormatado + "/" + anoDataNac;
+					log.info("Data Fim Período Aquisitivo (Formatada dd/MM/yyyy): " + DataFinaldoprox);
 
-				if (diaDataNac < 10) {
-					diaDataNac = "0" + diaDataNac;
-				} if (mesDataNac < 10) {
-					mesDataNac = "0" + mesDataNac;
+
+					// --- Conversão Segura da Data Fim Férias ---
+					var datafim = getDtConvertida('cpDataFimFerias'); // Usa a função auxiliar (dd/MM/yyyy -> Date)
+					datafim.setHours(0, 0, 0, 0); // Zera hora para comparar só data
+					log.info("Data Fim Férias (datafim - Date): " + datafim);
+
+
+					/* // Verificação comentada no original - Descomentar e testar se a regra for necessária
+					if (datafim > Dtnac) {
+						Errors.push('A data final das férias (' + FimFerias + ') não pode ser superior ao Fim do Período Aquisitivo (' + DataFinaldoprox + ').');
+					}
+					*/
+				} catch (e) {
+					log.error("### Erro ao converter/comparar datas Fim Férias vs Fim Período: " + e);
+					// Adiciona detalhes ao erro para facilitar a depuração
+					Errors.push('Erro ao comparar datas de Fim de Férias (' + FimFerias + ') e Fim de Período Aquisitivo (' + cpfimfperAquiData + '). Verifique os formatos e valores. Detalhe: ' + e.message);
 				}
+			} // Fim do if (FimFerias != '' && cpfimfperAquiData != '' && haveraAbono != '3')
 
-				var faltas = form.getValue('cpNumeroFaltas');
-
-				var datafimNac = new Date(mesDataNac + "/" + diaDataNac + "/" + anoDataNac);
-
-				if (parseFloat(faltas) > parseFloat(0)) {
-					datafimNac.setDate(datafimNac.getDate() + parseFloat(1) + parseFloat(faltas));
-				} else {
-					datafimNac.getDate();
-				}
-				var mesprox = datafimNac.getMonth();
-				var diaprox = datafimNac.getDate();
-				mesprox = parseFloat(mesprox) + parseFloat(1);
-
-				if (mesprox < 10) {
-					mesprox = "0" + mesprox;
-				} if (diaprox < 10) {
-					diaprox = "0" + diaprox;
-				}
-
-				var DataFinaldoprox = diaprox + "/" + mesprox + "/" + datafimNac.getFullYear();
-				//data final do periodo de ferias 
-
-
-				var Data = FimFerias;
-				var diaData = Data.substring(0, 2);
-				var mesData = Data.substring(3, 5);
-				var anoData = Data.substring(6, 10);
-
-
-				var datafim = new Date(mesData + "/" + diaData + "/" + anoData);
-
-				/*if(new Date(datafim)>new Date(cpfimfperAquiData)){
-					Errors.push('A data final das férias, não pode ser superior ao Início do próximo período aquisitivo '+ DataFinaldoprox);
-				}	*/
-			} // Fim do if (FimFerias != '')
-
-			//dados do colaborador
+			// Validações de campos básicos do colaborador (já existentes)
 			validaVazio('cpCentroCusto', 'Obra/Departamento não informado');
 			validaNotSelected('cpColaborador', 'Colaborador não informado');
 			validaVazio('cpMatricula', 'Matrícula não informada');
@@ -160,63 +140,68 @@ function validateForm(form) {
 			validaVazio('cpDataAdmissao', 'Data de admissão não informada');
 			validaVazio('cpDtPagto', 'Data de Pagamento não informada');
 
-			// // ##############################################################################################################
-			// // Validação da data de pagamento conforme CLT - deve ser com mais de 2 dias de antecedência do início das férias
-			// // ##############################################################################################################
-			// if (form.getValue('cpDataInicioFerias') != '' && form.getValue('cpDtPagto') != '') {
-			// 	try {
-			// 		// Função auxiliar para converter dd/MM/yyyy para Date
-			// 		var parseDate = function (dateStr) {
-			// 			var parts = dateStr.split('/');
-			// 			// new Date(year, monthIndex, day) - monthIndex é 0-based
-			// 			return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
-			// 		};
-
-			// 		var dataInicioFeriasStr = form.getValue('cpDataInicioFerias');
-			// 		var dataPagamentoStr = form.getValue('cpDtPagto');
-
-			// 		var dataInicioFerias = parseDate(dataInicioFeriasStr);
-			// 		var dataPagamento = parseDate(dataPagamentoStr);
-
-			// 		// Calcula a data limite para pagamento (2 dias antes do início das férias)
-			// 		var dataLimitePagamento = new Date(dataInicioFerias);
-			// 		dataLimitePagamento.setDate(dataInicioFerias.getDate() - 2);
-
-			// 		// Define as horas, minutos, segundos e milissegundos para 0 para comparar apenas as datas
-			// 		dataPagamento.setHours(0, 0, 0, 0);
-			// 		dataLimitePagamento.setHours(0, 0, 0, 0);
-
-			// 		// Valida se a data de pagamento NÃO é ANTERIOR à data limite de 2 dias antes.
-			// 		// Conforme o exemplo: se inicia dia 24, não pode pagar dia 22 ou 23. Deve ser 21 ou antes.
-			// 		// Isso significa que a data de pagamento não pode ser maior ou igual à data limite.
-			// 		if (dataPagamento >= dataLimitePagamento) {
-			// 			Errors.push('Conforme a norma da CLT, o pagamento deve ser efetuado com mais de 2 dias de antecedência do início das férias.');
-			// 		}
-
-			// 	} catch (e) {
-			// 		log.error("Erro ao validar datas de pagamento/início de férias: " + e);
-			// 		Errors.push("Erro ao processar as datas. Verifique os formatos (dd/MM/yyyy).");
-			// 	}
-			// }
-
-
-			/*	var solicitante = form.getValue('cpMatriculaSolicitante'),
-				diretor = form.getValue('cpDiretor');
-	
-				if (solicitante != diretor) {
-					validaVazio('cpGestorImediato', 'Gestor imediato não informado');
-				}*/
-
-			//dados do periodo aquisitivo
+			// Validações básicas do período aquisitivo (já existentes)
 			validaVazio('cpSituacaoFerias', 'Situação das férias não informada');
 			validaVazio('cpInicioPeriodoAquisitivo', 'Inicío do período aquisitivo não informado');
 			validaVazio('cpFimPeriodoAquisitivo', 'Fim do período aquisitivo não informado');
 			validaVazio('cpNumeroFaltas', 'Número de faltas não informado');
-			//dados das ferias
+
+			// Validações básicas dos dados das férias (já existentes)
 			validaVazio('cpDiasDireito', 'Dias de direito não informado');
+
+			// ########## INÍCIO - Validação CORRIGIDA para Dias de Abono ##########
+			var haveraAbono = form.getValue('cpHaveraAbono');
+			var diasAbonoStr = form.getValue('cpDiasAbono');
+			var diasAbonoNum = parseInt(diasAbonoStr);
+			var diasFeriasCalculado = parseInt(form.getValue('cpDiasFerias')) || 0;
+
+			// Validações aplicáveis apenas se NÃO for estagiário
 			if (!isEstagiario(funcao)) {
 				validaVazio('cpHaveraAbono', 'Haverá abono não informado');
-				validaVazio('cpDiasAbono', 'Dia de abono não informado');
+
+				if (haveraAbono == '1' || haveraAbono == '3') { // Se Abono for SIM ou Somente Abono
+					if (diasAbonoStr == '' || diasAbonoNum <= 0) {
+						Errors.push('O campo "Dias de Abono" é obrigatório e deve ser um número inteiro maior que zero quando houver abono.');
+					}
+					else if (isNaN(diasAbonoNum) || diasAbonoStr != diasAbonoNum.toString()) {
+						Errors.push('O campo "Dias de Abono" deve ser um número inteiro válido.');
+					}
+					else {
+						var maxAbono = Math.floor(diasDireito / 3);
+						if (diasAbonoNum > maxAbono) {
+							Errors.push('Os "Dias de Abono" (' + diasAbonoNum + ') não podem exceder 1/3 dos Dias de Direito (' + maxAbono + ').');
+						}
+
+						// Validação específica para "Somente Abono"
+						if (haveraAbono == '3') {
+							if (diasFeriasCalculado != 0) {
+								Errors.push('[Erro Interno] Para "Somente Abono", os Dias de Férias calculados deveriam ser 0.');
+							}
+							// CORREÇÃO: Não validar a soma se for "Somente Abono"
+						}
+						// Validação específica para "SIM" (Abono + Férias)
+						else { // haveraAbono == '1'
+							if (diasFeriasCalculado <= 0) {
+								Errors.push('Com a opção "SIM" para abono, deve haver dias de férias a gozar.');
+							}
+							// CORREÇÃO: Validar a soma SOMENTE se for "SIM"
+							if (diasFeriasCalculado + diasAbonoNum != diasDireito) {
+								Errors.push('A soma dos Dias de Férias (' + diasFeriasCalculado + ') e Dias de Abono (' + diasAbonoNum + ') deve ser igual aos Dias de Direito (' + diasDireito + '). Verifique os valores informados.');
+							}
+							// Valida datas início/fim (coberto pela validação genérica abaixo)
+						}
+					}
+				} else if (haveraAbono == '2') { // Se abono for NÃO
+					if (diasAbonoNum != 0) {
+						Errors.push('[Erro Interno] Se não houver abono, os Dias de Abono deveriam ser 0.');
+					}
+					if (diasFeriasCalculado != diasDireito) {
+						Errors.push('Se não houver abono, os Dias de Férias (' + diasFeriasCalculado + ') devem ser iguais aos Dias de Direito (' + diasDireito + ').');
+					}
+					// Valida datas início/fim (coberto pela validação genérica abaixo)
+				}
+
+				// Validação do 13º (já existente)
 				validaVazio('cpAntecipar13Salario', 'Antecipar o pagamento da 1ª parcela do 13º salário não informado');
 				var antecipar13Salario = form.getValue('cpAntecipar13Salario');
 				var selecionouImpressao = form.getValue('cp13SalarioImprimir');
@@ -225,16 +210,30 @@ function validateForm(form) {
 						Errors.push('É necessário imprimir e assinar o Termo de Adiantamento do 13º salário');
 					}
 				}
-			}
-			// Só valida Data Fim, Dias Férias e Dia Semana se NÃO for "Somente Abono"
-            if (form.getValue('cpHaveraAbono') != '3') {
-				validaVazio('cpDataInicioFerias', 'Data de início não informada');
-                validaVazio('cpDataFimFerias', 'Data fim não informada');
-                validaVazio('cpDiasFerias', 'Dias de férias não informado');
-                validaVazio('cpDiaSemana', 'Dia da semana não informada');
-            }
 
-			//dados do substituto
+			} else { // Se for Estagiário
+				if (form.getValue('cpHaveraAbono') != '2' || form.getValue('cpDiasAbono') != '0') {
+					Errors.push('Estagiários não podem solicitar abono pecuniário.');
+				}
+				if (diasFeriasCalculado != diasDireito) {
+					Errors.push('Para estagiários, os Dias de Férias (' + diasFeriasCalculado + ') devem ser iguais aos Dias de Direito (' + diasDireito + ').');
+				}
+				// Valida datas início/fim (coberto pela validação genérica abaixo)
+			}
+
+			// Validação genérica para datas e dias (necessária quando há gozo de férias)
+			if (form.getValue('cpHaveraAbono') != '3') { // Se NÃO for "Somente Abono"
+				validaVazio('cpDataInicioFerias', 'Data de início não informada');
+				validaVazio('cpDataFimFerias', 'Data fim não informada');
+				if (diasFeriasCalculado <= 0) { // Não precisa mais checar haveraAbono != '3' aqui
+					Errors.push('Deve haver Dias de Férias a gozar quando a opção não é "Somente Abono".');
+				} else {
+					validaVazio('cpDiaSemana', 'Dia da semana não informada');
+				}
+			}
+			// ########## FIM - Validação CORRIGIDA para Dias de Abono ##########
+
+			// dados do substituto (já existente)
 			var haveraSubstituto = form.getValue('cpHaveraSubstituto');
 			validaVazio('cpHaveraSubstituto', 'Haverá substituto não informado');
 
@@ -244,14 +243,9 @@ function validateForm(form) {
 				validaVazio('cpMatriculaSubstituto', 'Matrícula do substituto não informado');
 			}
 
-		}
+		} // Fim do else (!situacaoFerias == "Possuí férias marcadas")
 
-		/*	validaVazio('Ckb1V','Aviso de Férias.');
-			validaVazio('Ckb2V','Recibo de Férias.')*/
-
-
-
-	}
+	} // Fim do if (atividade == 0 || atividade == 4 || atividade == 9 ... )
 
 	if (atividade == 14 && (acaoUsuario == "true")) { //GESTOR IMEDIATO
 		validaAprovacao('cpAprovarGestor', 'cpParecerGestor');
