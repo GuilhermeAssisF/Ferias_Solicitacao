@@ -318,9 +318,80 @@ var bindEventos = function () {
 
 	//HAVERA ABONO
 	// Dentro de bindEventos:
+	// Listener MODIFICADO para Haverá Abono
 	$("#cpHaveraAbono").change(function () {
-		var haveraAbono = this.value == 1;
-		updateDiasAbono(haveraAbono);
+		var tipoAbono = $(this).val(); // Pega o valor selecionado (1, 2, ou 3)
+		var haveraAbonoCompleto = (tipoAbono == '1'); // Se é Férias + Abono
+		var somenteAbono = (tipoAbono == '3'); // Se é Somente Abono
+		var diasDireito = parseInt($("#cpDiasDireito").val()) || 0; // Pega dias de direito
+
+		// Seleciona todos os elementos que devem ser ocultados/mostrados
+		var camposParaOcultar = $(".campo-ferias-normal");
+
+		if (somenteAbono) {
+			// --- Caso "Somente Abono" ---
+			camposParaOcultar.hide(); // Esconde os campos marcados
+
+			// Limpa valores dos campos ocultos e desabilita interações
+			$("#cpDataInicioFerias, #cpDataFimFerias, #cpDiasFerias, #cpDiaSemana, #cpAntecipar13Salario").val('');
+			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", true);
+			$("#cpAntecipar13Salario").prop("disabled", true);
+			$("#botaoImprimirTermo").hide();
+
+			// Define Dias de Férias como 0 explicitamente
+			$("#cpDiasFerias").val('0'); //
+
+			// Calcula o máximo de dias de abono permitido
+			var diasAbonoCalc = calcDiasAbono(diasDireito); //
+			$("#cpDiasAbono").val(diasAbonoCalc); // Atualiza o valor no campo original (mesmo oculto)
+			$("#blocoDiasAbonoOriginal").show(); // Mostra o bloco original de Dias de Abono
+
+			// Habilita Data de Pagamento e remove restrição de data máxima
+			$("#cpDtPagto, #buscarDtPagto button").prop("disabled", false); //
+			var hoje = new Date();
+			hoje.setHours(0, 0, 0, 0);
+			$("#cpDtPagto").datepicker("option", "minDate", hoje); // Garante minDate
+			$("#cpDtPagto").datepicker("option", "maxDate", null); // Remove maxDate
+
+		} else {
+			// --- Caso "Férias + Abono" ou "Somente Férias" ---
+			camposParaOcultar.show(); // Mostra os campos marcados
+
+			// Reabilita interações (se aplicável - cuidado com estagiário)
+			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
+			var funcao = $("#cpFuncao").val(); //
+			if (!isEstagiario(funcao)) { //
+				// Reabilita 13º apenas se não for estagiário
+				$("#cpAntecipar13Salario").prop("disabled", false);
+				// Verifica se deve mostrar o botão do termo 13º
+				toggleBotaoTermo13Salario($("#cpAntecipar13Salario").val()); //
+			} else {
+				$("#cpAntecipar13Salario").prop("disabled", true); // Mantém desabilitado para estagiário
+				$("#botaoImprimirTermo").hide(); // Esconde botão para estagiário
+			}
+
+
+			// Calcula e atualiza os Dias de Abono com base na escolha (1 ou 2)
+			updateDiasAbono(haveraAbonoCompleto); //
+			$("#blocoDiasAbonoOriginal").show(); // Garante que o bloco original esteja visível
+
+			// Reabilita ou desabilita Data Pagamento e recalcula maxDate
+			var dataInicioSelecionada = $("#cpDataInicioFerias").datepicker('getDate'); //
+			if (dataInicioSelecionada) {
+				var maxPagamentoDate = new Date(dataInicioSelecionada.getTime());
+				maxPagamentoDate.setDate(dataInicioSelecionada.getDate() - 3); // Era -2, mas -3 garante 2 dias *antes*
+				maxPagamentoDate.setHours(0, 0, 0, 0);
+				var hoje = new Date();
+				hoje.setHours(0, 0, 0, 0);
+				$("#cpDtPagto").datepicker("option", "minDate", hoje); //
+				$("#cpDtPagto").datepicker("option", "maxDate", maxPagamentoDate); //
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", false); //
+			} else {
+				$("#cpDtPagto, #buscarDtPagto button").prop("disabled", true); //
+				$("#cpDtPagto").datepicker("option", "maxDate", null); //
+				$("#cpDtPagto").val(''); //
+			}
+		}
 	});
 
 	//BUSCA DATA INICIO FERIAS
@@ -375,6 +446,8 @@ var bindEventos = function () {
 	$("#buscaSecao").click(function () {
 		selecionaColaborador('2');
 	});
+
+	$("#cpHaveraAbono").trigger("change");
 };
 
 //***************************************************************
