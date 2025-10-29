@@ -137,7 +137,7 @@ function CadastraFerias() {
 
     // Define flags booleanas/numéricas
     var temAbono = (HaveraAbono == '1' || HaveraAbono == '3') ? "1" : "0"; // Correto: 1 se for Sim ou Somente Abono
-    var Antecipar13 = (Antecipar13Salario == '1' && !somenteAbono) ? "1" : "0"; // Correto: 1 só se for Sim e não for Somente Abono
+    var Antecipar13 = (Antecipar13Salario == 'on' && !somenteAbono) ? "1" : "0"; // Correto: 1 só se for Sim e não for Somente Abono
 
     // preenche dados de ferias
     xmlFerias += ' <PFUFeriasPer>';

@@ -515,24 +515,23 @@
 							</div>
 							<div class="col-md-5">
 								<div class="form-group ocultaCampo campo-ferias-normal">
-									<label>Deseja antecipar o pagamento da 1&ordf; parcela do 13&ordm;
-										sal&aacute;rio?</label>
-									<select name="cpAntecipar13Salario" id="cpAntecipar13Salario"
-										class="form-control clearCampos clearPosDataInicio">
-										<option value="">Selecione...</option>
-										<option value="1" id="opcaoSim13Salario">Sim</option>
-										<option value="2">N&atilde;o</option>
-									</select>
+									<label>&nbsp;</label>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="cpAntecipar13Salario" id="cpAntecipar13Salario"
+												class="clearCampos clearPosDataInicio">
+											Deseja antecipar o pagamento da 1ª parcela do 13º salário?
+										</label>
+									</div>
+									<!-- BOTAO IMPRIMIR TERMO -->
+									<span id="botaoImprimirTermo">
+										<button type="button" class="btn btn-info">Imprimir Termo de Adiantamento do
+											13&ordm; sal&aacute;rio</button>
+									</span>
 								</div>
-								<!-- BOTAO IMPRIMIR TERMO -->
-								<span id="botaoImprimirTermo">
-									<button type="button" class="btn btn-info">Imprimir Termo de Adiantamento do
-										13&ordm; sal&aacute;rio</button>
-								</span>
 							</div>
-						</div>
-						<!-- HAVERA SUBSTITUTO -->
-						<!-- <div class="row">
+							<!-- HAVERA SUBSTITUTO -->
+							<!-- <div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
 										<label>Haver&aacute; Substituto?</label>
@@ -544,9 +543,9 @@
 									</div>
 								</div>
 							</div> -->
-						<!--FIM - DADOS DAS FERIAS -->
-						<!-- DADOS DO SUBSTITUTO  -->
-						<!-- <div id="dadosSubstituto">
+							<!--FIM - DADOS DAS FERIAS -->
+							<!-- DADOS DO SUBSTITUTO  -->
+							<!-- <div id="dadosSubstituto">
 								<h4>
 									<span class="fluigicon  fluigicon-pointer-right fluigicon-sm"></span>Dados do Substituto
 								</h4>
@@ -578,596 +577,602 @@
 									</div>
 								</div>
 							</div> -->
-						<!-- FIM - DADOS DO SUBSTITUTO  -->
+							<!-- FIM - DADOS DO SUBSTITUTO  -->
 
-						<div class="row" id="PeriodoVencido">
-							<div class="col-md-12 alert-danger">
-								<div class="form-group alert-danger">
-									<label>Aten&ccedil;&atilde;o</label>
-									<textarea class="form-control alert-danger" rows="3" name="cpAtencao" id="cpAtencao"
-										readonly></textarea>
+							<div class="row" id="PeriodoVencido">
+								<div class="col-md-12 alert-danger">
+									<div class="form-group alert-danger">
+										<label>Aten&ccedil;&atilde;o</label>
+										<textarea class="form-control alert-danger" rows="3" name="cpAtencao"
+											id="cpAtencao" readonly></textarea>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- OBSERVACAO  -->
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Observa&ccedil;&atilde;o</label>
-									<textarea class="form-control" rows="3" name="cpObs" id="cpObs"></textarea>
+							<!-- OBSERVACAO  -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Observa&ccedil;&atilde;o</label>
+										<textarea class="form-control" rows="3" name="cpObs" id="cpObs"></textarea>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-md-3">
-							<button type="button" class="btn btn-info" id="zoomSituacao">Hist&oacute;rico de
-								Situação</button>
-						</div>
-						<div class="col-md-3">
-							<button type="button" class="btn btn-info" id="zoomFaltas">Hist&oacute;rico de
-								Faltas</button>
-						</div>
-						<div class="col-md-3">
-							<button type="button" class="btn btn-info" id="zoomAfastamento">Hist&oacute;rico de
-								Afastamentos</button>
-						</div>
-						<div class="col-md-3">
-							<button type="button" class="btn btn-info" id="zoomPeriodos">Hist&oacute;rico de
-								Períodos</button>
-						</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-info" id="zoomSituacao">Hist&oacute;rico de
+									Situação</button>
+							</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-info" id="zoomFaltas">Hist&oacute;rico de
+									Faltas</button>
+							</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-info" id="zoomAfastamento">Hist&oacute;rico de
+									Afastamentos</button>
+							</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-info" id="zoomPeriodos">Hist&oacute;rico de
+									Períodos</button>
+							</div>
 
-						<!-- FIM - OBSERVACAO  -->
+							<!-- FIM - OBSERVACAO  -->
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- ETAPAS DO PROCESSO -->
-			<div class="panel panel-default" id="aprovacoes">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="fluigicon fluigicon-questions fluigicon-lg"></span>
-						Etapas do processo
-					</h3>
-				</div>
-				<!-- PANEL-BODY - ETAPAS DO PROCESSO -->
-				<div class="panel-body">
+				<!-- ETAPAS DO PROCESSO -->
+				<div class="panel panel-default" id="aprovacoes">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<span class="fluigicon fluigicon-questions fluigicon-lg"></span>
+							Etapas do processo
+						</h3>
+					</div>
+					<!-- PANEL-BODY - ETAPAS DO PROCESSO -->
+					<div class="panel-body">
 
-					<!-- PANEL GROUP -->
-					<div class="panel-group">
-
+						<!-- PANEL GROUP -->
+						<div class="panel-group">
 
 
-						<!-- GESTOR IMEDIATO -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_14">
-									Aprovar Solicitação
-								</div>
-							</div>
-							<div id="panelAtividade_14" class="panel-collapse collapse">
-								<div class="panel-body">
 
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Nome do Aprovador</label>
-												<input type="text" class="form-control" name="cpNomeAprovador"
-													id="cpNomeAprovador" readonly>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Aprova&ccedil;&atilde;o</label>
-												<select name="cpAprovarGestor" id="cpAprovarGestor" class="form-control"
-													aprovacao>
-													<option value="">Selecione...</option>
-													<option value="1">Aprovado</option>
-													<option value="2">Reprovado - Com Pendências</option>
-													<option value="3">Reprovado</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Parecer</label>
-												<textarea name="cpParecerGestor" id="cpParecerGestor"
-													class="form-control" rows="3" parecer></textarea>
-											</div>
-										</div>
+							<!-- GESTOR IMEDIATO -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_14">
+										Aprovar Solicitação
 									</div>
 								</div>
-								<!-- CLOSE PANEL-BODY -->
-							</div>
-						</div>
-						<!-- FIM - GESTOR IMEDIATO -->
+								<div id="panelAtividade_14" class="panel-collapse collapse">
+									<div class="panel-body">
 
-						<!-- GESTOR IMEDIATO -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_20">
-									Aprovar Solicitação (Fora do Prazo)
-								</div>
-							</div>
-							<div id="panelAtividade_20" class="panel-collapse collapse">
-								<div class="panel-body">
-
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Nome do Aprovador</label>
-												<input type="text" class="form-control" name="cpNomeAprovador2"
-													id="cpNomeAprovador2" readonly>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Aprova&ccedil;&atilde;o</label>
-												<select name="cpAprovarGestor2" id="cpAprovarGestor2"
-													class="form-control" aprovacao>
-													<option value="">Selecione...</option>
-													<option value="1">Aprovado</option>
-													<option value="2">Reprovado - Com Pendências</option>
-													<option value="3">Reprovado</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Parecer</label>
-												<textarea name="cpParecerGestor2" id="cpParecerGestor2"
-													class="form-control" rows="3" parecer></textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- CLOSE PANEL-BODY -->
-							</div>
-						</div>
-						<!-- FIM - GESTOR IMEDIATO -->
-
-						<!-- GESTOR IMEDIATO -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_136">
-									Validar Férias - RH
-								</div>
-							</div>
-							<div id="panelAtividade_136" class="panel-collapse collapse">
-								<div class="panel-body">
-
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Nome do Aprovador</label>
-												<input type="text" class="form-control" name="cpNomeAprovador3"
-													id="cpNomeAprovador3" readonly>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Aprova&ccedil;&atilde;o</label>
-												<select name="cpAprovarGestor3" id="cpAprovarGestor3"
-													class="form-control" aprovacao>
-													<option value="">Selecione...</option>
-													<option value="1">Aprovado</option>
-													<option value="2">Reprovado - Corrigir Solicitação</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Parecer</label>
-												<textarea name="cpParecerGestor3" id="cpParecerGestor3"
-													class="form-control" rows="3" parecer></textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- CLOSE PANEL-BODY -->
-							</div>
-						</div>
-						<!-- FIM - GESTOR IMEDIATO -->
-
-						<!-- PROCESSAMENTO DE FERIAS -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_90">
-									Analista BPO
-								</div>
-							</div>
-							<div id="panelAtividade_90" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-md-3">
-											<button type="button" class="btn btn-info" id="zoomLiqFerias">L&iacute;quido
-												de F&eacute;rias</button>
-										</div>
-										<div class="col-md-3">
-											<button type="button" class="btn btn-info" id="AvisFer">Aviso de
-												F&eacute;rias</button>
-										</div>
-										<div class="col-md-3">
-											<button type="button" class="btn btn-info" id="Recibo">Recibo de
-												F&eacute;rias</button>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12">
-											<h4>Flags de Controle</h4>
-										</div>
-										<div class="col-md-4">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpFlagCadastro" id="cpFlagCadastro">
-													Cadastro
-												</label>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpFlagCalculo" id="cpFlagCalculo">
-													Cálculo
-												</label>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="cpFlagKitFerias" id="cpFlagKitFerias">
-													Kit Férias
-												</label>
-											</div>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Parecer</label>
-												<textarea name="cpParecerProcessamento" id="cpParecerProcessamento"
-													class="form-control" rows="3" parecer></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<!-- HISTORICO PARECER - PROCESSAMENTO DE FERIAS -->
-											<table class='table tabelaHistorico' id="histAtv20" tablename="histAtv20"
-												noaddbutton="true" nodeletebutton="true">
-												<thead>
-													<tr>
-														<th>Data da aprova&ccedil;&atilde;o</th>
-														<th>Status da aprova&ccedil;&atilde;o</th>
-														<th>Parecer</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<input type="text" class="form-control"
-																name="cpHistDataAprAtv20" id="cpHistDataAprAtv20"
-																readonly />
-														</td>
-														<td>
-															<input type="text" class="form-control HistAprov"
-																name="cpHistAprovacaoAtv20" id="cpHistAprovacaoAtv20"
-																data-select="cpAprovarProcessamento" readonly />
-														</td>
-														<td>
-															<input type="text" class="form-control"
-																name="cpHistParecerAtv20" id="cpHistParecerAtv20"
-																readonly />
-														</td>
-													</tr>
-												</tbody>
-											</table>
-											<!-- FIM -  HISTORICO - PROCESSAMENTO DE FERIAS -->
-										</div>
-									</div>
-								</div>
-								<!-- CLOSE PANEL-BODY -->
-							</div>
-						</div>
-						<!-- FIM - PROCESSAMENTO DE FERIAS -->
-
-						<!-- VALIDAÇÃO DO KIT FÉRIAS -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_153"> Validar Kit Férias (Pós-BPO) </div>
-							</div>
-							<div id="panelAtividade_153" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="labelField">Validação do Kit <span
-														class="CampoObrigatorio"></span></label>
-												<select name="cpAprovacaoValidacaoKit" id="cpAprovacaoValidacaoKit"
-													class="form-control" obrigatorio>
-													<option value="">Selecione...</option>
-													<option value="1">Aprovado</option>
-													<option value="2">Corrigir Solicitação (BPO)</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>&nbsp;</label>
-												<div>
-													<button type="button" class="btn btn-info" id="btnIrParaAnexos">
-														<span class="fluigicon fluigicon-paperclip"></span> Ir para
-														Anexos
-													</button>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Nome do Aprovador</label>
+													<input type="text" class="form-control" name="cpNomeAprovador"
+														id="cpNomeAprovador" readonly>
 												</div>
 											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="checkbox">
-												<label class="labelField">
-													<input type="checkbox" name="cpAnexosValidadosKit"
-														id="cpAnexosValidadosKit" obrigatorio>
-													Anexos Validados <span class="CampoObrigatorio"> *</span>
-												</label>
-												<small id="msgHabilitarAnexos" class="text-muted help-block"
-													style="display: none;">Clique em "Ir para Anexos" para habilitar
-													esta opção.</small>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label class="labelField">Parecer Validação Kit</label>
-												<textarea name="cpParecerValidacaoKit" id="cpParecerValidacaoKit"
-													class="form-control" rows="3" parecer></textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- FIM - VALIDAÇÃO DO KIT FÉRIAS -->
-
-						<!-- CONFERENCIA E ASSINATURA -->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_93">
-									Assinar Kit Férias </div>
-							</div>
-							<div id="panelAtividade_93" class="panel-collapse collapse">
-								<div class="panel-body">
-
-									<div class="row">
-										<div class="col-md-12">
-											<div class="checkbox">
-												<label class="labelField"> <input type="checkbox" name="cpKitAssinado"
-														id="cpKitAssinado" obrigatorio> Assinado <span
-														class="CampoObrigatorio"> *</span> </label>
-											</div>
-										</div>
-									</div>
-									<hr>
-									<h4 class="blockAvaliacao">
-										<span class="fluigicon  fluigicon-pointer-right fluigicon-sm"></span>Qual o seu
-										grau de satisfação quanto ao atendimento desse chamado?
-									</h4>
-									<div class="row blockAvaliacao">
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon">Avaliação</span>
-													<select name="cpAprovarAvaliacao" id="cpAprovarAvaliacao"
-														class="form-control limpaAvaliacao">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Aprova&ccedil;&atilde;o</label>
+													<select name="cpAprovarGestor" id="cpAprovarGestor"
+														class="form-control" aprovacao>
 														<option value="">Selecione...</option>
-														<option value="1">Muito satisfeito</option>
-														<option value="2">Satisfeito</option>
-														<option value="3">Insatisfeito (Justifique)</option>
-														<option value="4">Muito insatisfeito (Justifique)</option>
+														<option value="1">Aprovado</option>
+														<option value="2">Reprovado - Com Pendências</option>
+														<option value="3">Reprovado</option>
 													</select>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row blockAvaliacao">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label>Observações / Justificativas</label>
-												<textarea class="form-control limpaAvaliacao" rows="5"
-													name="cpParecerAvaliacao" id="cpParecerAvaliacao"></textarea>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Parecer</label>
+													<textarea name="cpParecerGestor" id="cpParecerGestor"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<table class='table tabelaHistorico' id="histAtv24" tablename="histAtv24"
-												noaddbutton="true" nodeletebutton="true">
-												<thead>
-													<tr>
-														<th>Data da aprovação</th>
-														<th>Status da aprovação</th>
-														<th>Parecer</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<input type="text" class="form-control"
-																name="cpHistDataAprAtv24" id="cpHistDataAprAtv24"
-																readonly />
-														</td>
-														<td>
-															<input type="text" class="form-control HistAprov"
-																name="cpHistAprovacaoAtv24" id="cpHistAprovacaoAtv24"
-																readonly />
-														</td>
-														<td>
-															<input type="text" class="form-control"
-																name="cpHistParecerAtv24" id="cpHistParecerAtv24"
-																readonly />
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
+									<!-- CLOSE PANEL-BODY -->
 								</div>
 							</div>
-						</div>
-						<!-- FIM - CONFERENCIA E ASSINATURA -->
+							<!-- FIM - GESTOR IMEDIATO -->
 
-						<!-- GERAR ARQUIVO PAGAMENTO -->
-						<div class="panel panel-default blocoAtividade112">
-							<div class="panel-heading">
-								<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
-									data-target="#panelAtividade_112">
-									Gerar Arquivo Pagamento
+							<!-- GESTOR IMEDIATO -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_20">
+										Aprovar Solicitação (Fora do Prazo)
+									</div>
 								</div>
-							</div>
-							<div id="panelAtividade_112" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="checkbox">
-												<label class="labelField"> <input type="checkbox"
-														name="cpArquivoBancario" id="cpArquivoBancario" obrigatorio>
-													Arquivo Bancário Gerado <span class="CampoObrigatorio"> *</span>
-												</label>
+								<div id="panelAtividade_20" class="panel-collapse collapse">
+									<div class="panel-body">
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Nome do Aprovador</label>
+													<input type="text" class="form-control" name="cpNomeAprovador2"
+														id="cpNomeAprovador2" readonly>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Aprova&ccedil;&atilde;o</label>
+													<select name="cpAprovarGestor2" id="cpAprovarGestor2"
+														class="form-control" aprovacao>
+														<option value="">Selecione...</option>
+														<option value="1">Aprovado</option>
+														<option value="2">Reprovado - Com Pendências</option>
+														<option value="3">Reprovado</option>
+													</select>
+												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-												<label class="labelField"> <input type="checkbox"
-														name="cpLancamentoFinanceiro" id="cpLancamentoFinanceiro"
-														obrigatorio>
-													Lançamento Financeiro Realizado <span class="CampoObrigatorio">
-														*</span>
-												</label>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Parecer</label>
+													<textarea name="cpParecerGestor2" id="cpParecerGestor2"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label class="labelField">Parecer (Opcional)</label> <textarea
-													name="cpParecerArquivoPagamento" id="cpParecerArquivoPagamento"
-													class="form-control" rows="3" parecer></textarea>
+									<!-- CLOSE PANEL-BODY -->
+								</div>
+							</div>
+							<!-- FIM - GESTOR IMEDIATO -->
+
+							<!-- GESTOR IMEDIATO -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_136">
+										Validar Férias - RH
+									</div>
+								</div>
+								<div id="panelAtividade_136" class="panel-collapse collapse">
+									<div class="panel-body">
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Nome do Aprovador</label>
+													<input type="text" class="form-control" name="cpNomeAprovador3"
+														id="cpNomeAprovador3" readonly>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Aprova&ccedil;&atilde;o</label>
+													<select name="cpAprovarGestor3" id="cpAprovarGestor3"
+														class="form-control" aprovacao>
+														<option value="">Selecione...</option>
+														<option value="1">Aprovado</option>
+														<option value="2">Reprovado - Corrigir Solicitação</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Parecer</label>
+													<textarea name="cpParecerGestor3" id="cpParecerGestor3"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- CLOSE PANEL-BODY -->
+								</div>
+							</div>
+							<!-- FIM - GESTOR IMEDIATO -->
+
+							<!-- PROCESSAMENTO DE FERIAS -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_90">
+										Analista BPO
+									</div>
+								</div>
+								<div id="panelAtividade_90" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-3">
+												<button type="button" class="btn btn-info"
+													id="zoomLiqFerias">L&iacute;quido
+													de F&eacute;rias</button>
+											</div>
+											<div class="col-md-3">
+												<button type="button" class="btn btn-info" id="AvisFer">Aviso de
+													F&eacute;rias</button>
+											</div>
+											<div class="col-md-3">
+												<button type="button" class="btn btn-info" id="Recibo">Recibo de
+													F&eacute;rias</button>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-md-12">
+												<h4>Flags de Controle</h4>
+											</div>
+											<div class="col-md-4">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox" name="cpFlagCadastro"
+															id="cpFlagCadastro">
+														Cadastro
+													</label>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox" name="cpFlagCalculo" id="cpFlagCalculo">
+														Cálculo
+													</label>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox" name="cpFlagKitFerias"
+															id="cpFlagKitFerias">
+														Kit Férias
+													</label>
+												</div>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Parecer</label>
+													<textarea name="cpParecerProcessamento" id="cpParecerProcessamento"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<!-- HISTORICO PARECER - PROCESSAMENTO DE FERIAS -->
+												<table class='table tabelaHistorico' id="histAtv20"
+													tablename="histAtv20" noaddbutton="true" nodeletebutton="true">
+													<thead>
+														<tr>
+															<th>Data da aprova&ccedil;&atilde;o</th>
+															<th>Status da aprova&ccedil;&atilde;o</th>
+															<th>Parecer</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>
+																<input type="text" class="form-control"
+																	name="cpHistDataAprAtv20" id="cpHistDataAprAtv20"
+																	readonly />
+															</td>
+															<td>
+																<input type="text" class="form-control HistAprov"
+																	name="cpHistAprovacaoAtv20"
+																	id="cpHistAprovacaoAtv20"
+																	data-select="cpAprovarProcessamento" readonly />
+															</td>
+															<td>
+																<input type="text" class="form-control"
+																	name="cpHistParecerAtv20" id="cpHistParecerAtv20"
+																	readonly />
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<!-- FIM -  HISTORICO - PROCESSAMENTO DE FERIAS -->
+											</div>
+										</div>
+									</div>
+									<!-- CLOSE PANEL-BODY -->
+								</div>
+							</div>
+							<!-- FIM - PROCESSAMENTO DE FERIAS -->
+
+							<!-- VALIDAÇÃO DO KIT FÉRIAS -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_153"> Validar Kit Férias (Pós-BPO) </div>
+								</div>
+								<div id="panelAtividade_153" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="labelField">Validação do Kit <span
+															class="CampoObrigatorio"></span></label>
+													<select name="cpAprovacaoValidacaoKit" id="cpAprovacaoValidacaoKit"
+														class="form-control" obrigatorio>
+														<option value="">Selecione...</option>
+														<option value="1">Aprovado</option>
+														<option value="2">Corrigir Solicitação (BPO)</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>&nbsp;</label>
+													<div>
+														<button type="button" class="btn btn-info" id="btnIrParaAnexos">
+															<span class="fluigicon fluigicon-paperclip"></span> Ir para
+															Anexos
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="checkbox">
+													<label class="labelField">
+														<input type="checkbox" name="cpAnexosValidadosKit"
+															id="cpAnexosValidadosKit" obrigatorio>
+														Anexos Validados <span class="CampoObrigatorio"> *</span>
+													</label>
+													<small id="msgHabilitarAnexos" class="text-muted help-block"
+														style="display: none;">Clique em "Ir para Anexos" para habilitar
+														esta opção.</small>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="labelField">Parecer Validação Kit</label>
+													<textarea name="cpParecerValidacaoKit" id="cpParecerValidacaoKit"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<!-- FIM - VALIDAÇÃO DO KIT FÉRIAS -->
+
+							<!-- CONFERENCIA E ASSINATURA -->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_93">
+										Assinar Kit Férias </div>
+								</div>
+								<div id="panelAtividade_93" class="panel-collapse collapse">
+									<div class="panel-body">
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="checkbox">
+													<label class="labelField"> <input type="checkbox"
+															name="cpKitAssinado" id="cpKitAssinado" obrigatorio>
+														Assinado <span class="CampoObrigatorio"> *</span> </label>
+												</div>
+											</div>
+										</div>
+										<hr>
+										<h4 class="blockAvaliacao">
+											<span class="fluigicon  fluigicon-pointer-right fluigicon-sm"></span>Qual o
+											seu
+											grau de satisfação quanto ao atendimento desse chamado?
+										</h4>
+										<div class="row blockAvaliacao">
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="input-group">
+														<span class="input-group-addon">Avaliação</span>
+														<select name="cpAprovarAvaliacao" id="cpAprovarAvaliacao"
+															class="form-control limpaAvaliacao">
+															<option value="">Selecione...</option>
+															<option value="1">Muito satisfeito</option>
+															<option value="2">Satisfeito</option>
+															<option value="3">Insatisfeito (Justifique)</option>
+															<option value="4">Muito insatisfeito (Justifique)</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row blockAvaliacao">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Observações / Justificativas</label>
+													<textarea class="form-control limpaAvaliacao" rows="5"
+														name="cpParecerAvaliacao" id="cpParecerAvaliacao"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<table class='table tabelaHistorico' id="histAtv24"
+													tablename="histAtv24" noaddbutton="true" nodeletebutton="true">
+													<thead>
+														<tr>
+															<th>Data da aprovação</th>
+															<th>Status da aprovação</th>
+															<th>Parecer</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>
+																<input type="text" class="form-control"
+																	name="cpHistDataAprAtv24" id="cpHistDataAprAtv24"
+																	readonly />
+															</td>
+															<td>
+																<input type="text" class="form-control HistAprov"
+																	name="cpHistAprovacaoAtv24"
+																	id="cpHistAprovacaoAtv24" readonly />
+															</td>
+															<td>
+																<input type="text" class="form-control"
+																	name="cpHistParecerAtv24" id="cpHistParecerAtv24"
+																	readonly />
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- FIM - CONFERENCIA E ASSINATURA -->
+
+							<!-- GERAR ARQUIVO PAGAMENTO -->
+							<div class="panel panel-default blocoAtividade112">
+								<div class="panel-heading">
+									<div class="panel-title collapse-icon atividade-titulo" data-toggle="collapse"
+										data-target="#panelAtividade_112">
+										Gerar Arquivo Pagamento
+									</div>
+								</div>
+								<div id="panelAtividade_112" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="checkbox">
+													<label class="labelField"> <input type="checkbox"
+															name="cpArquivoBancario" id="cpArquivoBancario" obrigatorio>
+														Arquivo Bancário Gerado <span class="CampoObrigatorio"> *</span>
+													</label>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="checkbox">
+													<label class="labelField"> <input type="checkbox"
+															name="cpLancamentoFinanceiro" id="cpLancamentoFinanceiro"
+															obrigatorio>
+														Lançamento Financeiro Realizado <span class="CampoObrigatorio">
+															*</span>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="labelField">Parecer (Opcional)</label> <textarea
+														name="cpParecerArquivoPagamento" id="cpParecerArquivoPagamento"
+														class="form-control" rows="3" parecer></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- FIM - GERAR ARQUIVO PAGAMENTO -->
 						</div>
-						<!-- FIM - GERAR ARQUIVO PAGAMENTO -->
 					</div>
 				</div>
-			</div>
 
 
 
-			<!--  INICIO - TABELA DE DADOS DOS ENVELOPE DE FEIRAS-->
-			<input type="hidden" name="cpQtdFilhos" id="cpQtdFilhos">
-			<input type="hidden" name="LIQUIDOFERIAS" id="LIQUIDOFERIAS">
-			<input type="hidden" name="VlrDESCONTO" id="VlrDESCONTO">
-			<input type="hidden" name="VlrPROVENTO" id="VlrPROVENTO">
-			<table role="table" class='table table-striped table-condensed tabelasPaiFilho' id="tbItens"
-				tablename="tbItens" nodeletebutton="true" noaddbutton="true">
-				<thead class="theadPaiFilho">
-					<tr>
-					</tr>
-				</thead>
+				<!--  INICIO - TABELA DE DADOS DOS ENVELOPE DE FEIRAS-->
+				<input type="hidden" name="cpQtdFilhos" id="cpQtdFilhos">
+				<input type="hidden" name="LIQUIDOFERIAS" id="LIQUIDOFERIAS">
+				<input type="hidden" name="VlrDESCONTO" id="VlrDESCONTO">
+				<input type="hidden" name="VlrPROVENTO" id="VlrPROVENTO">
+				<table role="table" class='table table-striped table-condensed tabelasPaiFilho' id="tbItens"
+					tablename="tbItens" nodeletebutton="true" noaddbutton="true">
+					<thead class="theadPaiFilho">
+						<tr>
+						</tr>
+					</thead>
 
-				<tbody>
-					<tr>
-						<td>
+					<tbody>
+						<tr>
+							<td>
 
 
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">EVENTO:</span> <input type="text"
-												class="form-control TABELASECAO" name="EVENTO" id="EVENTO">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">EVENTO:</span> <input type="text"
+													class="form-control TABELASECAO" name="EVENTO" id="EVENTO">
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">TIPO_EVENTO:</span> <input type="text"
-												class="form-control TABELASECAO" name="TIPO_EVENTO" id="TIPO_EVENTO">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">TIPO_EVENTO:</span> <input type="text"
+													class="form-control TABELASECAO" name="TIPO_EVENTO"
+													id="TIPO_EVENTO">
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">QUANTIDADE:</span> <input type="text"
+													class="form-control TABELASECAO" name="QUANTIDADE" id="QUANTIDADE">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">PROVENTO:</span> <input type="text"
+													class="form-control PROVENTO" name="PROVENTO" id="PROVENTO">
+											</div>
+										</div>
+									</div>
+								</div>
+
 								<div class="col-md-6">
 									<div class="form-group">
 										<div class="input-group">
-											<span class="input-group-addon">QUANTIDADE:</span> <input type="text"
-												class="form-control TABELASECAO" name="QUANTIDADE" id="QUANTIDADE">
+											<span class="input-group-addon">DESCONTO:</span> <input type="text"
+												class="form-control DESCONTO" name="DESCONTO" id="DESCONTO">
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">PROVENTO:</span> <input type="text"
-												class="form-control PROVENTO" name="PROVENTO" id="PROVENTO">
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">DATA_PAGTO:</span> <input type="text"
+													class="form-control TABELASECAO" name="DATA_PAGTO" id="DATA_PAGTO">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">LIQUIDO_FERIAS:</span> <input
+													type="text" class="form-control TABELASECAO" name="LIQUIDO_FERIAS"
+													id="LIQUIDO_FERIAS">
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon">DESCONTO:</span> <input type="text"
-											class="form-control DESCONTO" name="DESCONTO" id="DESCONTO">
-									</div>
-								</div>
-							</div>
+					</tbody>
 
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">DATA_PAGTO:</span> <input type="text"
-												class="form-control TABELASECAO" name="DATA_PAGTO" id="DATA_PAGTO">
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">LIQUIDO_FERIAS:</span> <input type="text"
-												class="form-control TABELASECAO" name="LIQUIDO_FERIAS"
-												id="LIQUIDO_FERIAS">
-										</div>
-									</div>
-								</div>
-							</div>
-
-				</tbody>
-
-			</table>
+				</table>
 
 		</form>
 	</div>

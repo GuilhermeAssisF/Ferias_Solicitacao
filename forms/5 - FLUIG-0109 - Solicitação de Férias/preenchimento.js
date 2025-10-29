@@ -351,6 +351,7 @@ var bindEventos = function () {
 		var tipoAbono = $(this).val(); // Pega o valor selecionado (1, 2, ou 3)
 		var diasDireito = parseInt($("#cpDiasDireito").val()) || 0; // Pega dias de direito
 		var camposParaOcultar = $(".campo-ferias-normal");
+		var funcao = $("#cpFuncao").val(); // <<< DEFINIR A VARIÁVEL AQUI, ANTES DOS IFS INTERNOS
 
 		if (tipoAbono == '1' || tipoAbono == '3') { // Se for SIM ou Somente Abono
 			$("#cpDiasAbono").prop('readonly', false).val(''); // Torna editável e limpa o valor
@@ -358,10 +359,9 @@ var bindEventos = function () {
 
 			if (tipoAbono == '3') { // Somente Abono
 				camposParaOcultar.hide();
-				$("#cpDataInicioFerias, #cpDataFimFerias, #cpDiasFerias, #cpDiaSemana, #cpAntecipar13Salario").val('');
+				// Limpa campos relacionados às datas de gozo, mas NÃO o checkbox do 13º aqui
+				$("#cpDataInicioFerias, #cpDataFimFerias, #cpDiasFerias, #cpDiaSemana").val('');
 				$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", true);
-				$("#cpAntecipar13Salario").prop("disabled", true);
-				$("#botaoImprimirTermo").hide();
 				$("#cpDiasFerias").val('0'); // Define Dias de Férias como 0 explicitamente
 
 				// Habilita Data de Pagamento e remove restrição de data máxima
@@ -371,20 +371,28 @@ var bindEventos = function () {
 				$("#cpDtPagto").datepicker("option", "minDate", hoje);
 				$("#cpDtPagto").datepicker("option", "maxDate", null);
 
+				// Controle do 13º: Desabilita e desmarca SEMPRE se for "Somente Abono"
+				$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false);
+				toggleBotaoTermo13Salario(false); // Esconde o botão
+
 			} else { // Caso SIM (tipoAbono == '1')
 				camposParaOcultar.show();
 				$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
-				var funcao = $("#cpFuncao").val();
-				if (!isEstagiario(funcao)) {
-					$("#cpAntecipar13Salario").prop("disabled", false);
-					toggleBotaoTermo13Salario($("#cpAntecipar13Salario").val());
+
+				// Controle do 13º (removido bloco duplicado)
+				// Habilita/desabilita baseado APENAS se é estagiário
+				if (isEstagiario(funcao)) {
+					$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false);
+					toggleBotaoTermo13Salario(false);
 				} else {
-					$("#cpAntecipar13Salario").prop("disabled", true);
-					$("#botaoImprimirTermo").hide();
+					$("#cpAntecipar13Salario").prop("disabled", false);
+					toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked')); // Mostra botão se já estiver marcado
 				}
+
 				// Recalcula datas de pagamento se necessário
 				var dataInicioSelecionada = $("#cpDataInicioFerias").datepicker('getDate');
 				if (dataInicioSelecionada) {
+					// ... (código existente para calcular maxPagamentoDate e habilitar cpDtPagto) ...
 					var maxPagamentoDate = new Date(dataInicioSelecionada.getTime());
 					maxPagamentoDate.setDate(dataInicioSelecionada.getDate() - 3);
 					maxPagamentoDate.setHours(0, 0, 0, 0);
@@ -405,18 +413,24 @@ var bindEventos = function () {
 			$("#blocoDiasAbonoOriginal").show();
 			camposParaOcultar.show();
 
-			// Lógica para reabilitar campos e recalcular data de pagamento (igual ao bloco tipoAbono == '1')
-			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
-			var funcao = $("#cpFuncao").val();
-			if (!isEstagiario(funcao)) {
-				$("#cpAntecipar13Salario").prop("disabled", false);
-				toggleBotaoTermo13Salario($("#cpAntecipar13Salario").val());
+			// Controle do 13º (removido bloco duplicado)
+			// Habilita/desabilita baseado APENAS se é estagiário
+			if (isEstagiario(funcao)) {
+				$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false);
+				toggleBotaoTermo13Salario(false);
 			} else {
-				$("#cpAntecipar13Salario").prop("disabled", true);
-				$("#botaoImprimirTermo").hide();
+				$("#cpAntecipar13Salario").prop("disabled", false);
+				toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
 			}
+
+			// Lógica para reabilitar campos e recalcular data de pagamento (removido bloco duplicado do 13º)
+			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
+			// Não precisa ler 'funcao' de novo aqui
+			// O if/else que controlava o 13º foi removido daqui pois está unificado acima
+
 			var dataInicioSelecionada = $("#cpDataInicioFerias").datepicker('getDate');
 			if (dataInicioSelecionada) {
+				// ... (código existente para calcular maxPagamentoDate e habilitar cpDtPagto) ...
 				var maxPagamentoDate = new Date(dataInicioSelecionada.getTime());
 				maxPagamentoDate.setDate(dataInicioSelecionada.getDate() - 3);
 				maxPagamentoDate.setHours(0, 0, 0, 0);
@@ -463,9 +477,11 @@ var bindEventos = function () {
 		$("#cpDtPagto").datepicker('show');
 	});
 
-	//TOGGLE DO BOTAO DE TERMO
+	// Listener de mudança para o checkbox do 13º
 	$("#cpAntecipar13Salario").change(function () {
-		toggleBotaoTermo13Salario(this.value);
+		// Verifica se o checkbox está marcado
+		var desejaAntecipar = $(this).is(':checked');
+		toggleBotaoTermo13Salario(desejaAntecipar); // Passa true ou false
 	});
 
 	//BOTAO PARA IMPRIMIR TERMO 13 SALARIO
@@ -798,14 +814,28 @@ var colaboradorSelecionadoHandler = function (colaborador, gestores) {
 	preencheColaborador(colaborador);
 	preencheGestorImediato(colaborador, gestores);
 	carregaPeriodoAquisitivo(colaborador.chapa, colaborador.coligada, colaborador.funcao);
-
-
 	carregaFimContrato(colaborador.chapa, colaborador.coligada, colaborador.funcao);
 	updatePickers(colaborador.funcao);
-	estagiarioBloqueiaCampos(colaborador.funcao);
+	// estagiarioBloqueiaCampos(colaborador.funcao); // Pode remover se o bloco abaixo cobrir
 	estagiarioOcultaCampos(colaborador.funcao);
 	controlaExibicaoTextoInformativo(colaborador.funcao);
-	desabilitaHabono();
+	desabilitaHabono(); // Renomeado de 'desabilitaHabono' para consistência, verifique o nome correto
+
+	var funcao = colaborador.funcao; // Usa a função do colaborador selecionado
+	var tipoAbono = $("#cpHaveraAbono").val(); // Pega o valor atual do abono
+
+	// ### INSERIR O BLOCO AQUI (para definir estado inicial baseado em Estagiário) ###
+	if (isEstagiario(funcao) || tipoAbono == '3') { // Verifica se é estagiário OU se já está como "Somente Abono"
+		$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false); // Desabilita E desmarca
+		toggleBotaoTermo13Salario(false); // Esconde o botão
+	} else {
+		$("#cpAntecipar13Salario").prop("disabled", false); // Habilita
+		// Mantém o valor que estava (ou define um padrão se necessário)
+		// Atualiza o botão baseado no estado atual do checkbox
+		toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
+	}
+	// ### FIM DA INSERÇÃO ###
+
 
 	setTimeout(function () {
 		window.loadingLayer.hide();
@@ -1260,16 +1290,14 @@ var naoImprimi13 = function () {
 
 
 
-var toggleBotaoTermo13Salario = function (desejaAntecipar) {
-
-	if (!desejaAntecipar) {
-		desejaAntecipar = $("#cpAntecipar13Salario").val();
-	}
-
-	if (desejaAntecipar == 1) {
+// Função para mostrar/esconder o botão do termo (simplificada)
+var toggleBotaoTermo13Salario = function (mostrar) {
+	if (mostrar) {
 		$("#botaoImprimirTermo").show();
 	} else {
-		escondeBotaoTermo13Salario();
+		$("#botaoImprimirTermo").hide();
+		// Garante que a flag de impressão seja resetada se desmarcar
+		$("#cp13SalarioImprimir").val('N');
 	}
 };
 

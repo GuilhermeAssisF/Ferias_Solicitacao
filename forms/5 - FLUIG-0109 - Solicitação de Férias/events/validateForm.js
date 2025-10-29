@@ -201,13 +201,12 @@ function validateForm(form) {
 					// Valida datas início/fim (coberto pela validação genérica abaixo)
 				}
 
-				// Validação do 13º (já existente)
-				validaVazio('cpAntecipar13Salario', 'Antecipar o pagamento da 1ª parcela do 13º salário não informado');
-				var antecipar13Salario = form.getValue('cpAntecipar13Salario');
+				// Validação do 13º (AJUSTADA para checkbox)
+				var antecipar13SalarioChecked = form.getValue('cpAntecipar13Salario') == "on"; // Verifica se está marcado
 				var selecionouImpressao = form.getValue('cp13SalarioImprimir');
-				if (antecipar13Salario == 1) {
-					if (selecionouImpressao == 'N') {
-						Errors.push('É necessário imprimir e assinar o Termo de Adiantamento do 13º salário');
+				if (antecipar13SalarioChecked) { // Se o checkbox estiver marcado...
+					if (selecionouImpressao != 'S') { // ...e a flag de impressão não for 'S' (indicando que o botão foi clicado com sucesso)
+						Errors.push('É necessário imprimir e assinar o Termo de Adiantamento do 13º salário ao marcar a opção de antecipar.');
 					}
 				}
 

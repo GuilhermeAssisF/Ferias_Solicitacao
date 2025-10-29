@@ -13,6 +13,7 @@ function enableFields(form) {
 		//inicio e correcao
 		{ "campo": "cpSolicitacaoPara", "atividade": "0,4,9" }, //
 		{ "campo": "cpHaveraAbono", "atividade": "0,4,9" }, //
+		{ "campo": "cpDiasAbono", "atividade": "0,4,9" }, //
 		{ "campo": "cpAntecipar13Salario", "atividade": "0,4,9" }, //
 		{ "campo": "cpHaveraSubstituto", "atividade": "0,4,9" }, //
 		{ "campo": "cpObs", "atividade": "0,4,9" }, //
