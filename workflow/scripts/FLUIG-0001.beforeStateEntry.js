@@ -28,127 +28,143 @@ function beforeStateEntry(sequenceId){
 
 }
 
-function CadastraFerias(){
+function CadastraFerias() {
 
-	var retorno =true;
-	var xml;
+    log.info("--- [FLUIG-0001] Iniciando CadastraFerias ---"); // Adicionado Log
+    var retorno = true;
+    var xml;
 
-	var formatoInput = new java.text.SimpleDateFormat("dd/MM/yyyy");
-	var formatoOutput = new java.text.SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+    var formatoInput = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    var formatoOutput = new java.text.SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
 
-	var xml ="";
-	var xmlCalcula="";
-	var xmlFerias="";
-	var xmlFeriasRecibo="";
+    var xmlFerias = "";
 
-//	inicio de ferias
-	var InicioFerias = hAPI.getCardValue("cpDataInicioFerias");
-	var DtInicio = formatoInput.parse(InicioFerias);
-	var DtinicioFormatada = formatoOutput.format(DtInicio);
-	log.info("Ferias DtinicioFormatada" + DtinicioFormatada);
-	var DtinicioFormatada2 = DtinicioFormatada.replace("T12","T00");
+    // Pega valores do formulário
+    var InicioFerias = hAPI.getCardValue("cpDataInicioFerias");
+    var FimFerias = hAPI.getCardValue("cpDataFimFerias");
+    var Dtpagto = hAPI.getCardValue("cpDtPagto");
+    var FimPerAqui = hAPI.getCardValue("cpFimPeriodoAquisitivo");
+    var chapa = hAPI.getCardValue("cpMatricula");
+    var Coligada = hAPI.getCardValue("cpColigada");
+    var DiasFerias = hAPI.getCardValue("cpDiasFerias"); // Pega o valor atual
+    var Abono = hAPI.getCardValue("cpDiasAbono");
+    var HaveraAbono = hAPI.getCardValue("cpHaveraAbono"); // Pega o tipo de abono ('1', '2' ou '3')
+    var Antecipar13Salario = hAPI.getCardValue("cpAntecipar13Salario");
 
+    // Variáveis para datas formatadas - inicializar como null
+    var DtinicioFormatada2 = null;
+    var DtFimFormatada2 = null;
+    var DtPagamentoFormatada2 = null;
+    var DtFimAquiFormatada2 = null;
+    var DTAvisoFer2 = null;
 
-//	DATA DE PAGAMENTO
-	var Dtpagto = hAPI.getCardValue("cpDtPagto");
-	var DtPagamento = formatoInput.parse(Dtpagto);
-	var DtPagamentoFormatada = formatoOutput.format(DtPagamento);
-	log.info("Ferias DtPagamentoFormatada" + DtPagamentoFormatada);
-	var DtPagamentoFormatada2 = DtPagamentoFormatada.replace("T12","T00");
+    // Define a flag 'somenteAbono'
+    var somenteAbono = (HaveraAbono == '3'); // Verifica se é Somente Abono
 
-//	fim de ferias 
-	var FimFerias = hAPI.getCardValue("cpDataFimFerias");
-	var DtFim = formatoInput.parse(FimFerias);
-	var DtFimFormatada = formatoOutput.format(DtFim);
-	var DtFimFormatada2 = DtFimFormatada.replace("T12","T00");
-	log.info("Ferias DtFimFormatada" + DtFimFormatada);
+    log.info("Tipo Abono (HaveraAbono): " + HaveraAbono + ", Somente Abono: " + somenteAbono);
 
+    try {
+        // --- Processa datas que SEMPRE são necessárias (Pagamento e Fim Aquisitivo) ---
+        // DATA DE PAGAMENTO
+        if (Dtpagto != null && Dtpagto != "") {
+            var DtPagamento = formatoInput.parse(Dtpagto); // Parse DENTRO do IF
+            var DtPagamentoFormatada = formatoOutput.format(DtPagamento);
+            DtPagamentoFormatada2 = DtPagamentoFormatada.replace("T12", "T00");
+            log.info("Ferias DtPagamentoFormatada2: " + DtPagamentoFormatada2);
+        } else {
+            log.warn("Data de Pagamento (Dtpagto) está vazia.");
+            // Não precisa lançar erro aqui, mas a variável será null
+        }
 
-//	inicio de periodo aquisitivo
-	var InicioPerAqui = hAPI.getCardValue("cpInicioPeriodoAquisitivo");
-	var DtPErAqui = formatoInput.parse(InicioPerAqui);
-	var DtinicioPerAquiForm = formatoOutput.format(DtPErAqui);
-	log.info("Ferias DtinicioPerAquiForm" + DtinicioPerAquiForm);
+        // fim de periodo aquisitivo
+        if (FimPerAqui != null && FimPerAqui != "") {
+            var DtFimAqui = formatoInput.parse(FimPerAqui); // Parse DENTRO do IF
+            var DtFimAquiFormatada = formatoOutput.format(DtFimAqui);
+            DtFimAquiFormatada2 = DtFimAquiFormatada.replace("T12", "T00");
+            log.info("Ferias DtFimAquiFormatada2: " + DtFimAquiFormatada2);
+        } else {
+            log.warn("Fim Período Aquisitivo (FimPerAqui) está vazio.");
+            // Não precisa lançar erro aqui, mas a variável será null
+        }
 
-//	fim de periodo aquisitivo
-	var FimPerAqui = hAPI.getCardValue("cpFimPeriodoAquisitivo");
-	var DtFimAqui = formatoInput.parse(FimPerAqui);
-	var DtFimAquiFormatada = formatoOutput.format(DtFimAqui);
-	var DtFimAquiFormatada2 = DtFimAquiFormatada.replace("T12","T00");
-	log.info("Ferias DtFimAquiFormatada" + DtFimAquiFormatada);
+        // --- Processa datas de gozo e aviso APENAS SE NÃO FOR Somente Abono ---
+        if (!somenteAbono) {
+            log.info("Não é 'Somente Abono'. Processando datas de Início, Fim e Aviso.");
+            // início de ferias
+            if (InicioFerias != null && InicioFerias != "") {
+                var DtInicio = formatoInput.parse(InicioFerias); // Parse DENTRO do IF
+                var DtinicioFormatada = formatoOutput.format(DtInicio);
+                DtinicioFormatada2 = DtinicioFormatada.replace("T12", "T00");
+                log.info("Ferias DtinicioFormatada2: " + DtinicioFormatada2);
 
+                // DATA DO AVISO DE FERIAS (Só calcula se tiver Data Início)
+                // Usar Calendar para subtrair dias é mais seguro
+                var cal = java.util.Calendar.getInstance();
+                cal.setTime(DtInicio);
+                cal.add(java.util.Calendar.DAY_OF_MONTH, -30); // Subtrai 30 dias
+                var dataAvisoCalculada = cal.getTime();
+                var DTAvisoFer = formatoOutput.format(dataAvisoCalculada);
+                DTAvisoFer2 = DTAvisoFer.replace("T12", "T00");
+                log.info("Ferias DTAvisoFer2 (Calculada): " + DTAvisoFer2);
 
-	var chapa = hAPI.getCardValue("cpMatricula");
-	var Coligada = hAPI.getCardValue("cpColigada"); 
-	var DiasFerias = hAPI.getCardValue("cpDiasFerias");
-	var Abono = hAPI.getCardValue("cpDiasAbono"); 
-	var HaveraAbono = hAPI.getCardValue("cpHaveraAbono"); 
-	var Antecipar13Salario = hAPI.getCardValue("cpAntecipar13Salario"); 
-	
-	var temAbono;
-	if(HaveraAbono==1){
-		temAbono="1";
-	}else{
-		temAbono="0";
-	}
-	
-	var Antecipar13;
-	if(Antecipar13Salario==1){
-		Antecipar13="1";
-	}else{
-		Antecipar13="0";
-	}
-	
-	var Ferias = InicioFerias.substring(3,5)+'/'+InicioFerias.substring(0,2)+'/'+InicioFerias.substring(6,10);
-	log.info("Andre Ferias2 "+Ferias);
-	var date = new Date(Ferias);
-	date.setDate(date.getDate() - 30);
-	var dia = date.getDate();
-	if(parseFloat(dia)<parseFloat(10)){
-		dia = '0'+dia;
-	}else{
-		dia = dia;
-	}
-	log.info("Andre dia "+dia);
-	var mes = date.getMonth();
-	mes = mes+1;
-	if(parseFloat(mes)<parseFloat(10)){
-	mes = '0'+mes;
-	}else{
-	mes = mes;
-	}
-	log.info("Andre mes "+mes);
-	var ano = date.getFullYear();
-	var DatadePagamento = (dia+'/'+mes+'/'+ano);
-//	DATA DO AVISO DE FERIAS
-	
-	var DTAVISO = formatoInput.parse(DatadePagamento);
-	var DTAvisoFer = formatoOutput.format(DTAVISO);
-	var DTAvisoFer2 = DTAvisoFer.replace("T12","T00");
-	log.info("Ferias DTAvisoFer2" + DTAvisoFer2);
+            } else {
+                log.warn("Data Início Férias (InicioFerias) está vazia (e não é Somente Abono).");
+                // DtinicioFormatada2 e DTAvisoFer2 permanecerão null
+            }
 
-//	preenche dados de ferias 
+            // fim de ferias
+            if (FimFerias != null && FimFerias != "") {
+                var DtFim = formatoInput.parse(FimFerias); // Parse DENTRO do IF
+                var DtFimFormatada = formatoOutput.format(DtFim);
+                DtFimFormatada2 = DtFimFormatada.replace("T12", "T00");
+                log.info("Ferias DtFimFormatada2: " + DtFimFormatada2);
+            } else {
+                log.warn("Data Fim Férias (FimFerias) está vazia (e não é Somente Abono).");
+                // DtFimFormatada2 permanecerá null
+            }
+        } else {
+            // --- LÓGICA PARA Somente Abono ---
+            log.info("É 'Somente Abono'. Definindo DiasFerias como 0.");
+            DiasFerias = "0"; // Garante que DiasFerias seja 0 para o XML
+            // As variáveis DtinicioFormatada2, DtFimFormatada2, DTAvisoFer2 já são null por padrão
+        }
 
-	xmlFerias +=' <PFUFeriasPer>';
-	xmlFerias +='<CODCOLIGADA>'+Coligada+'</CODCOLIGADA>';
-	xmlFerias +=' <CHAPA>'+chapa+'</CHAPA>';
-	xmlFerias +='<FIMPERAQUIS>'+DtFimAquiFormatada2+'</FIMPERAQUIS>';
-	xmlFerias +='<DATAPAGTO>'+DtPagamentoFormatada2+'</DATAPAGTO>';
-	xmlFerias +='<DATAINICIO>'+DtinicioFormatada2+'</DATAINICIO>';
-	xmlFerias +='<DATAFIM>'+DtFimFormatada2+'</DATAFIM>';
-	xmlFerias +='<DATAAVISO>'+DTAvisoFer2+'</DATAAVISO>';
-	xmlFerias +='<SITUACAOFERIAS>M</SITUACAOFERIAS>';
-	xmlFerias +=' <NRODIASFERIAS>'+DiasFerias+'</NRODIASFERIAS>';
-	xmlFerias +='<NRODIASABONO>'+Abono+'</NRODIASABONO>';
-	xmlFerias +='<NRODIASFERIASCORRIDOS>0.00</NRODIASFERIASCORRIDOS>';
-	xmlFerias +='<NRODIASABONOCORRIDOS>0.00</NRODIASABONOCORRIDOS>';
-	xmlFerias +='<POSICAOABONO>'+temAbono+'</POSICAOABONO>';
-	xmlFerias +='<IMAGEMSITUACAO>Marcadas</IMAGEMSITUACAO>';
-	xmlFerias +='<PAGA1APARC13O>'+Antecipar13+'</PAGA1APARC13O>';
-	xmlFerias +='</PFUFeriasPer>';
+    } catch (dateError) {
+        log.error("Erro ao formatar datas em CadastraFerias: " + dateError);
+        // Lança uma exceção mais clara para o Fluig
+        throw "Erro ao processar as datas informadas (" + dateError.message + "). Verifique os formatos (dd/MM/yyyy).";
+    }
 
-	var CONNECT = DatasetFactory.getDataset("ds_connector", null, null, null);
-	var USUARIO = CONNECT.getValue(0,"INTEGRADOR");
+    // Define flags booleanas/numéricas
+    var temAbono = (HaveraAbono == '1' || HaveraAbono == '3') ? "1" : "0"; // Correto: 1 se for Sim ou Somente Abono
+    var Antecipar13 = (Antecipar13Salario == '1' && !somenteAbono) ? "1" : "0"; // Correto: 1 só se for Sim e não for Somente Abono
+
+    // preenche dados de ferias
+    xmlFerias += ' <PFUFeriasPer>';
+    xmlFerias += '<CODCOLIGADA>' + Coligada + '</CODCOLIGADA>';
+    xmlFerias += ' <CHAPA>' + chapa + '</CHAPA>';
+    // Adiciona as tags apenas se a data formatada não for nula
+    if (DtFimAquiFormatada2 != null) xmlFerias += '<FIMPERAQUIS>' + DtFimAquiFormatada2 + '</FIMPERAQUIS>'; else log.warn("XML: Omitindo FIMPERAQUIS (data vazia)");
+    if (DtPagamentoFormatada2 != null) xmlFerias += '<DATAPAGTO>' + DtPagamentoFormatada2 + '</DATAPAGTO>'; else log.warn("XML: Omitindo DATAPAGTO (data vazia)");
+    if (DtinicioFormatada2 != null) xmlFerias += '<DATAINICIO>' + DtinicioFormatada2 + '</DATAINICIO>'; else log.info("XML: Omitindo DATAINICIO (Somente Abono ou data vazia)");
+    if (DtFimFormatada2 != null) xmlFerias += '<DATAFIM>' + DtFimFormatada2 + '</DATAFIM>'; else log.info("XML: Omitindo DATAFIM (Somente Abono ou data vazia)");
+    if (DTAvisoFer2 != null) xmlFerias += '<DATAAVISO>' + DTAvisoFer2 + '</DATAAVISO>'; else log.info("XML: Omitindo DATAAVISO (Somente Abono ou data vazia)");
+    xmlFerias += '<SITUACAOFERIAS>M</SITUACAOFERIAS>'; // Marcada
+    xmlFerias += ' <NRODIASFERIAS>' + (DiasFerias != null ? DiasFerias : "0") + '</NRODIASFERIAS>'; // Usa o valor ajustado (0 para Somente Abono)
+    xmlFerias += '<NRODIASABONO>' + (Abono != null ? Abono : "0") + '</NRODIASABONO>'; // Usa 0 se Abono for null/vazio
+    xmlFerias += '<NRODIASFERIASCORRIDOS>0.00</NRODIASFERIASCORRIDOS>'; // Verificar se precisa ser diferente
+    xmlFerias += '<NRODIASABONOCORRIDOS>0.00</NRODIASABONOCORRIDOS>'; // Verificar se precisa ser diferente
+    xmlFerias += '<POSICAOABONO>' + temAbono + '</POSICAOABONO>';
+    xmlFerias += '<IMAGEMSITUACAO>Marcadas</IMAGEMSITUACAO>';
+    xmlFerias += '<PAGA1APARC13O>' + Antecipar13 + '</PAGA1APARC13O>';
+    xmlFerias += '</PFUFeriasPer>';
+
+    log.info("@xmlFerias diz: xmlFerias Montado: " + xmlFerias);
+
+    // Conexão e chamada do Web Service (mantido igual)
+    var CONNECT = DatasetFactory.getDataset("ds_connector", null, null, null);
+    // ... (resto da configuração do WS) ...
+    var USUARIO = CONNECT.getValue(0,"INTEGRADOR");
 	var SENHA = CONNECT.getValue(0, "SENHA");
 	var NOME_SERVICO = "WSDATASERVER";
 	var CAMINHO_SERVICO = "com.totvs.WsDataServer";
@@ -160,38 +176,30 @@ function CadastraFerias(){
 
 	var ws = instancia.getRMIwsDataServer();
 
-	var authenticatedService = serviceHelper.getBasicAuthenticatedClient(ws, "com.totvs.IwsDataServer", USUARIO, SENHA); 
+	var authenticatedService = serviceHelper.getBasicAuthenticatedClient(ws, "com.totvs.IwsDataServer", USUARIO, SENHA);
 
 
-	log.info("@xmlFerias diz: xmlFerias: " + xmlFerias);
+    try {
+        var result = authenticatedService.saveRecordEmail('FopFuFeriasPerDataBR', xmlFerias, 'CODCOLIGADA=' + Coligada + ';CODSISTEMA=P', "suportesoter@consultoriainterativa.com.br");
+        log.info("@xmlFerias Cadastro diz: RESULT: " + result);
 
-	try
-	{
-		var result = authenticatedService.saveRecordEmail('FopFuFeriasPerDataBR', xmlFerias, 'CODCOLIGADA=' + Coligada + ';CODSISTEMA=P',"suportesoter@consultoriainterativa.com.br");
+        if ((result != null) && (result.indexOf("===") != -1)) {
+            var msgErro = result.substring(0, result.indexOf("==="));
+            log.error("Erro retornado pelo Web Service RM: " + msgErro);
+            throw msgErro;
 
-		if ((result != null) && (result.indexOf("===") != -1))
-		{
-			var msgErro = result.substring(0, result.indexOf("==="));
-			throw msgErro;
+        } else {
+             log.info("Web Service RM executado sem retornar erro explícito.");
+        }
+    } catch (e) {
+        if (e == null) {
+            e = "Erro desconhecido; verifique o log do AppServer";
+        }
+        var mensagemErro = "Falha na comunicação/execução do Web Service RM: " + e;
+        log.error(mensagemErro + " ---> XML enviado: " + xmlFerias);
+        throw mensagemErro; // Lança a exceção para o Fluig
+    }
 
-		}
-		else
-		{
-		}
-	}
-	catch (e)
-	{
-		if (e == null)
-		{
-			e = "Erro desconhecido; verifique o log do AppServer";
-		}
-
-		var mensagemErro = "Erro na comunicação com o TOTVS TBC: " + e;
-		log.error(mensagemErro + " ---> " + xmlFerias);
-		throw mensagemErro;
-	}
-
-	log.info("@xmlFerias Cadastro diz: RESULT: " + result);
-
-	return retorno;
+    log.info("--- [FLUIG-0001] Finalizando CadastraFerias com sucesso ---"); // Adicionado Log
+    return retorno; // Retorna true se não houve exceção
 }
