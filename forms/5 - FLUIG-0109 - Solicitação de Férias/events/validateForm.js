@@ -102,54 +102,55 @@ function validateForm(form) {
 			var FimFerias = form.getValue('cpDataFimFerias');
 
 
-			//coloca data em formato brasileiro
+			if (FimFerias != '') {
+				//coloca data em formato brasileiro
+				var Dtnac = new Date(cpfimfperAquiData);
+				var diaDataNac = Dtnac.getDate();
+				var mesDataNac = Dtnac.getMonth();
+				mesDataNac = mesDataNac;
+				var anoDataNac = Dtnac.getFullYear();
 
-			var Dtnac = new Date(cpfimfperAquiData);
-			var diaDataNac = Dtnac.getDate();
-			var mesDataNac = Dtnac.getMonth();
-			mesDataNac = mesDataNac;
-			var anoDataNac = Dtnac.getFullYear();
+				if (diaDataNac < 10) {
+					diaDataNac = "0" + diaDataNac;
+				} if (mesDataNac < 10) {
+					mesDataNac = "0" + mesDataNac;
+				}
 
-			if (diaDataNac < 10) {
-				diaDataNac = "0" + diaDataNac;
-			} if (mesDataNac < 10) {
-				mesDataNac = "0" + mesDataNac;
-			}
+				var faltas = form.getValue('cpNumeroFaltas');
 
-			var faltas = form.getValue('cpNumeroFaltas');
+				var datafimNac = new Date(mesDataNac + "/" + diaDataNac + "/" + anoDataNac);
 
-			var datafimNac = new Date(mesDataNac + "/" + diaDataNac + "/" + anoDataNac);
+				if (parseFloat(faltas) > parseFloat(0)) {
+					datafimNac.setDate(datafimNac.getDate() + parseFloat(1) + parseFloat(faltas));
+				} else {
+					datafimNac.getDate();
+				}
+				var mesprox = datafimNac.getMonth();
+				var diaprox = datafimNac.getDate();
+				mesprox = parseFloat(mesprox) + parseFloat(1);
 
-			if (parseFloat(faltas) > parseFloat(0)) {
-				datafimNac.setDate(datafimNac.getDate() + parseFloat(1) + parseFloat(faltas));
-			} else {
-				datafimNac.getDate();
-			}
-			var mesprox = datafimNac.getMonth();
-			var diaprox = datafimNac.getDate();
-			mesprox = parseFloat(mesprox) + parseFloat(1);
+				if (mesprox < 10) {
+					mesprox = "0" + mesprox;
+				} if (diaprox < 10) {
+					diaprox = "0" + diaprox;
+				}
 
-			if (mesprox < 10) {
-				mesprox = "0" + mesprox;
-			} if (diaprox < 10) {
-				diaprox = "0" + diaprox;
-			}
-
-			var DataFinaldoprox = diaprox + "/" + mesprox + "/" + datafimNac.getFullYear();
-			//data final do periodo de ferias 
-
-
-			var Data = FimFerias;
-			var diaData = Data.substring(0, 2);
-			var mesData = Data.substring(3, 5);
-			var anoData = Data.substring(6, 10);
+				var DataFinaldoprox = diaprox + "/" + mesprox + "/" + datafimNac.getFullYear();
+				//data final do periodo de ferias 
 
 
-			var datafim = new Date(mesData + "/" + diaData + "/" + anoData);
+				var Data = FimFerias;
+				var diaData = Data.substring(0, 2);
+				var mesData = Data.substring(3, 5);
+				var anoData = Data.substring(6, 10);
 
-			/*if(new Date(datafim)>new Date(cpfimfperAquiData)){
-				Errors.push('A data final das férias, não pode ser superior ao Início do próximo período aquisitivo '+ DataFinaldoprox);
-			}	*/
+
+				var datafim = new Date(mesData + "/" + diaData + "/" + anoData);
+
+				/*if(new Date(datafim)>new Date(cpfimfperAquiData)){
+					Errors.push('A data final das férias, não pode ser superior ao Início do próximo período aquisitivo '+ DataFinaldoprox);
+				}	*/
+			} // Fim do if (FimFerias != '')
 
 			//dados do colaborador
 			validaVazio('cpCentroCusto', 'Obra/Departamento não informado');
@@ -225,10 +226,13 @@ function validateForm(form) {
 					}
 				}
 			}
-			validaVazio('cpDataInicioFerias', 'Data de  início não informada');
-			validaVazio('cpDataFimFerias', 'Data fim não informada');
-			validaVazio('cpDiasFerias', 'Dias de férias não informado');
-			validaVazio('cpDiaSemana', 'Dia da semana não informada');
+			// Só valida Data Fim, Dias Férias e Dia Semana se NÃO for "Somente Abono"
+            if (form.getValue('cpHaveraAbono') != '3') {
+				validaVazio('cpDataInicioFerias', 'Data de início não informada');
+                validaVazio('cpDataFimFerias', 'Data fim não informada');
+                validaVazio('cpDiasFerias', 'Dias de férias não informado');
+                validaVazio('cpDiaSemana', 'Dia da semana não informada');
+            }
 
 			//dados do substituto
 			var haveraSubstituto = form.getValue('cpHaveraSubstituto');
@@ -278,9 +282,9 @@ function validateForm(form) {
 			var aprovacaoKit = form.getValue("cpAprovacaoValidacaoKit"); // Pega o valor da aprovação
 
 			// Validação obrigatória: O campo 'Validação do Kit' deve ser selecionado
-			 if (aprovacaoKit == "" || aprovacaoKit == null) {
-				 Errors.push("O campo 'Validação do Kit' é obrigatório.");
-			 }
+			if (aprovacaoKit == "" || aprovacaoKit == null) {
+				Errors.push("O campo 'Validação do Kit' é obrigatório.");
+			}
 
 			// Validação CONDICIONAL: 'Anexos Validados' só é obrigatório se estiver APROVANDO (valor 1)
 			if (aprovacaoKit == "1") {
@@ -293,11 +297,11 @@ function validateForm(form) {
 			}
 
 			// Validação CONDICIONAL: 'Parecer' é obrigatório se estiver SOLICITANDO CORREÇÃO (valor 2)
-			if (aprovacaoKit == "2" && (form.getValue("cpParecerValidacaoKit") == "" || form.getValue("cpParecerValidacaoKit") == null) ) {
-				 Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
-			 }
+			if (aprovacaoKit == "2" && (form.getValue("cpParecerValidacaoKit") == "" || form.getValue("cpParecerValidacaoKit") == null)) {
+				Errors.push("O 'Parecer Validação Kit' é obrigatório ao solicitar correção para o BPO.");
+			}
 
-			 log.info("--- Fim Validação Atividade 153 ---");
+			log.info("--- Fim Validação Atividade 153 ---");
 		}
 	}
 	// --- Fim do Bloco Ajustado para Atividade 153 ---
