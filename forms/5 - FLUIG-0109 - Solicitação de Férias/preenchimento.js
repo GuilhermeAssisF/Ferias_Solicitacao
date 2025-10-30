@@ -138,68 +138,134 @@ var getFeriados = (function () {
 })();
 
 //CALCULA DATADE FIM DE FERIAS E DIAS DE FÉRIAS A GOZAR AUTOMATICAMENTE
-function CalcFerias() {
+// function CalcFerias() {
 
-	var Inicio = $("#cpDataInicioFerias").val();
-	// Lê os dias de abono informados pelo usuário. Se vazio, considera 0.
-	var DiasAbono = parseInt($("#cpDiasAbono").val()) || 0;
+// 	var Inicio = $("#cpDataInicioFerias").val();
+// 	// Lê os dias de abono informados pelo usuário. Se vazio, considera 0.
+// 	var DiasAbono = parseInt($("#cpDiasAbono").val()) || 0;
+// 	var DiasDireito = parseInt($("#cpDiasDireito").val()) || 0;
+// 	var tipoAbono = $("#cpHaveraAbono").val();
+
+// 	// Se for "Somente Abono" (valor 3)
+// 	if (tipoAbono == '3') {
+// 		$("#cpDataFimFerias").val(''); // Limpa data fim
+// 		// Define que os dias a serem gozados (cpDiasFerias) são 0
+// 		$("#cpDiasFerias").val('0');
+// 		dataSelecionadaHandler(); // Atualiza a tela
+// 		VerificaFimPEr();
+// 		return; // Sai da função
+// 	}
+
+// 	// Calcula os dias que serão efetivamente gozados
+// 	// dias a gozar = total de dias de direito - dias que o usuário quer vender (abono)
+// 	var diasDeFeriasAGozar = DiasDireito - DiasAbono;
+// 	if (diasDeFeriasAGozar < 0) diasDeFeriasAGozar = 0; // Evita valor negativo
+
+// 	// Atualiza o campo na tela para mostrar quantos dias serão gozados
+// 	$("#cpDiasFerias").val(diasDeFeriasAGozar);
+
+// 	// Calcula a Data Fim apenas se houver Data Início E dias a gozar > 0
+// 	if (Inicio != "" && diasDeFeriasAGozar > 0) {
+
+// 		var Data = Inicio;
+// 		var diaData = Data.substring(0, 2);
+// 		var mesData = Data.substring(3, 5);
+// 		var anoData = Data.substring(6, 10);
+
+// 		// Converte a data de início para um objeto Date
+// 		var dataInicio = new Date(mesData + "/" + diaData + "/" + anoData);
+
+// 		// Calcula a data fim somando os dias a gozar (menos 1, pois o dia inicial conta)
+// 		dataInicio.setDate(dataInicio.getDate() + diasDeFeriasAGozar - 1);
+// 		var Fim = dataInicio;
+
+// 		var diaFim = Fim.getDate();
+// 		var mesFim = Fim.getMonth() + 1; // getMonth() retorna 0-11
+// 		var anoFim = Fim.getFullYear();
+
+// 		// Formata dia e mês
+// 		if (mesFim < 10) mesFim = "0" + mesFim;
+// 		if (diaFim < 10) diaFim = "0" + diaFim;
+
+// 		var DataFim = (diaFim + "/" + mesFim + "/" + anoFim);
+
+// 		// Atualiza o campo Data Fim na tela
+// 		$("#cpDataFimFerias").val(DataFim);
+
+// 		dataSelecionadaHandler();
+// 		VerificaFimPEr();
+// 	} else {
+// 		// Se não houver data de início ou dias a gozar for 0, limpa a Data Fim
+// 		$("#cpDataFimFerias").val('');
+// 		dataSelecionadaHandler();
+// 		VerificaFimPEr();
+// 	}
+// }
+
+function CalcFerias() {
+	var InicioStr = $("#cpDataInicioFerias").val();
+	var FimStr = $("#cpDataFimFerias").val();
 	var DiasDireito = parseInt($("#cpDiasDireito").val()) || 0;
+	var DiasAbono = parseInt($("#cpDiasAbono").val()) || 0;
 	var tipoAbono = $("#cpHaveraAbono").val();
 
-	// Se for "Somente Abono" (valor 3)
+	// Se for "Somente Abono" (3), a lógica de data não se aplica.
 	if (tipoAbono == '3') {
 		$("#cpDataFimFerias").val(''); // Limpa data fim
-		// Define que os dias a serem gozados (cpDiasFerias) são 0
-		$("#cpDiasFerias").val('0');
-		dataSelecionadaHandler(); // Atualiza a tela
+		$("#cpDiasFerias").val('0');    // Dias de Férias (gozo) é 0
+		dataSelecionadaHandler();
 		VerificaFimPEr();
 		return; // Sai da função
 	}
 
-	// Calcula os dias que serão efetivamente gozados
-	// dias a gozar = total de dias de direito - dias que o usuário quer vender (abono)
-	var diasDeFeriasAGozar = DiasDireito - DiasAbono;
-	if (diasDeFeriasAGozar < 0) diasDeFeriasAGozar = 0; // Evita valor negativo
+	var diasDeFeriasGozar = 0;
 
-	// Atualiza o campo na tela para mostrar quantos dias serão gozados
-	$("#cpDiasFerias").val(diasDeFeriasAGozar);
+	// Se o usuário ainda não mexeu na Data Fim, preenchemos uma sugestão
+	// (Este é o comportamento que você disse que queria manter)
+	if (InicioStr != "" && FimStr == "") {
+		// Calcula os dias de gozo padrão (Direito - Abono)
+		diasDeFeriasGozar = DiasDireito - DiasAbono;
+		if (diasDeFeriasGozar < 0) diasDeFeriasGozar = 0;
 
-	// Calcula a Data Fim apenas se houver Data Início E dias a gozar > 0
-	if (Inicio != "" && diasDeFeriasAGozar > 0) {
+		$("#cpDiasFerias").val(diasDeFeriasGozar); // Define os dias
 
-		var Data = Inicio;
-		var diaData = Data.substring(0, 2);
-		var mesData = Data.substring(3, 5);
-		var anoData = Data.substring(6, 10);
+		if (diasDeFeriasGozar > 0) {
+			// Calcula a Data Fim
+			var dataInicio = dateStrToDate(InicioStr); // Reutiliza sua função
+			dataInicio.setDate(dataInicio.getDate() + diasDeFeriasGozar - 1); // Soma os dias
+			var Fim = dataInicio;
 
-		// Converte a data de início para um objeto Date
-		var dataInicio = new Date(mesData + "/" + diaData + "/" + anoData);
+			var diaFim = Fim.getDate();
+			var mesFim = Fim.getMonth() + 1;
+			var anoFim = Fim.getFullYear();
 
-		// Calcula a data fim somando os dias a gozar (menos 1, pois o dia inicial conta)
-		dataInicio.setDate(dataInicio.getDate() + diasDeFeriasAGozar - 1);
-		var Fim = dataInicio;
+			if (mesFim < 10) mesFim = "0" + mesFim;
+			if (diaFim < 10) diaFim = "0" + diaFim;
 
-		var diaFim = Fim.getDate();
-		var mesFim = Fim.getMonth() + 1; // getMonth() retorna 0-11
-		var anoFim = Fim.getFullYear();
+			var DataFimStr = (diaFim + "/" + mesFim + "/" + anoFim);
+			$("#cpDataFimFerias").val(DataFimStr); // Define a Data Fim
+		}
 
-		// Formata dia e mês
-		if (mesFim < 10) mesFim = "0" + mesFim;
-		if (diaFim < 10) diaFim = "0" + diaFim;
+	} else if (InicioStr != "" && FimStr != "") {
+		// SE A DATA FIM JÁ ESTIVER PREENCHIDA (pelo usuário ou pela lógica acima):
+		// CALCULA OS DIAS DE FÉRIAS com base no intervalo de datas (Sua solicitação)
+		var dataInicio = dateStrToDate(InicioStr);
+		var dataFim = dateStrToDate(FimStr);
 
-		var DataFim = (diaFim + "/" + mesFim + "/" + anoFim);
+		if (dataFim >= dataInicio) {
+			var ONE_DAY = 1000 * 60 * 60 * 24;
+			var difference_ms = dataFim.getTime() - dataInicio.getTime();
+			diasDeFeriasGozar = Math.round(difference_ms / ONE_DAY) + 1; // +1 para contagem inclusiva
+		}
 
-		// Atualiza o campo Data Fim na tela
-		$("#cpDataFimFerias").val(DataFim);
-
-		dataSelecionadaHandler();
-		VerificaFimPEr();
+		$("#cpDiasFerias").val(diasDeFeriasGozar); // ATUALIZA O CAMPO 'DIAS DE FÉRIAS'
 	} else {
-		// Se não houver data de início ou dias a gozar for 0, limpa a Data Fim
-		$("#cpDataFimFerias").val('');
-		dataSelecionadaHandler();
-		VerificaFimPEr();
+		$("#cpDiasFerias").val(0); // Se não tiver datas, zera
 	}
+
+	// Dispara as funções de atualização que já existiam
+	dataSelecionadaHandler();
+	VerificaFimPEr();
 }
 
 
@@ -320,7 +386,7 @@ var criaDatepickers = function () {
 	$("#cpDataFimFerias").datepicker({
 		showOn: "button",
 		onSelect: function () {
-			$(document).trigger('dataSelecionada');
+			CalcFerias();
 		},
 		minDate: minDateInicioFerias // Usa a mesma data mínima inicial que Início Férias
 	});
@@ -382,11 +448,11 @@ var bindEventos = function () {
 				toggleBotaoTermo13Salario(false); // Esconde o botão
 
 				// Desabilita e esconde o botão
-                toggleBotaoTermo13Salario(false);
-                // SÓ DESMARCA se estivermos em uma atividade de edição
-                if (atividade == 0 || atividade == 4 || atividade == 9) {
-                    $("#cpAntecipar13Salario").prop("checked", false);
-                }
+				toggleBotaoTermo13Salario(false);
+				// SÓ DESMARCA se estivermos em uma atividade de edição
+				if (atividade == 0 || atividade == 4 || atividade == 9) {
+					$("#cpAntecipar13Salario").prop("checked", false);
+				}
 
 			} else { // Caso SIM (tipoAbono == '1')
 				camposParaOcultar.show();
@@ -429,16 +495,16 @@ var bindEventos = function () {
 			// Controle do 13º (removido bloco duplicado)
 			// Habilita/desabilita baseado APENAS se é estagiário
 			if (isEstagiario(funcao)) {
-                 // Desabilita e esconde o botão
-                 toggleBotaoTermo13Salario(false);
-                 // SÓ DESMARCA se estivermos em uma atividade de edição
-                 if (atividade == 0 || atividade == 4 || atividade == 9) {
-                    $("#cpAntecipar13Salario").prop("checked", false);
-                 }
-            } else {
-                 // Habilita
-                 toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
-            }
+				// Desabilita e esconde o botão
+				toggleBotaoTermo13Salario(false);
+				// SÓ DESMARCA se estivermos em uma atividade de edição
+				if (atividade == 0 || atividade == 4 || atividade == 9) {
+					$("#cpAntecipar13Salario").prop("checked", false);
+				}
+			} else {
+				// Habilita
+				toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
+			}
 
 			// Lógica para reabilitar campos e recalcular data de pagamento (removido bloco duplicado do 13º)
 			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
@@ -468,17 +534,17 @@ var bindEventos = function () {
 	});
 
 	// Adicionar um listener para recalcular as férias quando os dias de abono são digitados
-	$("#cpDiasAbono").on("change blur", function () {
-		// Valida se é um número inteiro positivo
-		var valorAbono = $(this).val();
-		if (valorAbono !== "" && (isNaN(valorAbono) || parseInt(valorAbono) != valorAbono || parseInt(valorAbono) < 1)) {
-			// Se inválido, pode limpar ou mostrar um aviso (opcional)
-			FLUIGC.toast({ title: 'Atenção:', message: 'Dias de Abono deve ser um número inteiro positivo.', type: 'warning' });
-			$(this).val(''); // Limpa o campo se inválido
-			valorAbono = 0; // Considera 0 para o cálculo imediato
-		}
-		CalcFerias(); // Recalcula datas com o valor digitado (ou 0 se inválido)
-	});
+	// $("#cpDiasAbono").on("change blur", function () {
+	// 	// Valida se é um número inteiro positivo
+	// 	var valorAbono = $(this).val();
+	// 	if (valorAbono !== "" && (isNaN(valorAbono) || parseInt(valorAbono) != valorAbono || parseInt(valorAbono) < 1)) {
+	// 		// Se inválido, pode limpar ou mostrar um aviso (opcional)
+	// 		FLUIGC.toast({ title: 'Atenção:', message: 'Dias de Abono deve ser um número inteiro positivo.', type: 'warning' });
+	// 		$(this).val(''); // Limpa o campo se inválido
+	// 		valorAbono = 0; // Considera 0 para o cálculo imediato
+	// 	}
+	// 	CalcFerias(); // Recalcula datas com o valor digitado (ou 0 se inválido)
+	// });
 
 	//BUSCA DATA INICIO FERIAS
 	$("#buscarDataInicioFerias").click(function () {
