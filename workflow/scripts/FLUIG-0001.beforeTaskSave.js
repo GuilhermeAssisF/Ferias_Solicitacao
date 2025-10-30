@@ -9,7 +9,7 @@ function beforeTaskSave(colleagueId,nextSequenceId,userList){
 		return funcao.search('ESTAGIARIO') > -1;
 	};
     
-    if ((atividadeAtual == 0 || atividadeAtual == 4 ) && !isEstagiario(funcao) && Antecipa13Salario == 1) {
+    if ((atividadeAtual == 0 || atividadeAtual == 4 ) && !isEstagiario(funcao) && Antecipa13Salario == "on") {
         if (hAPI.listAttachments() == "[]") {
             throw "Favor anexar ao o Termo de Adiantamento do 13º salário";
         }
