@@ -19,6 +19,12 @@ $(document).ready(function () {
 		$("#cpDataInicioFerias").blur(function () {
 			veriDataCorreMarcada();
 		});
+
+		// Esta linha ESTAVA FORA, agora fica aqui:
+		toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
+	} else {
+		// Para atividades de visualização, apenas garanta que o botão apareça se a flag estiver salva
+		toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
 	}
 
 	// Listener para o botão Zoom Situação - AGORA FORA DO IF DE ATIVIDADE
@@ -375,6 +381,13 @@ var bindEventos = function () {
 				$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false);
 				toggleBotaoTermo13Salario(false); // Esconde o botão
 
+				// Desabilita e esconde o botão
+                toggleBotaoTermo13Salario(false);
+                // SÓ DESMARCA se estivermos em uma atividade de edição
+                if (atividade == 0 || atividade == 4 || atividade == 9) {
+                    $("#cpAntecipar13Salario").prop("checked", false);
+                }
+
 			} else { // Caso SIM (tipoAbono == '1')
 				camposParaOcultar.show();
 				$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
@@ -416,12 +429,16 @@ var bindEventos = function () {
 			// Controle do 13º (removido bloco duplicado)
 			// Habilita/desabilita baseado APENAS se é estagiário
 			if (isEstagiario(funcao)) {
-				$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false);
-				toggleBotaoTermo13Salario(false);
-			} else {
-				$("#cpAntecipar13Salario").prop("disabled", false);
-				toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
-			}
+                 // Desabilita e esconde o botão
+                 toggleBotaoTermo13Salario(false);
+                 // SÓ DESMARCA se estivermos em uma atividade de edição
+                 if (atividade == 0 || atividade == 4 || atividade == 9) {
+                    $("#cpAntecipar13Salario").prop("checked", false);
+                 }
+            } else {
+                 // Habilita
+                 toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
+            }
 
 			// Lógica para reabilitar campos e recalcular data de pagamento (removido bloco duplicado do 13º)
 			$("#buscarDataInicioFerias button, #buscarDataFimFerias button").prop("disabled", false);
@@ -809,6 +826,7 @@ var getFimContrato = function (chapa, coligada) {
 }
 
 var colaboradorSelecionadoHandler = function (colaborador, gestores) {
+	var atividade = getAtividade();
 	limpaCamposPosColab();
 
 	preencheColaborador(colaborador);
@@ -824,17 +842,21 @@ var colaboradorSelecionadoHandler = function (colaborador, gestores) {
 	var funcao = colaborador.funcao; // Usa a função do colaborador selecionado
 	var tipoAbono = $("#cpHaveraAbono").val(); // Pega o valor atual do abono
 
-	// ### INSERIR O BLOCO AQUI (para definir estado inicial baseado em Estagiário) ###
-	if (isEstagiario(funcao) || tipoAbono == '3') { // Verifica se é estagiário OU se já está como "Somente Abono"
-		$("#cpAntecipar13Salario").prop("disabled", true).prop("checked", false); // Desabilita E desmarca
+	// ### INÍCIO DO BLOCO CORRIGIDO ###
+	if (isEstagiario(funcao) || tipoAbono == '3') {
+		// O enabledFields.js vai desabilitar o campo
 		toggleBotaoTermo13Salario(false); // Esconde o botão
+
+		// SÓ DESMARCA se estivermos em uma atividade de edição
+		if (atividade == 0 || atividade == 4 || atividade == 9) {
+			$("#cpAntecipar13Salario").prop("checked", false);
+		}
 	} else {
-		$("#cpAntecipar13Salario").prop("disabled", false); // Habilita
-		// Mantém o valor que estava (ou define um padrão se necessário)
-		// Atualiza o botão baseado no estado atual do checkbox
+		// O enabledFields.js vai habilitar o campo
+		// Apenas mostre o botão se a flag (salva) estiver marcada
 		toggleBotaoTermo13Salario($("#cpAntecipar13Salario").is(':checked'));
 	}
-	// ### FIM DA INSERÇÃO ###
+	// ### FIM DO BLOCO CORRIGIDO ###
 
 
 	setTimeout(function () {
